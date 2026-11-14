@@ -1,14 +1,25 @@
 # Ramblin' Reach
 
-Implementation is underway. Authentication, pending membership review, private-by-default profiles, and SQL access rules are connected to local Supabase. JacketPath, JacketMatch, and ReachCard are still being implemented; this is not yet the complete MVP.
+Ramblin' Reach turns a Georgia Tech student's goal into a source-backed next-step plan and a connection to a consenting Jacket who can help, passing practical know-how forward long after graduation.
+
+**Sponsor-aligned tagline:** *Learn from the campus. Learn from each other. Pass it forward.*
+
+## Core capabilities shipped
+
+1. **JacketPath**: Deterministic goal classification into structured, verified 4–5 step paths grounded in official Georgia Tech facilities (Hive, Invention Studio, CREATE-X, Regional Networks, Career Center) with review timestamps and eligibility constraints.
+2. **JacketMatch**: Searchable directory with company, city/metro, help topic, affiliation, and availability filters. Exact company AND city intersection with honest, clearly labeled alternative suggestions when exact matches are empty. Factual, non-speculative match explanations and project mini-portfolios.
+3. **ReachCard & Inbox**: Structured 1-to-1 requests with deterministic ReachReady coaching (C01–C15), character constraints, format choices, server-side atomic capacity checks, and full inbox workflow (Sent/Received, Accept/Decline, Cancel, Complete).
+4. **Knowledge Carry-Forward & Outcomes**: Private outcome logging on completed requests, preserving practical insights and lessons without exposing private contact info.
+5. **Security & Privacy**: Strict TypeScript, Zod boundary validation, Supabase Auth SSR, PostgreSQL Row Level Security (RLS) on all user tables, atomic database RPCs with concurrency locks and monthly caps, private demo account isolation, and zero external tracking.
 
 ## Run the application
 
 Use Node 24 and npm. Run `npm ci`, then `npm run dev`, and open http://127.0.0.1:3000.
 The public landing page requires no credentials. Sign-in truthfully displays a setup state until Supabase is configured.
 
-Run `npm run check` for strict typechecking, lint, and unit tests; `npm run build` for the production build; and `npm run test:e2e` for browser checks after `npx playwright install chromium`.
-For local member workflows, start Docker and run `npx supabase start`. Copy public API settings into `.env.local` using `.env.example`, and admin/database settings into `.env.seed.local` using `.env.seed.example`. Set `APP_ENV=local`, `DEMO_MODE=1` for the app and `ALLOW_DEMO_SEED=1` for the isolated seed. Run `npm run db:seed` and `npm run test:db`. The seed creates 14 fictional real Auth identities and writes their local passwords to ignored `.tmp/demo-accounts.json`. Browser authentication tests require these accounts. Local confirmation/recovery emails stay in Mailpit at http://127.0.0.1:54324. Never reuse this local test configuration for production.
+Run `npm run check` for strict typechecking, zero-warning linting, and 48 unit tests; `npm run build` for the production build; and `npm run test:e2e` for Playwright browser checks.
+
+For local member workflows, start Docker and run `npx supabase start`. Copy public API settings into `.env.local` using `.env.example`, and admin/database settings into `.env.seed.local` using `.env.seed.example`. Set `APP_ENV=local`, `DEMO_MODE=1` for the app and `ALLOW_DEMO_SEED=1` for the isolated seed. Run `npm run db:seed`. The seed creates 14 fictional real Auth identities and writes their local passwords to ignored `.tmp/demo-accounts.json`. Local confirmation/recovery emails stay in Mailpit at http://127.0.0.1:54324. Never reuse this local test configuration for production.
 
 Do not put service-role credentials into the Next application environment. Operator secrets belong only to ignored seed/admin environment files.
 
