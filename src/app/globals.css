@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+.panel { background: white; border: 1px solid var(--border); padding: clamp(24px, 5vw, 44px); border-radius: 20px; }
+.panel h1 { font-size: clamp(28px, 4vw, 40px); margin: 14px 0 20px; overflow-wrap: anywhere; }
+.muted { color: var(--muted-foreground); }
+.form-stack { display: grid; gap: 22px; margin-top: 28px; }
+.form-stack label { display: grid; gap: 7px; font-weight: 600; font-size: 14px; }
+.form-stack input:not([type="checkbox"]), .form-stack select, .form-stack textarea { width: 100%; min-width: 0; border: 1px solid #b8c3cf; border-radius: 9px; padding: 12px; min-height: 48px; background: white; color: var(--foreground); font: inherit; font-weight: 400; }
+.form-stack fieldset { border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.form-stack legend { padding: 0 8px; font-weight: 600; }
+.form-stack .check-label { display: flex; align-items: center; min-height: 44px; gap: 12px; font-weight: 400; }
+.check-label input { width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--primary); }
+.field-hint { display: block; font-size: 13px; font-weight: 400; color: var(--muted-foreground); }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+.form-message { color: var(--primary); font-size: 14px; overflow-wrap: anywhere; }
+.form-message:empty { display: none; }
+.auth-links { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 24px; font-size: 14px; text-decoration: underline; }
+.auth-links a { min-height: 44px; display: inline-flex; align-items: center; }
+.notice { padding: 12px 16px; border-radius: 10px; background: #f4eedf; color: #59491f; margin-block: 20px; font-size: 14px; }
+.section-divider { border-top: 1px solid var(--border); padding-top: 24px; margin-top: 32px; }
+@media(max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
 :root {
   --background: #fbfcfd; --foreground: #182235; --primary: #0d2746;
   --primary-foreground: #ffffff; --accent: #dbc58c; --muted: #f1f4f7;

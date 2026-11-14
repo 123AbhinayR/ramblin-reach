@@ -1,6 +1,6 @@
 # Ramblin' Reach
 
-Implementation is underway. The current milestone is the application scaffold; authentication and persisted member workflows are not yet connected.
+Implementation is underway. Authentication, pending membership review, private-by-default profiles, and SQL access rules are connected to local Supabase. JacketPath, JacketMatch, and ReachCard are still being implemented; this is not yet the complete MVP.
 
 ## Run the application
 
@@ -8,7 +8,7 @@ Use Node 24 and npm. Run `npm ci`, then `npm run dev`, and open http://127.0.0.1
 The public landing page requires no credentials. Sign-in truthfully displays a setup state until Supabase is configured.
 
 Run `npm run check` for strict typechecking, lint, and unit tests; `npm run build` for the production build; and `npm run test:e2e` for browser checks after `npx playwright install chromium`.
-Database/seed scripts belong to milestone 02 and must not be represented as verified before real Supabase tests run.
+For local member workflows, start Docker and run `npx supabase start`. Copy public API settings into `.env.local` using `.env.example`, and admin/database settings into `.env.seed.local` using `.env.seed.example`. Set `APP_ENV=local`, `DEMO_MODE=1` for the app and `ALLOW_DEMO_SEED=1` for the isolated seed. Run `npm run db:seed` and `npm run test:db`. The seed creates 14 fictional real Auth identities and writes their local passwords to ignored `.tmp/demo-accounts.json`. Browser authentication tests require these accounts. Local confirmation/recovery emails stay in Mailpit at http://127.0.0.1:54324. Never reuse this local test configuration for production.
 
 Do not put service-role credentials into the Next application environment. Operator secrets belong only to ignored seed/admin environment files.
 

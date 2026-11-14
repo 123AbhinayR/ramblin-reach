@@ -35,7 +35,7 @@ No service-role key in application runtime; no anonymous demo bypass; no fabrica
 
 ## Current status
 
-Milestone 01 complete: the public application scaffold is verified. Authentication, database workflows, and the end-to-end MVP are not implemented yet. Browser-based repository creation could not proceed because Computer Use could not verify the current browser URL; the authorized command-line route succeeded.
+Milestone 01 complete. Milestone 02 is in progress: its first increment implements authenticated accounts and profile privacy. Request workflows and the end-to-end MVP are not complete. Browser-based repository creation could not proceed because Computer Use could not verify the current browser URL; the authorized command-line route succeeded.
 
 Repository created privately at https://github.com/123AbhinayR/ramblin-reach using existing Git Credential Manager authentication; no token was written to files. Docker Desktop installed, but WSL was absent and is being installed without an automatic restart.
 
@@ -56,4 +56,16 @@ Build adaptation: Next 16.4.6 Turbopack's PostCSS worker crashes before IPC conn
 
 Save the tested work to GitHub now. Pause new feature work while the Docker setup is clarified. Resume with the smallest real end-to-end MVP: authenticated learner -> persisted sourced path -> opt-in helper -> atomic request -> distinct helper acceptance -> private outcome. Keep small tested pushes. No further landing-page expansion, live AI, or public lesson authoring before this flow works. Docker Desktop and Microsoft WSL packages are installed; runtime readiness still needs verification, and no automatic reboot was performed.
 
-Latest runtime check: `wsl --status` outside the sandbox still reports WSL2 unable to start because the virtualization platform is unavailable. Firmware virtualization was reported enabled by Windows; the host component/restart state needs resolution before claiming local Supabase readiness. No database has been created or seeded.
+The user subsequently instructed “continue building exactly the plan,” superseding the pause. Docker now runs successfully with WSL2. Local Supabase has been initialized, migrated, and seeded with 14 fictional Auth identities. No hosted database or deployment is claimed.
+
+### Milestone 02A — accounts and membership foundation
+
+- Added cookie-based Supabase SSR authentication, confirmation callback, password recovery, sign-out, onboarding, membership-review requests, and persisted profile editing. New accounts remain pending and private. Graduation year and requested affiliation cannot grant privileges.
+- Added membership/profile/block RLS, column-level privilege protection, private deployment/demo gate, and shared database rate-limit storage. SQL test fixtures run inside a rolled-back transaction.
+- Seed tooling only accepts the isolated local Supabase URL/database and explicit seed consent. Credentials are generated into ignored `.tmp/demo-accounts.json`; service-role keys are confined to `.env.seed.local`.
+- `npm run check`: strict typecheck, zero-warning lint, 9 unit tests passed.
+- `npm run test:db`: 15 real PostgreSQL checks passed (S01–S06, S09, S12 discovery portion, S16, S20 profile portion, membership and rate-limit assertions). These IDs are partial coverage where later request/project tables are still required.
+- `npm run test:e2e`: production build succeeded and 12 tests passed across desktop and 375px mobile. Includes real sign-in/out, profile persistence, pending membership restrictions, rejected-origin/anonymous writes, signup email confirmation, recovery email/password change, landing/profile axe scans, and overflow checks.
+- Browser failures exposed an ambiguous password label and development hot-reload interruptions. Corrected the label, use a fresh document on auth changes to clear prefetched session-bound routes, and run E2E against the actual production server.
+- Runtime dependency audit: zero vulnerabilities. Full audit: seven moderate development-only findings in the TypeScript ESLint/minimatch chain. `npm audit fix` could not resolve them within compatible dependencies; retain visibility and revisit during the final tooling audit.
+- Remaining in milestone 02: goals/resources/projects/request/outcome schemas, immutable source snapshots, atomic request RPCs, quota races, and full DB/RLS coverage. Then implement JacketPath, JacketMatch, and ReachCard UI/API in the agreed order.
