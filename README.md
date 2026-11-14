@@ -6,7 +6,7 @@ Find the right campus resources, learn from students and alumni who have been th
 
 **Learn from the campus. Learn from each other. Pass it forward.**
 
-[The three-minute demo](DEMO_RUNBOOK.md) · [Run it locally](#run-it-locally) · [Test results](RELEASE_REPORT.md)
+[Run it locally](#run-it-locally) · [Test results](RELEASE_REPORT.md) · [Deployment](DEPLOYMENT.md)
 
 ## Why we built it
 
@@ -60,8 +60,6 @@ Afterward, record what you learned and what comes next. Outcome notes stay priva
 
 That is the difference we want to make: a student leaves with a next action, an alum has a manageable way to help, and another student can learn from the experience later.
 
-The working demo uses clearly labeled fictional people and projects. Requests and responses use real authentication and database records. A demo completion does not mean an offline conversation took place.
-
 ## Why this belongs in lifetime learning
 
 Learning at Tech continues through first jobs, new cities, career changes, and the experience people bring back to the community.
@@ -108,16 +106,13 @@ npx supabase start
 
 Copy `.env.example` to `.env.local` and `.env.seed.example` to `.env.seed.local`. Fill in the local Supabase values returned by the CLI.
 
-For the fictional demo, set `APP_ENV=local` and `DEMO_MODE=1` in `.env.local`. Keep seed/admin credentials in `.env.seed.local`, with `ALLOW_DEMO_SEED=1`. Never commit either file or add the service-role key to the application runtime.
+Set `APP_ENV=local` and `NEXT_PUBLIC_APP_URL=http://127.0.0.1:3000` in `.env.local`, alongside your local Supabase URL and publishable key. Keep admin credentials in `.env.seed.local`. Never commit either file or add the service-role key to the application runtime.
 
 ```bash
-npm run db:seed
 npm run dev
 ```
 
-Open **http://127.0.0.1:3000**. The seed creates 14 fictional accounts with real authentication. Local login details are written to the ignored `.tmp/demo-accounts.json` file. Use `student` for the learner and `A1` for the alumni helper. Confirmation and recovery emails go to local Mailpit at http://127.0.0.1:54324.
-
-The public landing page can run without Supabase credentials. Member features require the configured backend. Local seed tooling refuses production databases.
+Open **http://127.0.0.1:3000**. The public landing page can run without Supabase credentials. Member features require the configured backend and an approved account. Local confirmation and recovery emails are available at http://127.0.0.1:54324.
 
 ### Check the app
 
@@ -129,7 +124,7 @@ npm run test:e2e              # Production build and browser journeys
 npm run build
 ```
 
-Stop a running preview before the browser suite so it can start its own production server. Automated request tests use isolated local accounts and hide their profiles afterward, preserving the manual demo accounts’ quotas.
+Stop a running preview before the browser suite so it can start its own production server. Browser tests require the isolated local test accounts and database configuration described in the test setup.
 
 ## Current status and next steps
 
@@ -137,7 +132,7 @@ The local application has a working goal-to-outcome journey, student and alumni 
 
 The next step is a small pilot with consenting students and helpers, feedback on recommendation quality, and broader review of campus resources. Institutional verification and approved university integrations would need separate work.
 
-For setup and demonstration details, see the [demo runbook](DEMO_RUNBOOK.md). For architecture and product decisions, see [ARCHITECTURE_SECURITY.md](ARCHITECTURE_SECURITY.md) and [MASTER_SPEC.md](MASTER_SPEC.md).
+For hosted setup, see the [deployment guide](DEPLOYMENT.md). For architecture and product decisions, see [ARCHITECTURE_SECURITY.md](ARCHITECTURE_SECURITY.md) and [MASTER_SPEC.md](MASTER_SPEC.md).
 
 ---
 

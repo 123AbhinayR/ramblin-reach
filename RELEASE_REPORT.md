@@ -26,7 +26,7 @@ Not every one of the original kit's 136 named scenarios has a separate executabl
 
 Only five reviewed official resource records are enabled; other source candidates are not silently recommended. Sources carry review dates and access caveats; no live opening, equipment, funding or eligibility promise is made. Project contributors must review publication text; the app does not provide automated moderation or infer third-party consent.
 
-No hosted Vercel/Supabase deployment has been executed or verified. Use `DEMO_RUNBOOK.md` for the three-minute local demonstration and deployment handoff. The shipped seed only accepts the isolated local database.
+No hosted Vercel/Supabase deployment has been executed or verified. Use `DEPLOYMENT.md` for the deployment handoff. Rehearsal instructions and credentials are kept locally outside version control. The shipped seed only accepts the isolated local database.
 
 ## Git checkpoints
 
