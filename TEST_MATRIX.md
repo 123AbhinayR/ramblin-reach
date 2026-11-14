@@ -189,3 +189,8 @@ Canonical fixtures:
 **Full production-readiness gate:** all tests (including concurrency and RLS), `npm run check`, `npm run test:db`, `npm run test:e2e`, `npm run build`, review of accessibility and manual privacy audit. A spec and a set of green mocks are not a substitute for an isolated real Postgres RLS test.
 
 **Report template:** for each milestone: changed files; tests run with commands; exact passed/failed counts; outstanding risks; manual browser screenshots/notes; next bounded step. Never state tests passed unless executed in that environment.
+
+## Circles extension tests (approved November 14)
+CI01–CI04: required fields, forged ownership inputs, safe URLs, deterministic category/shared-skill ordering, comment limits (`tests/unit/circles.test.ts`).
+CI05–CI15: authenticated persistence, anonymous denial, owner-only edits/deletes, spoof prevention, one reply level, resolved-write denial, report privacy, blocks, withdrawn visibility, direct-SQL rate limits, cascading deletion (`scripts/test-circles-db.ts`; part of `npm run test:db`).
+CI16–CI17: two real authenticated accounts post/reply/resolve with category isolation, reload persistence and foreign HTTP mutation denial (`tests/e2e/circles.spec.ts`).

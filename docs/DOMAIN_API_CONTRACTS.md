@@ -109,3 +109,7 @@ A future/polish `POST /api/projects/:id/publish-lesson` requires explicit owner 
 | accepted | complete | requester **or** recipient | completed |
 
 All other combinations forbidden in pure function AND SQL. Concurrency uses row locks. A `completed` status indicates user action, not independent confirmation of an offline meeting. Demo outcomes remain labeled simulated.
+
+## Approved Circles extension
+`POST /api/circles` accepts category (`hackathons/startups/projects/research/clubs/careers`), kind (`help/building/teammates/feedback/update/learning`), title (3–100), description (10–2000), specific_request (10–400), tags (up to 8 of 1–40), nullable public HTTPS project_url/github_url, nullable team_size (1–100). Identity comes from the session/database default; an opted-in visible profile is required.
+`POST /api/circles/[id]` accepts exactly one action: edit with validated post, resolve with boolean, delete, comment with body (2–1000) and nullable parent_id, or report with reason (10–500). Edit/resolve/delete require ownership. Replies require an open visible discussion; parent replies cannot be nested again. All content is plain text. Reports are private moderation records. DB triggers enforce five writes/minute per table, including direct inserts. All tables have RLS; no anonymous browsing. Matching sorts at most 60 recent posts using exact shared profile tags and stable time/ID ties.

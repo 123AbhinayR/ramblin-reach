@@ -12,6 +12,8 @@ import {loadPath} from "@/lib/path/data";
 import {DashboardConnections} from "@/components/dashboard-connections";
 import {labels} from "@/lib/domain/schemas";
 import {candidatesFor} from "@/lib/matching/data";
+import {circlePosts,circleAuthors} from "@/lib/circles/data";
+import {orderPosts,CIRCLES} from "@/lib/circles/schemas";
 export const dynamic = "force-dynamic";
 export default async function DashboardPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   if (!isConfigured()) return <SetupState />;
@@ -21,6 +23,9 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   if (error) throw new Error("Your paths could not be loaded.");
   const goals = z.array(goalSchema).parse(data);
   const alumni=profile.affiliation==="alumni";
+  const discussions=await circlePosts(client);
+  const authors=await circleAuthors(client,discussions.map(post=>post.owner_id));
+  const questions=orderPosts(discussions.filter(post=>!post.resolved&&post.owner_id!==profile.id&&(!alumni||authors.some(author=>author.id===post.owner_id&&author.affiliation==="student"))),"","relevant",profile.skills).slice(0,2);
   const inbox=await loadInbox(client);
   const currentPath=goals[0]?await loadPath(client,goals[0].id):null;
   const next=currentPath?.pathSteps.find(step=>step.status!=="done");
@@ -37,6 +42,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
         <SignOut />
       </div>
       {profile.is_demo && <p className="demo-strip">Demo account · fictional profile, real authenticated session</p>}
+      <section className="home-circles"><div className="results-heading"><h2>{alumni?"Students you can help":"Questions needing answers"}</h2><Link className="text-link" href="/circles">Explore Circles →</Link></div>{questions.length?<div className="circle-grid">{questions.map(post=>{const overlap=post.tags.filter(tag=>profile.skills.some(skill=>skill.toLowerCase()===tag.toLowerCase()));return <article className="project-memory" key={post.id}><p className="eyebrow">{CIRCLES[post.category]}{authors.find(a=>a.id===post.owner_id)?.is_demo?" · DEMO DATA":""}</p><h3><Link href={`/circles/${post.id}`}>{post.title}</Link></h3><p>{post.specific_request}</p><p className="field-hint">{overlap.length?`Shared skills: ${overlap.join(", ")}`:"Recent open question"}</p><Link className="text-link" href={`/circles/${post.id}`}>Read and offer help →</Link></article>;})}</div>:<p className="muted">No open questions yet. <Link className="text-link" href="/circles/new">Share what you are working on →</Link></p>}</section>
       <div className="dashboard-grid">
         <div>
           {alumni?<><DashboardConnections inbox={inbox} viewerId={profile.id} alumni/><section className="panel recent-paths"><h2>How I can help</h2><p className="muted">{profile.paused?"Requests paused":profile.visible?"Profile visible to members":"Profile hidden"} · Up to {profile.monthly_cap} incoming requests per month</p><div className="tag-list">{profile.help_topics.map(topic=><span key={topic}>{labels[topic]}</span>)}</div><Link className="text-link" href="/profile">Edit topics, availability and experience →</Link></section><details className="recent-paths"><summary className="text-link">Start a learning goal of your own</summary><GoalComposer initialExample={typeof example==="string"?example:undefined}/></details></>:<>{next&&<section className="next-action"><p className="eyebrow">My next step</p><h2>{next.title}</h2><p>{next.description}</p><Link className="text-link" href={`/path/${currentPath!.goal.id}`}>Continue your path →</Link></section>}<GoalComposer initialExample={typeof example === "string" ? example : undefined} /><DashboardConnections inbox={inbox} viewerId={profile.id} alumni={false}/></>}

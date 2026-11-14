@@ -12,7 +12,8 @@ export function json(value: unknown, status = 200) {
 export function failure(error: unknown) {
   if (error instanceof HttpError) return json({ error: { code: error.code, message: error.message } }, error.status);
   if (error instanceof z.ZodError) return json({ error: { code: "VALIDATION", message: "Check the highlighted fields and try again.", fields: z.flattenError(error).fieldErrors } }, 422);
-  console.error("API FAILURE CAUSE:", error);
+  // Database error objects can contain submitted private text in their detail.
+  console.error("API request failed");
   return json({ error: { code: "UNAVAILABLE", message: "We couldn’t complete that action. Please try again." } }, 503);
 }
 export async function readInput<T>(request: Request, schema: z.ZodType<T>): Promise<T> {

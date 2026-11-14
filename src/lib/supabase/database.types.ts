@@ -1,10 +1,11 @@
 
+import type { CircleTables } from "@/lib/circles/database";
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export type Database = {
 
   "public": {
-          Tables: {
+          Tables: CircleTables & {
             "blocks": {
                   Row: {
                     "blocked_id": string,"blocker_id": string,"created_at": string

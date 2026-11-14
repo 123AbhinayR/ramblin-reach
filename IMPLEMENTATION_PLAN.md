@@ -1,5 +1,9 @@
 # Ramblin’ Reach — approved implementation record
 
+## Circles / QuickReach extension — November 14, 2026
+
+User explicitly approved superseding prior community-feed and private-messaging exclusions for verified-member Circles and accepted-ReachCard messaging. Preserve all security rules and the three core labels. Reuse current Supabase/Auth/request entities; no backend replacement. PLAN.md records ordered gates and cuts. Branch: feat/circles-quickreach. Baseline npm run check passed (54 unit tests, typecheck and lint). The pre-existing next-env.d.ts modification is unrelated and excluded from commits.
+
 The source specification kit was read and its 25 manifest payloads verified before implementation. The workspace initially contained only an empty Git repository. Original specification content is retained; approved changes are recorded here.
 
 ## User-approved delivery
