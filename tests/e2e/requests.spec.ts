@@ -6,7 +6,7 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   const {studentAccount,helperAccount}=await isolatedAccounts();
 
   // 1. Student context: log in and send ReachCard to Jordan Mercer (A1)
-  const studentContext = await browser.newContext();
+  const studentContext = await browser.newContext({viewport:testInfo.project.use.viewport,isMobile:testInfo.project.use.isMobile,hasTouch:testInfo.project.use.hasTouch});
   const studentPage = await studentContext.newPage();
   studentPage.on("pageerror", err => console.error("STUDENT PAGE ERROR:", err));
   studentPage.on("console", msg => { if (msg.type() === "error") console.error("STUDENT CONSOLE ERROR:", msg.text()); });
@@ -17,15 +17,16 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   await studentPage.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(studentPage).toHaveURL(/dashboard$/);
 
-  // Navigate to People -> Jordan Mercer
-  await studentPage.getByRole("navigation", { name: "Workspace", exact: true }).getByRole("link", { name: "People", exact: true }).click();
-  await studentPage.getByLabel("Company", { exact: true }).fill(`E2E ${helperAccount.id}`);
-  await studentPage.getByRole("button", { name: "Find Jackets" }).click();
-  await expect(studentPage.getByRole("heading", { name: "Jordan Mercer" })).toBeVisible();
+  // Start with an actual owned goal; its company constraint selects the isolated helper.
+  await studentPage.getByRole("button", {name:/Build an environmental sensor/}).click();
+  await studentPage.getByLabel("Company (optional)").fill(`E2E ${helperAccount.id}`);
+  await studentPage.getByRole("button", {name:"Build my path",exact:true}).click();
+  await expect(studentPage).toHaveURL(/\/path\/[0-9a-f-]+$/);
+  await expect(studentPage.locator(".path-list>li")).toHaveCount(4);
 
   // Click View profile
   await studentPage.locator(".person-card").filter({has: studentPage.getByRole("heading", {name:"Jordan Mercer"})}).getByRole("link", { name: "View profile" }).click();
-  await expect(studentPage).toHaveURL(/\/people\/[0-9a-f-]+$/);
+  await expect(studentPage).toHaveURL(/\/people\/[0-9a-f-]+/);
   await expect(studentPage.getByRole("heading", { name: "DIY temperature logger" })).toBeVisible();
 
   // Click Send a ReachCard
@@ -35,6 +36,7 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
 
   // Fill ReachCard form
   const goalContextField = studentPage.getByLabel(/What I.*trying to achieve/);
+  await expect(goalContextField).toHaveValue(/environmental sensor/);
   await goalContextField.fill("Building an environmental sensor prototype for Georgia Tech air quality project");
 
   const questionField = studentPage.getByLabel(/My specific question/);
@@ -66,7 +68,7 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   await expect(studentPage.getByText("Waiting for response")).toBeVisible();
 
   // 2. Helper context (A1 / Jordan Mercer): log in and check inbox
-  const helperContext = await browser.newContext();
+  const helperContext = await browser.newContext({viewport:testInfo.project.use.viewport,isMobile:testInfo.project.use.isMobile,hasTouch:testInfo.project.use.hasTouch});
   const helperPage = await helperContext.newPage();
 
   await helperPage.goto("/login");
@@ -121,6 +123,10 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   // Verify outcome is displayed privately
   await expect(studentPage.getByText("Outcome recorded · private")).toBeVisible();
   await expect(studentPage.getByText("Received technical advice")).toBeVisible();
+
+  await studentPage.getByRole("button",{name:"Edit outcome"}).click();
+  await expect(studentPage.getByLabel("What happened?")).toHaveValue("technical_advice");
+  await expect(studentPage.getByLabel("Private note")).toHaveValue("Jordan recommended two calibration reference points and 15 min warm-up cycle.");
 
   // Viewport responsive check
   expect(await studentPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
