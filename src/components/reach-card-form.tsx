@@ -10,6 +10,7 @@ interface Props {
   recipientName: string;
   recipientHelpTopics: string[];
   goalId?: string;
+  initialGoal?: string;
   preselectedTopic?: string;
 }
 
@@ -22,7 +23,7 @@ function randomUUID() {
 
 const CHAR_LIMITS = { goalContext: 240, specificQuestion: 400, priorEffort: 300 };
 
-export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics, goalId, preselectedTopic }: Props) {
+export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics, goalId, preselectedTopic, initialGoal }: Props) {
   const router = useRouter();
   const idempotencyKey = useRef(randomUUID());
 
@@ -33,7 +34,7 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
 
   const [helpTopic, setHelpTopic] = useState(defaultTopic);
   const [format, setFormat] = useState<string>("written_advice");
-  const [goalContext, setGoalContext] = useState("");
+  const [goalContext, setGoalContext] = useState(initialGoal?.slice(0,240) ?? "");
   const [specificQuestion, setSpecificQuestion] = useState("");
   const [priorEffort, setPriorEffort] = useState("");
   const [safeProjectUrl, setSafeProjectUrl] = useState("");

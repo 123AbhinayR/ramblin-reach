@@ -1,3 +1,4 @@
+import {loadPath} from "@/lib/path/data";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { requireMember } from "@/lib/auth/guard";
@@ -17,6 +18,7 @@ export default async function SendRequestPage({ params, searchParams }: {
 
   const sp = await searchParams;
   const goalId = z.uuid().safeParse(sp.goalId).success ? String(sp.goalId) : undefined;
+  const ownedPath=goalId?await loadPath(client,goalId):null;
   const preselectedTopic = typeof sp.topic === "string" ? sp.topic : undefined;
 
   const rawPerson = (await candidatesFor(client)).find(p => p.id === idParsed.data);
@@ -58,7 +60,8 @@ export default async function SendRequestPage({ params, searchParams }: {
             recipientId={person.id}
             recipientName={person.display_name}
             recipientHelpTopics={person.help_topics}
-            goalId={goalId}
+            goalId={ownedPath?goalId:undefined}
+            initialGoal={ownedPath?.goal.goal_text}
             preselectedTopic={preselectedTopic}
           />}
         </div>
