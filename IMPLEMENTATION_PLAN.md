@@ -69,3 +69,11 @@ The user subsequently instructed “continue building exactly the plan,” super
 - Browser failures exposed an ambiguous password label and development hot-reload interruptions. Corrected the label, use a fresh document on auth changes to clear prefetched session-bound routes, and run E2E against the actual production server.
 - Runtime dependency audit: zero vulnerabilities. Full audit: seven moderate development-only findings in the TypeScript ESLint/minimatch chain. `npm audit fix` could not resolve them within compatible dependencies; retain visibility and revisit during the final tooling audit.
 - Remaining in milestone 02: goals/resources/projects/request/outcome schemas, immutable source snapshots, atomic request RPCs, quota races, and full DB/RLS coverage. Then implement JacketPath, JacketMatch, and ReachCard UI/API in the agreed order.
+
+### Milestone 02B — database workflow checkpoint
+
+Implemented learning/project/resource tables, immutable evidence snapshots, atomic goal persistence, participant-only requests/outcomes, protected state transitions, retry idempotency, and monthly capacity counts. Generated database types from the migrated local schema. Seeded fictional project lessons and persisted simulated requests for fixture quota usage.
+
+Verified: `npm run check` passed (9 unit tests, typecheck, lint); `npm run db:seed` passed with 14 real Auth demo accounts; `npm run test:db` passed 51 transactional checks and 6 committed concurrency/month-boundary checks. Corrected SQL parameter type inference in the project seed. No claim of a complete browser demo: core feature UI/API remains to be built.
+
+User priority update: preserve and checkpoint all current work, keep a localhost preview, then focus on one reliable student-to-alumni journey. Estimated tested MVP completion is approximately 30%, weighted by usable functionality rather than code volume. Authentication/profile flows work; backend workflow invariants are tested; the goal/path, directory/matching, request inbox, and outcome screens are still missing.

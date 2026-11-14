@@ -1,5 +1,5 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { randomBytes } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import pg from "pg";
 import { z } from "zod";
@@ -7,7 +7,7 @@ import { z } from "zod";
 const env = z.object({ APP_ENV: z.literal("local"), ALLOW_DEMO_SEED: z.literal("1"), SUPABASE_URL: z.literal("http://127.0.0.1:54321"), SUPABASE_SERVICE_ROLE_KEY: z.string().min(20), DATABASE_URL: z.string() }).parse(process.env);
 const database = new URL(env.DATABASE_URL);
 if (database.hostname !== "127.0.0.1" || database.port !== "54322" || database.pathname !== "/postgres") throw new Error("Seed only supports the isolated local database.");
-const fixtureSchema = z.object({ fixture_id: z.string(), display_name: z.string(), affiliation: z.enum(["student", "alumni"]), verified: z.boolean(), visible: z.boolean(), paused: z.boolean(), metro: z.string().nullable(), company: z.string().nullable(), role: z.string().nullable(), help_topics: z.array(z.string()), skills: z.array(z.string()), gt_context: z.array(z.string()), cap: z.number() });
+const fixtureSchema = z.object({ fixture_id: z.string(), display_name: z.string(), affiliation: z.enum(["student", "alumni"]), verified: z.boolean(), visible: z.boolean(), paused: z.boolean(), metro: z.string().nullable(), company: z.string().nullable(), role: z.string().nullable(), help_topics: z.array(z.string()), skills: z.array(z.string()), gt_context: z.array(z.string()), cap: z.number(), used: z.number().int().min(0).max(10), project: z.object({ title: z.string(), skills: z.array(z.string()), resource_slugs: z.array(z.string()), lesson: z.string() }).optional() });
 const fixtures = z.object({ people: z.array(fixtureSchema) }).parse(JSON.parse(await readFile("fixtures/demo_people.json", "utf8")));
 const admin = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
 const db = new pg.Client({ connectionString: env.DATABASE_URL });
@@ -17,8 +17,8 @@ try {
   const { data: existing, error } = await admin.auth.admin.listUsers({ perPage: 1000 });
   if (error) throw new Error("Could not read local auth identities.");
   const people = [
-    { fixture_id: "student", display_name: "Demo Learner", affiliation: "student" as const, verified: true, visible: false, paused: true, metro: null, company: null, role: null, help_topics: [], skills: [], gt_context: [], cap: 2 },
-    { fixture_id: "outsider", display_name: "Demo Observer", affiliation: "student" as const, verified: true, visible: false, paused: true, metro: null, company: null, role: null, help_topics: [], skills: [], gt_context: [], cap: 2 },
+    { fixture_id: "student", display_name: "Demo Learner", affiliation: "student" as const, verified: true, visible: false, paused: true, metro: null, company: null, role: null, help_topics: [], skills: [], gt_context: [], cap: 2, used: 0, project: undefined },
+    { fixture_id: "outsider", display_name: "Demo Observer", affiliation: "student" as const, verified: true, visible: false, paused: true, metro: null, company: null, role: null, help_topics: [], skills: [], gt_context: [], cap: 2, used: 0, project: undefined },
     ...fixtures.people,
   ];
   await db.query("update private.deployment set allow_demo = true where singleton");
@@ -34,6 +34,24 @@ try {
       metro=$7,company_name=$8,role_title=$9,help_topics=$10,skills=$11,gt_topics=$12,monthly_cap=$13 where id=$1`,
     [id, person.display_name, person.affiliation, person.verified ? "demo" : "pending", person.visible, person.paused, person.metro, person.company, person.role, person.help_topics, person.skills, person.gt_context, person.cap]);
     accounts.push({ name: person.fixture_id, id, email, password });
+    if (person.project) {
+      await db.query(`insert into public.member_projects(owner_id,title,summary,skills,resource_tags,one_lesson,visibility)
+        select $1::uuid,$2::varchar,$3::varchar,$4::text[],$5::text[],$6::varchar,'members' where not exists(select 1 from public.member_projects where owner_id=$1::uuid and title=$2::varchar)`,
+      [id,person.project.title,`Fictional demo project: ${person.project.title}`,person.project.skills,person.project.resource_slugs,person.project.lesson]);
+    }
+  }
+  const observer=accounts.find(account=>account.name==='outsider');
+  if (!observer) throw new Error("Missing demo observer");
+  const month=new Date().toISOString().slice(0,7);
+  for (const person of fixtures.people) {
+    const recipient=accounts.find(account=>account.name===person.fixture_id);
+    if (!recipient) throw new Error("Missing demo recipient");
+    for (let index=0;index<person.used;index++) {
+      const key=createHash('sha256').update(`demo-usage:${person.fixture_id}:${month}:${index}`).digest('hex').slice(0,32);
+      await db.query(`insert into public.connection_requests(requester_id,recipient_id,help_topic,format,goal_context,specific_question,idempotency_key,status,completed_at)
+        values($1,$2,$3,'written_advice','Simulated demo request for capacity testing.','Simulated demo question: what should I learn next?',$4,'completed',now())
+        on conflict(requester_id,idempotency_key) do nothing`,[observer.id,recipient.id,person.help_topics[0],key]);
+    }
   }
   await mkdir(".tmp", { recursive: true });
   await writeFile(".tmp/demo-accounts.json", JSON.stringify(accounts, null, 2));
