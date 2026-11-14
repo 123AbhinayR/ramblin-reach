@@ -1,0 +1,297 @@
+{
+  "note": "Fictional names and profiles; seed as real Supabase Auth-linked demo identities, never claim these are people actually at these companies",
+  "people": [
+    {
+      "fixture_id": "A1",
+      "display_name": "Jordan Mercer",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "Seattle, WA",
+      "company": "Microsoft",
+      "role": "Software Engineer",
+      "help_topics": [
+        "project_guidance",
+        "company_insight",
+        "relocation_advice"
+      ],
+      "skills": [
+        "electronics",
+        "sensor",
+        "software"
+      ],
+      "gt_context": [
+        "RoboJackets"
+      ],
+      "cap": 3,
+      "used": 1,
+      "project": {
+        "title": "DIY temperature logger",
+        "skills": [
+          "electronics",
+          "sensor"
+        ],
+        "resource_slugs": [
+          "hive-electronics"
+        ],
+        "lesson": "Test calibration against a known reference before designing the enclosure."
+      }
+    },
+    {
+      "fixture_id": "A2",
+      "display_name": "Taylor Ellis",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "Austin, TX",
+      "company": "Microsoft",
+      "role": "Data Engineer",
+      "help_topics": [
+        "company_insight"
+      ],
+      "skills": [
+        "software"
+      ],
+      "gt_context": [
+        "Computer Science"
+      ],
+      "cap": 2,
+      "used": 0
+    },
+    {
+      "fixture_id": "A3",
+      "display_name": "Avery Nolan",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "Seattle, WA",
+      "company": "Delta",
+      "role": "Product Manager",
+      "help_topics": [
+        "relocation_advice"
+      ],
+      "skills": [
+        "product"
+      ],
+      "gt_context": [],
+      "cap": 1,
+      "used": 0
+    },
+    {
+      "fixture_id": "A4",
+      "display_name": "Morgan Blake",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": true,
+      "visible": false,
+      "paused": false,
+      "metro": "Seattle, WA",
+      "company": "Microsoft",
+      "role": "Developer",
+      "help_topics": [
+        "company_insight"
+      ],
+      "skills": [
+        "software"
+      ],
+      "gt_context": [],
+      "cap": 2,
+      "used": 0
+    },
+    {
+      "fixture_id": "A5",
+      "display_name": "Riley Parker",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": true,
+      "metro": "Seattle, WA",
+      "company": "Microsoft",
+      "role": "Engineer",
+      "help_topics": [
+        "company_insight"
+      ],
+      "skills": [
+        "software"
+      ],
+      "gt_context": [],
+      "cap": 2,
+      "used": 0
+    },
+    {
+      "fixture_id": "A6",
+      "display_name": "Casey Rowan",
+      "affiliation": "student",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "Atlanta, GA",
+      "company": null,
+      "role": "Student maker",
+      "help_topics": [
+        "project_guidance",
+        "resource_navigation"
+      ],
+      "skills": [
+        "electronics",
+        "sensor",
+        "fabrication"
+      ],
+      "gt_context": [
+        "RoboJackets"
+      ],
+      "cap": 4,
+      "used": 0,
+      "project": {
+        "title": "Campus air sensor",
+        "skills": [
+          "electronics",
+          "sensor"
+        ],
+        "resource_slugs": [
+          "hive-electronics"
+        ],
+        "lesson": "Start with a simple breadboard prototype and check the power budget early."
+      }
+    },
+    {
+      "fixture_id": "A7",
+      "display_name": "Quinn Bell",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "New York, NY",
+      "company": "Stripe",
+      "role": "Backend Engineer",
+      "help_topics": [
+        "career_advice",
+        "company_insight"
+      ],
+      "skills": [
+        "software"
+      ],
+      "gt_context": [],
+      "cap": 3,
+      "used": 1
+    },
+    {
+      "fixture_id": "A8",
+      "display_name": "Drew Keller",
+      "affiliation": "student",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "Atlanta, GA",
+      "company": null,
+      "role": "Student founder",
+      "help_topics": [
+        "project_guidance"
+      ],
+      "skills": [
+        "entrepreneurship",
+        "fabrication"
+      ],
+      "gt_context": [],
+      "cap": 1,
+      "used": 1
+    },
+    {
+      "fixture_id": "A9",
+      "display_name": "Jamie Reed",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "San Francisco Bay Area, CA",
+      "company": "Fictional Flux Labs",
+      "role": "Engineering Lead",
+      "help_topics": [
+        "project_guidance",
+        "career_advice"
+      ],
+      "skills": [
+        "sensor",
+        "software"
+      ],
+      "gt_context": [],
+      "cap": 3,
+      "used": 0
+    },
+    {
+      "fixture_id": "A10",
+      "display_name": "Sage Brooks",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "Boston, MA",
+      "company": "Microsoft",
+      "role": "ML Engineer",
+      "help_topics": [
+        "career_advice",
+        "company_insight"
+      ],
+      "skills": [
+        "software"
+      ],
+      "gt_context": [],
+      "cap": 2,
+      "used": 0
+    },
+    {
+      "fixture_id": "A11",
+      "display_name": "Reese Harmon",
+      "affiliation": "student",
+      "is_demo": true,
+      "verified": true,
+      "visible": true,
+      "paused": false,
+      "metro": "Atlanta, GA",
+      "company": null,
+      "role": "Student builder",
+      "help_topics": [
+        "resource_navigation"
+      ],
+      "skills": [
+        "fabrication"
+      ],
+      "gt_context": [],
+      "cap": 2,
+      "used": 0
+    },
+    {
+      "fixture_id": "A12",
+      "display_name": "Alex Monroe",
+      "affiliation": "alumni",
+      "is_demo": true,
+      "verified": false,
+      "visible": true,
+      "paused": false,
+      "metro": "Atlanta, GA",
+      "company": "Delta",
+      "role": "Analyst",
+      "help_topics": [
+        "career_advice"
+      ],
+      "skills": [
+        "data"
+      ],
+      "gt_context": [],
+      "cap": 2,
+      "used": 0
+    }
+  ]
+}

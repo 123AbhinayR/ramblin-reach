@@ -1,0 +1,39 @@
+{
+  "goals": [
+    {
+      "id": "sensor",
+      "goal_text": "I want to build a low-cost environmental sensor, but I need electronics tools and project advice.",
+      "intent": "project",
+      "tags": [
+        "sensor",
+        "electronics"
+      ],
+      "expected_step_slugs": [
+        "define-requirements",
+        "hive-electronics",
+        "invention-studio",
+        "find-project-helper"
+      ]
+    },
+    {
+      "id": "career",
+      "goal_text": "I want to learn about backend engineering at Microsoft.",
+      "intent": "career",
+      "target_company": "Microsoft",
+      "expected_route_range": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": "city",
+      "goal_text": "I'm moving to Seattle and want to meet local Georgia Tech alumni.",
+      "intent": "relocation",
+      "target_metro": "Seattle, WA",
+      "expected_route_range": [
+        3,
+        5
+      ]
+    }
+  ]
+}

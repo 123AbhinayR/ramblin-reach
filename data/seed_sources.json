@@ -1,0 +1,137 @@
+{
+  "purpose": "Admin-reviewed source candidates; not real-time availability or institutional endorsement",
+  "as_of": "2026-11-14",
+  "resources": [
+    {
+      "slug": "hive-electronics",
+      "title": "The Hive — Electronics Makerspace",
+      "official_url": "https://hive.ece.gatech.edu/explore/",
+      "source_domain": "hive.ece.gatech.edu",
+      "summary": "Electronics workbenches, PCB prototyping tools and makerspace support.",
+      "tags": [
+        "electronics",
+        "sensor",
+        "fabrication"
+      ],
+      "eligibility_note": "Public information describes availability to Georgia Tech students; check current operating hours, access and safety requirements before visiting.",
+      "prerequisites": [
+        "define-requirements"
+      ],
+      "availability_claim": "unknown",
+      "reviewed_on": "2026-11-14",
+      "review_status": "reviewed",
+      "student_action": "Review the tools and instructions, then plan a circuit prototype."
+    },
+    {
+      "slug": "invention-studio",
+      "title": "Invention Studio",
+      "official_url": "https://inventionstudio.gatech.edu/",
+      "source_domain": "inventionstudio.gatech.edu",
+      "summary": "Student-run makerspace providing prototyping assistance and fabrication support.",
+      "tags": [
+        "fabrication",
+        "sensor"
+      ],
+      "eligibility_note": "Website refers to GT community access; hours may be outdated. Verify current semester schedule and training before visiting.",
+      "prerequisites": [
+        "define-requirements"
+      ],
+      "availability_claim": "unknown",
+      "reviewed_on": "2026-11-14",
+      "review_status": "reviewed",
+      "student_action": "Explore enclosure/fabrication options and verify the latest policies."
+    },
+    {
+      "slug": "create-x-i2p",
+      "title": "CREATE-X — Idea to Prototype",
+      "official_url": "https://create-x.gatech.edu/make/idea-to-prototype",
+      "source_domain": "create-x.gatech.edu",
+      "summary": "Application-based course/program supporting prototype development, mentorship and eligible expenses.",
+      "tags": [
+        "entrepreneurship",
+        "fabrication",
+        "sensor"
+      ],
+      "eligibility_note": "Requires application, acceptance and program-specific conditions; financial support is not guaranteed. Confirm current deadlines and eligibility.",
+      "prerequisites": [
+        "define-requirements"
+      ],
+      "availability_claim": "unknown",
+      "reviewed_on": "2026-11-14",
+      "review_status": "reviewed",
+      "student_action": "Read requirements and apply only if the idea meets current eligibility."
+    },
+    {
+      "slug": "career-center-networking",
+      "title": "GT Career Center — Networking & Outreach",
+      "official_url": "https://career.gatech.edu/networking/",
+      "source_domain": "career.gatech.edu",
+      "summary": "Official guidance for identifying and approaching professional contacts and alumni.",
+      "tags": [
+        "career",
+        "networking"
+      ],
+      "eligibility_note": "General informational resource; it does not guarantee contacts, referrals or employment.",
+      "prerequisites": [],
+      "availability_claim": "unknown",
+      "reviewed_on": "2026-11-14",
+      "review_status": "reviewed",
+      "student_action": "Review networking suggestions before contacting a volunteer."
+    },
+    {
+      "slug": "alumni-regional-networks",
+      "title": "GT Alumni Regional Networks",
+      "official_url": "https://www.gtalumni.org/regional-networks/default.html",
+      "source_domain": "gtalumni.org",
+      "summary": "Official list of regional alumni networks and local activities.",
+      "tags": [
+        "relocation",
+        "networking"
+      ],
+      "eligibility_note": "Event offerings and regional contacts change; consult the official website. Do not copy individual contact details into this product.",
+      "prerequisites": [],
+      "availability_claim": "unknown",
+      "reviewed_on": "2026-11-14",
+      "review_status": "reviewed",
+      "student_action": "Explore existing regional communities for the destination city."
+    },
+    {
+      "slug": "aero-maker-space",
+      "title": "Yang Aero Maker Space",
+      "official_url": "https://ams.gatech.edu/",
+      "source_domain": "ams.gatech.edu",
+      "summary": "Student-led makerspace with fabrication/electronics resources.",
+      "tags": [
+        "fabrication",
+        "electronics"
+      ],
+      "eligibility_note": "Official site describes student access; confirm training, hours and equipment-specific instructions.",
+      "prerequisites": [
+        "define-requirements"
+      ],
+      "availability_claim": "unknown",
+      "reviewed_on": "2026-11-14",
+      "review_status": "reviewed",
+      "student_action": "Check its tools and policies for appropriate prototyping support."
+    },
+    {
+      "slug": "gtsf-funding",
+      "title": "Georgia Tech Student Foundation — Funding Guidance",
+      "official_url": "https://www.gtalumni.org/student-programs/georgia-tech-student-foundation/apply-for-funding-from-the-georgia-tech-student-foundation.html",
+      "source_domain": "gtalumni.org",
+      "summary": "Application and reimbursement guidance for certain eligible student organizations and initiatives.",
+      "tags": [
+        "entrepreneurship",
+        "research"
+      ],
+      "eligibility_note": "Not unrestricted personal funding. Applications, deadlines and eligibility apply; Fall 2026 application is listed closed on official page. No guarantee of approval.",
+      "prerequisites": [
+        "define-requirements"
+      ],
+      "availability_claim": "unknown",
+      "reviewed_on": "2026-11-14",
+      "review_status": "reviewed",
+      "student_action": "Read eligibility and reimbursement requirements; plan for the next available application window."
+    }
+  ]
+}
