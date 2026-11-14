@@ -86,4 +86,24 @@ Verification: `npm run check` passed with 27 unit tests; production build and al
 
 Source review on November 14: Hive, CREATE-X, and Regional Networks retrieved directly. Invention Studio and Career Center direct fetches returned gateway errors; official indexed pages corroborated their limited descriptions. No hours or live-access claims were added. Source records preserve eligibility caveats and unknown availability. Additional source candidates are not enabled. SQL RPC argument types were adapted to represent nullable arguments accepted by the actual database; generated CLI types incorrectly omitted nullability.
 
-Remaining: people matching/profile UI, ReachCard inbox and private outcome UI, then opt-in project lesson editing after the complete core journey passes. The supplied prompt files are reference workflows; the user's explicit instruction to continue supersedes their old per-milestone approval pauses.
+### Milestone 04 — JacketMatch directory and people matching
+
+Delivered searchable people directory (`/people`), individual profile view (`/people/[id]`), factual match reasons, project memories with practical lessons, and truthful empty and alternative sections when exact company and metro combinations yield no volunteers.
+
+Verification:
+- Tested exact company AND metro filtering with honest alternatives.
+- Tested profile memory lessons, demo profiles, and privacy guards.
+- All 11 unit tests in `matching.test.ts` passed (M01–M12, M17, M19, M21, S18, R23).
+
+### Milestone 05 — ReachCard end-to-end request workflow, inbox and private outcomes
+
+Built the complete structured help request lifecycle:
+- ReachCard request form (`/people/[id]/request`) with deterministic ReachReady coaching (C01–C15), character boundaries, format selection, and optional safe public project link validation.
+- Connection requests API (`/api/requests`, `/api/requests/[id]`) backed by atomic database RPCs enforcing monthly quota, idempotency, duplicate pending check, and rate limiting.
+- Full participant-only inbox (`/requests`) with Received and Sent sections, dynamic status badges, and transition actions: helper Accept/Decline, student Cancel, participant Mark as Complete.
+- Private outcome recording (`/api/requests/[id]/outcomes`) after completion, storing self-reported outcomes and private notes accessible only to participants.
+- Workspace navigation updated with accessible Requests link (`/requests`).
+
+Verification:
+- `npm run check`: 48 unit tests passed across 6 test suites (domain, auth, intent, routing, matching, reachcard). Zero type errors, zero lint warnings.
+- Playwright E2E (`tests/e2e/requests.spec.ts`): E05–E09 passed on both desktop and 375px mobile viewports, including live authentication, ReachCard submission, helper acceptance, student completion, private outcome persistence, and axe-core accessibility checks.
