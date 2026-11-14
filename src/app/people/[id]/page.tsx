@@ -1,0 +1,12 @@
+import Link from "next/link";
+import {notFound} from "next/navigation";
+import {z} from "zod";
+import {requireMember} from "@/lib/auth/guard";
+import {candidatesFor} from "@/lib/matching/data";
+import {labels} from "@/lib/domain/schemas";
+import {WorkspaceNav} from "@/components/workspace-nav";
+export const dynamic="force-dynamic";
+export default async function PersonPage({params}:{params:Promise<{id:string}>}){
+ const {client}=await requireMember();const id=z.uuid().safeParse((await params).id);if(!id.success)notFound();const person=(await candidatesFor(client)).find(p=>p.id===id.data);if(!person)notFound();
+ return <section className="container workspace"><WorkspaceNav/><Link className="text-link" href="/people">← Find Jackets</Link><div className="profile-layout"><article className="panel"><p className="eyebrow">{person.affiliation==="alumni"?"Georgia Tech alum":"Georgia Tech student"}</p><h1>{person.display_name}</h1>{person.is_demo&&<p className="notice">Demo profile · fictional person and experience</p>}<p>{[person.role_title,person.company_name,person.metro].filter(Boolean).join(" · ")}</p>{person.company_name&&<p className="field-hint">Employer self-reported. Company experience does not imply a referral.</p>}{person.bio&&<p className="profile-bio">{person.bio}</p>}<div className="tag-list">{person.skills.map(skill=><span key={skill}>{skill}</span>)}</div><h2 className="subheading">What I can help with</h2><ul className="help-list">{person.help_topics.map(t=><li key={t}>{labels[t]}</li>)}</ul><h2 className="subheading">What I’ve learned by doing</h2>{person.projects.length?person.projects.map(project=><article className="project-memory" key={project.id}><p className="eyebrow">{project.is_demo?"Demo project":"Member project"}</p><h3>{project.title}</h3><p>{project.summary}</p>{project.one_lesson&&<blockquote><span>A lesson to pass on</span>{project.one_lesson}</blockquote>}<div className="tag-list">{project.skills.map(skill=><span key={skill}>{skill}</span>)}</div></article>):<p className="muted">No shared projects yet. Their offered help topics are listed above.</p>}</article><aside className="workspace-aside"><p className="eyebrow">A thoughtful first step</p><h2>{!person.paused&&person.used<person.monthly_cap?"Open to requests":"Taking a pause"}</h2><p className="profile-bio">{Math.max(0,person.monthly_cap-person.used)} of {person.monthly_cap} incoming requests left this month.</p><p className="field-hint">Read their project lessons and choose one question that fits the help they offer.</p></aside></div></section>;
+}

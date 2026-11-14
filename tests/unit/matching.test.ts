@@ -1,0 +1,18 @@
+import {expect,it} from "vitest";
+import fixtures from "../../fixtures/demo_people.json";
+import {candidateSchema,filtersSchema} from "@/lib/matching/schemas";
+import {matchResults,rankMatches} from "@/lib/matching/rank";
+import {personDto} from "@/lib/matching/dto";
+const people=fixtures.people.map((p,i)=>candidateSchema.parse({id:`00000000-0000-4000-8000-${String(i+1).padStart(12,"0")}`,display_name:p.display_name,affiliation:p.affiliation,verification_state:p.verified?"demo":"pending",is_demo:true,visible:p.visible,paused:p.paused,major:null,grad_year:null,company_name:p.company,metro:p.metro,role_title:p.role,bio:null,skills:p.skills,gt_topics:p.gt_context,help_topics:p.help_topics,monthly_cap:p.cap,used:p.used,projects:[]}));
+const rank=(filters:Record<string,string>)=>rankMatches(people,filtersSchema.parse(filters),"viewer");
+it("M01 company AND city intersect",()=>expect(rank({company:"Microsoft",metro:"Seattle, WA"}).map(p=>p.display_name)).toEqual(["Jordan Mercer"]));
+it("M02 company alone includes other cities",()=>expect(rank({company:"Microsoft"}).map(p=>p.display_name)).toEqual(expect.arrayContaining(["Jordan Mercer","Taylor Ellis"])));
+it("M03 city alone includes other employers",()=>expect(rank({metro:"Seattle, WA"}).map(p=>p.display_name)).toEqual(expect.arrayContaining(["Jordan Mercer","Avery Nolan"])));
+it("M04 alternatives never leak into exact results",()=>{const result=matchResults(people,filtersSchema.parse({company:"Unknown company",metro:"Seattle, WA"}),"viewer");expect(result.items).toEqual([]);expect(result.alternatives.length).toBeGreaterThan(0);expect(result.alternatives[0].relaxedCriteria).toContain("company filter removed");});
+it("M05/M06 only actual capacity is available",()=>expect(rank({}).every(p=>!p.paused&&p.used<p.monthly_cap)).toBe(true));
+it("M07 paused profiles have no available state",()=>expect(rank({availableOnly:"false"}).filter(p=>p.paused).every(p=>!p.available)).toBe(true));
+it("M08/M09 excludes hidden pending and self",()=>{const result=rankMatches(people,filtersSchema.parse({availableOnly:"false"}),people[0].id);expect(result.every(p=>p.id!==people[0].id&&p.visible&&p.verification_state!=="pending")).toBe(true);});
+it("M11 topic is a hard filter",()=>expect(rank({topic:"project_guidance"}).every(p=>p.help_topics.includes("project_guidance"))).toBe(true));
+it("M12/M19 reasons cite stored skills and self-reported employer",()=>{const person=rank({company:"Microsoft",skills:"sensor,electronics"})[0];expect(person.reasons.join(" ")).toContain("sensor");expect(person.reasons.join(" ")).toContain("Self-reported");});
+it("M17 scores stay bounded and M21 ordering is stable",()=>{const filters=filtersSchema.parse({skills:"sensor"});const result=rankMatches(people,filters,"viewer");expect(result.every(p=>Number.isInteger(p.score)&&p.score>=0&&p.score<=100)).toBe(true);expect(result).toEqual(rankMatches([...people].reverse(),filters,"viewer"));});
+it("S18/R23 public DTO contains no private request, contact or auth fields",()=>{const person=rank({})[0];const dto=personDto(person);for(const key of ["email","phone","private_note","grad_year","verification_method","safe_project_url","goal_context","score"])expect(JSON.stringify(dto)).not.toContain(`"${key}"`);});
