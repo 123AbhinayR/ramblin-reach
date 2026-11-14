@@ -19,7 +19,7 @@ test("E01 real Auth login, persisted profile and sign-out", async ({ page }) => 
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(/\/dashboard$/);
   await expect(page.getByText("Demo account · fictional profile, real authenticated session")).toBeVisible();
-  await page.getByRole("link", { name: "Set up your profile" }).click();
+  await page.getByRole("navigation", { name: "Workspace", exact: true }).getByRole("link", { name: "Profile", exact: true }).click();
   await page.getByLabel("A little about you").fill("Fictional learner exploring campus resources.");
   await page.getByRole("button", { name: "Save profile" }).click();
   await expect(page.getByRole("status")).toContainText("Profile saved");

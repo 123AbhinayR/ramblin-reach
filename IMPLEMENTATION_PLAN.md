@@ -77,3 +77,13 @@ Implemented learning/project/resource tables, immutable evidence snapshots, atom
 Verified: `npm run check` passed (9 unit tests, typecheck, lint); `npm run db:seed` passed with 14 real Auth demo accounts; `npm run test:db` passed 51 transactional checks and 6 committed concurrency/month-boundary checks. Corrected SQL parameter type inference in the project seed. No claim of a complete browser demo: core feature UI/API remains to be built.
 
 User priority update: preserve and checkpoint all current work, keep a localhost preview, then focus on one reliable student-to-alumni journey. Estimated tested MVP completion is approximately 30%, weighted by usable functionality rather than code volume. Authentication/profile flows work; backend workflow invariants are tested; the goal/path, directory/matching, request inbox, and outcome screens are still missing.
+
+### Milestone 03 — persisted JacketPath
+
+Added the goal dashboard, deterministic prerequisite-aware routing, five official resource records, authenticated goal/read/progress APIs, and a saved source-backed checklist. The default sensor plan has four steps; explicit funding adds a conditional CREATE-X step. Invalid reviews, missing prerequisites, and cycles fall back to safe action steps. Software goals do not automatically recommend electronics spaces.
+
+Verification: `npm run check` passed with 27 unit tests; production build and all 14 Playwright tests passed, including desktop/mobile goal creation, official evidence, persisted completion after reload, overflow, and axe checks. Existing authentication tests remained green after switching to mobile workspace navigation. Ordinary sign-out is now session-local; password resets still revoke all sessions.
+
+Source review on November 14: Hive, CREATE-X, and Regional Networks retrieved directly. Invention Studio and Career Center direct fetches returned gateway errors; official indexed pages corroborated their limited descriptions. No hours or live-access claims were added. Source records preserve eligibility caveats and unknown availability. Additional source candidates are not enabled. SQL RPC argument types were adapted to represent nullable arguments accepted by the actual database; generated CLI types incorrectly omitted nullability.
+
+Remaining: people matching/profile UI, ReachCard inbox and private outcome UI, then opt-in project lesson editing after the complete core journey passes. The supplied prompt files are reference workflows; the user's explicit instruction to continue supersedes their old per-milestone approval pauses.

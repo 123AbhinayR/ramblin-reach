@@ -245,7 +245,7 @@ isOneToOne: false
 { Args: { "p_operation": string }; Returns: boolean
                            },
 "create_connection_request":
-{ Args: { "p_format": Database["public"]['Enums']["request_format"],"p_goal_context": string,"p_goal_id": string,"p_help_topic": Database["public"]['Enums']["help_topic"],"p_idempotency_key": string,"p_prior_effort": string,"p_recipient_id": string,"p_safe_project_url": string,"p_specific_question": string }; Returns: {
+{ Args: { "p_format": Database["public"]['Enums']["request_format"],"p_goal_context": string,"p_goal_id": string | null,"p_help_topic": Database["public"]['Enums']["help_topic"],"p_idempotency_key": string,"p_prior_effort": string | null,"p_recipient_id": string,"p_safe_project_url": string | null,"p_specific_question": string }; Returns: {
               "completed_at": string | null,
 "created_at": string,
 "format": Database["public"]['Enums']["request_format"],
@@ -269,7 +269,7 @@ isOneToOne: false
         isSetofReturn: false
       } },
 "create_goal_with_path":
-{ Args: { "p_goal_text": string,"p_intent": Database["public"]['Enums']["goal_intent"],"p_steps": Json,"p_tags": (string)[],"p_target_company": string,"p_target_metro": string }; Returns: string
+{ Args: { "p_goal_text": string,"p_intent": Database["public"]['Enums']["goal_intent"],"p_steps": Json,"p_tags": (string)[],"p_target_company": string | null,"p_target_metro": string | null }; Returns: string
                            },
 "is_eligible_member":
 { Args: Record<PropertyKey, never>; Returns: boolean

@@ -31,7 +31,7 @@ export async function POST(request: Request, context: { params: Promise<{ action
     }
     if (action === "logout") {
       await readInput(request, z.strictObject({}));
-      const { error } = await client.auth.signOut();
+      const { error } = await client.auth.signOut({ scope: "local" });
       if (error) throw new Error("Sign-out failed");
       return json({ redirect: "/login" });
     }

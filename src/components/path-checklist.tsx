@@ -1,0 +1,10 @@
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ExternalLink } from "lucide-react";
+import type { PathStep } from "@/lib/path/schemas";
+export function PathChecklist({steps}:{steps:PathStep[]}) {
+  const router=useRouter(); const [busy,setBusy]=useState<string|null>(null); const [error,setError]=useState("");
+  async function toggle(step:PathStep){setBusy(step.id);setError("");try{const response=await fetch(`/api/steps/${step.id}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status:step.status==="done"?"not_started":"done"})});if(!response.ok)throw new Error();router.refresh();}catch{setError("That step wasn’t saved. Try again.");}finally{setBusy(null);}}
+  return <><ol className="path-list">{steps.map(step=><li className={`path-row ${step.status==="done"?"is-done":""}`} key={step.id}><div className="path-number">{step.ordinal.toString().padStart(2,"0")}</div><article className="path-card"><div className="path-card-heading"><span className="eyebrow">{step.kind==="resource"?"Campus resource":step.kind==="find_person"?"Learn from someone":"Your next step"}</span><label className="step-toggle"><input type="checkbox" checked={step.status==="done"} disabled={busy!==null} onChange={()=>toggle(step)} aria-label={`Mark ${step.title} ${step.status==="done"?"not done":"done"}`}/>{busy===step.id?"Saving…":step.status==="done"?"Done":"Mark done"}</label></div><h2>{step.title}</h2><p>{step.description}</p><p className="step-reason">{step.reason}</p>{step.source_snapshot&&<div className="source-evidence"><a href={step.source_snapshot.officialUrl} target="_blank" rel="noopener noreferrer">Official resource <ExternalLink size={14}/></a><span>Reviewed {step.source_snapshot.reviewedOn}</span><p>{step.source_snapshot.eligibilityNote}</p><p>Check the official page before visiting. Current availability is unknown.</p></div>}</article></li>)}</ol><p role="status">{error}</p><p className="field-hint">Checklist progress is your own record, not confirmation of a resource visit.</p></>;
+}
