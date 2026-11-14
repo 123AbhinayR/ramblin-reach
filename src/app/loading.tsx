@@ -1,0 +1,1 @@
+export default function Loading() { return <div className="container page-space" role="status"><span className="sr-only">Loading your next step…</span><div className="skeleton h-12 w-2/3" /><div className="skeleton mt-6 h-56 w-full" /></div>; }
