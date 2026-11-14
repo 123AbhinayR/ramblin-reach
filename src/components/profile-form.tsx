@@ -3,7 +3,8 @@ import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { profileInputSchema, type Profile } from "@/lib/auth/schemas";
-import { HELP_TOPICS, labels, METROS } from "@/lib/domain/schemas";
+import { HELP_TOPICS, labels } from "@/lib/domain/schemas";
+import { CityCombobox } from "./city-combobox";
 import { Button } from "./ui/button";
 export function ProfileForm({ profile }: { profile: Profile }) {
   const router = useRouter();
@@ -37,7 +38,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
     <label>Display name<input name="display_name" defaultValue={profile.display_name} maxLength={80} required /></label>
     <div className="form-grid"><label>Major<input name="major" defaultValue={profile.major ?? ""} maxLength={100} /></label><label>Graduation year (optional)<input name="grad_year" type="number" min={1900} max={2200} defaultValue={profile.grad_year ?? ""} /></label></div>
     <div className="form-grid"><label>Company (self-reported)<input name="company_name" defaultValue={profile.company_name ?? ""} maxLength={100} /></label><label>Role<input name="role_title" defaultValue={profile.role_title ?? ""} maxLength={100} /></label></div>
-    <label>Metro area<select name="metro" defaultValue={profile.metro ?? ""}><option value="">Prefer not to share</option>{METROS.map(m => <option key={m}>{m}</option>)}</select></label>
+    <label htmlFor="profile-metro">Metro area<CityCombobox id="profile-metro" name="metro" defaultValue={profile.metro ?? ""} emptyLabel="Prefer not to share" /></label>
     <label>A little about you<textarea name="bio" defaultValue={profile.bio ?? ""} maxLength={400} rows={3} /><span className="field-hint">Keep contact details and confidential information out of your profile.</span></label>
     <label>Skills<input name="skills" defaultValue={profile.skills.join(", ")} /><span className="field-hint">Comma-separated; up to 20 skills, 40 characters each.</span></label>
     <label>Georgia Tech topics and communities<input name="gt_topics" defaultValue={profile.gt_topics.join(", ")} /></label>

@@ -10,5 +10,5 @@ export default defineConfig({
     { name: "mobile", use: { ...devices["Desktop Chrome"], viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true } },
   ],
   // Exercise the deployable server; dev hot reload can interrupt concurrent auth redirects.
-  webServer: { command: "npm run build && npm run start", url: "http://127.0.0.1:3000", reuseExistingServer: true, timeout: 180000 },
+  webServer: { command: "npm run build && npm run start", url: "http://127.0.0.1:3000", reuseExistingServer: false, timeout: 180000 },
 });

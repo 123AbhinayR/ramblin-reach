@@ -1,4 +1,4 @@
-import {labels} from "@/lib/domain/schemas";
+import {labels,canonicalLocation,normalizeLocation} from "@/lib/domain/schemas";
 import type {Candidate,Filters} from "./schemas";
 const canonical=(value:string)=>value.normalize("NFKC").trim().toLowerCase();
 export function rankMatches(candidates:Candidate[],filters:Filters,viewerId:string){
@@ -8,7 +8,7 @@ export function rankMatches(candidates:Candidate[],filters:Filters,viewerId:stri
  .map(person=>{
   const available=!person.paused&&person.used<person.monthly_cap&&person.help_topics.length>0;
   const skills=new Set([...person.skills,...person.projects.flatMap(p=>p.skills)].map(canonical));
-  const overlap=tags.filter(tag=>skills.has(tag));const company=!!filters.company&&canonical(person.company_name??"")===canonical(filters.company);const metro=!!filters.metro&&person.metro===filters.metro;
+  const overlap=tags.filter(tag=>skills.has(tag));const company=!!filters.company&&canonical(person.company_name??"")===canonical(filters.company);const metro=!!filters.metro&&canonicalLocation(normalizeLocation(person.metro??""))===canonicalLocation(normalizeLocation(filters.metro));
   const context=!!filters.context&&[person.major??"",...person.gt_topics].some(t=>canonical(t)===canonical(filters.context));
   const topic=filters.topic?person.help_topics.includes(filters.topic):person.help_topics.length>0;
   const score=Math.round((topic?weights[0]*(filters.topic?1:0.5):0)+weights[1]*Math.min(overlap.length/Math.min(Math.max(tags.length,1),2),1)+(company?weights[2]:0)+(metro?weights[3]:0)+(context?weights[4]:0)+weights[5]*Math.max(0,1-person.used/person.monthly_cap));

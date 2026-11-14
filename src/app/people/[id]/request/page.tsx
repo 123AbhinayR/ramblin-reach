@@ -51,16 +51,16 @@ export default async function SendRequestPage({ params, searchParams }: {
             <h1>Ask {person.display_name}.</h1>
             {person.is_demo && <p className="notice">Demo profile · fictional person. This request is for demonstration purposes.</p>}
             {!person.available && (
-              <p className="notice">This person is at capacity this month ({person.remaining} of {person.monthly_cap} remaining). They may still respond.</p>
+              <p className="notice">This member is not accepting new requests. Explore another helper or check back later.</p>
             )}
           </div>
-          <ReachCardForm
+          {person.available && <ReachCardForm
             recipientId={person.id}
             recipientName={person.display_name}
             recipientHelpTopics={person.help_topics}
             goalId={goalId}
             preselectedTopic={preselectedTopic}
-          />
+          />}
         </div>
         <aside className="workspace-aside">
           <p className="eyebrow">Make it count</p>

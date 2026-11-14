@@ -34,8 +34,8 @@ export function RequestCard({ request, viewerId, peer, outcome }: RequestCardPro
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOutcomeForm, setShowOutcomeForm] = useState(false);
-  const [outcomeType, setOutcomeType] = useState<string>(OUTCOME_TYPES[0]);
-  const [privateNote, setPrivateNote] = useState("");
+  const [outcomeType, setOutcomeType] = useState<string>(outcome?.outcome_type ?? OUTCOME_TYPES[0]);
+  const [privateNote, setPrivateNote] = useState(outcome?.private_note ?? "");
   const [savingOutcome, setSavingOutcome] = useState(false);
   const [localOutcome, setLocalOutcome] = useState<OutcomeRow | undefined>(outcome);
 
@@ -53,6 +53,7 @@ export function RequestCard({ request, viewerId, peer, outcome }: RequestCardPro
       router.refresh();
     } catch {
       setError("Could not connect. Please try again.");
+    } finally {
       setLoading(false);
     }
   }

@@ -87,7 +87,7 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
       <div className="panel reach-sent" role="status">
         <p className="eyebrow">ReachCard sent</p>
         <h2>Your request is on its way to {recipientName}.</h2>
-        <p className="muted">You&apos;ll see it in your inbox. They&apos;ll be notified and can accept or decline.</p>
+        <p className="muted">Your request is saved in their inbox, where they can accept or decline.</p>
         <p className="field-hint">Redirecting to your requests…</p>
       </div>
     );
@@ -175,6 +175,7 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
 
       <fieldset>
         <legend>Preferred format</legend>
+        <p className="field-hint">A preference for how to connect. No meeting is scheduled by sending this request.</p>
         {FORMATS.map(f => (
           <label key={f} className="check-label">
             <input

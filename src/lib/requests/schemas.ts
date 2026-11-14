@@ -70,7 +70,7 @@ export const requestRowSchema = z.object({
   created_at: z.string(),
   responded_at: z.string().nullable(),
   completed_at: z.string().nullable(),
-  idempotency_key: z.uuid(),
+  idempotency_key: z.guid(),
 });
 
 export const outcomeRowSchema = z.object({

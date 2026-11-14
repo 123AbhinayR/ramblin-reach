@@ -107,3 +107,13 @@ Built the complete structured help request lifecycle:
 Verification:
 - `npm run check`: 48 unit tests passed across 6 test suites (domain, auth, intent, routing, matching, reachcard). Zero type errors, zero lint warnings.
 - Playwright E2E (`tests/e2e/requests.spec.ts`): E05–E09 passed on both desktop and 375px mobile viewports, including live authentication, ReachCard submission, helper acceptance, student completion, private outcome persistence, and axe-core accessibility checks.
+
+### Refinement handoff — November 14
+
+The user supplied an updated A–D release brief. Inspected local and remote branches before editing; created `dev` from `backup/codex-handoff-2026-11-14` (967478f) with all eight modified files and both untracked refinement files preserved. No history was rewritten. Latest steering authorizes continuing B–D after A passes, superseding the brief's original stop after A.
+
+Milestone A changes: six distinct selectable goal examples; shared searchable city input across profiles, goals and discovery; international/custom city validation with canonical aliases; case-insensitive exact company AND city matching; radio sizing, session action loading reset, existing-outcome defaults, unavailable recipient form/CTA protection, truthful inbox-success copy, mobile profile CTA visibility, four-column narrow navigation, and narrow header wrapping. A database-returned idempotency key now accepts PostgreSQL GUID syntax: seeded quota requests contained valid database UUIDs without RFC version bits and previously crashed the inbox. New request input validation remains strict.
+
+Test infrastructure uses a fresh production server instead of reusing a stale preview. Request journey tests create isolated fictional authenticated accounts in the allowlisted local database, preserving existing accounts and request history rather than exhausting the manual demo quota. No destructive reset or deletion was performed.
+
+Milestone A verified: typecheck/lint and 52 unit tests green; production build green; 51 transactional plus 6 concurrency/database checks green. Final fresh-production browser regression: all 20 tests passed, including keyboard city search at 375/390/768/1440 and separate authenticated request/accept/complete/private-outcome journeys. Prior failures exposed and prompted the fixes above. No hosted deployment is claimed.

@@ -1,15 +1,9 @@
-import { readFile } from "node:fs/promises";
+import {isolatedAccounts} from "./isolated-accounts";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { z } from "zod";
 
 test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private outcome flow", async ({ browser }, testInfo) => {
-  const accounts = z.array(z.object({ name: z.string(), email: z.string(), password: z.string() }))
-    .parse(JSON.parse(await readFile(".tmp/demo-accounts.json", "utf8")));
-
-  const studentAccount = accounts.find(a => a.name === "student");
-  const helperAccount = accounts.find(a => a.name === "A1");
-  if (!studentAccount || !helperAccount) throw new Error("Demo seed required");
+  const {studentAccount,helperAccount}=await isolatedAccounts();
 
   // 1. Student context: log in and send ReachCard to Jordan Mercer (A1)
   const studentContext = await browser.newContext();
@@ -25,13 +19,14 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
 
   // Navigate to People -> Jordan Mercer
   await studentPage.getByRole("navigation", { name: "Workspace", exact: true }).getByRole("link", { name: "People", exact: true }).click();
-  await studentPage.getByLabel("Company", { exact: true }).fill("Microsoft");
+  await studentPage.getByLabel("Company", { exact: true }).fill(`E2E ${helperAccount.id}`);
   await studentPage.getByRole("button", { name: "Find Jackets" }).click();
   await expect(studentPage.getByRole("heading", { name: "Jordan Mercer" })).toBeVisible();
 
   // Click View profile
-  await studentPage.getByRole("link", { name: "View profile" }).first().click();
-  await expect(studentPage.getByRole("heading", { name: "Jordan Mercer" })).toBeVisible();
+  await studentPage.locator(".person-card").filter({has: studentPage.getByRole("heading", {name:"Jordan Mercer"})}).getByRole("link", { name: "View profile" }).click();
+  await expect(studentPage).toHaveURL(/\/people\/[0-9a-f-]+$/);
+  await expect(studentPage.getByRole("heading", { name: "DIY temperature logger" })).toBeVisible();
 
   // Click Send a ReachCard
   await studentPage.getByRole("link", { name: "Send a ReachCard" }).click();
@@ -114,7 +109,7 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
 
   // Click "Record outcome"
   await studentPage.getByRole("button", { name: "Record outcome" }).click();
-  await expect(studentPage.getByRole("heading", { name: /Record your outcome/ })).toBeVisible();
+  await expect(studentPage.getByText("Record your outcome · private", {exact:true})).toBeVisible();
 
   // Select outcome type "Received technical advice"
   await studentPage.getByLabel("What happened?").selectOption({ label: "Received technical advice" });
