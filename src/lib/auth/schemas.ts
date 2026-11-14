@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AFFILIATIONS, HELP_TOPICS, METROS, VERIFICATION_STATES, textField } from "@/lib/domain/schemas";
+import { AFFILIATIONS, HELP_TOPICS, VERIFICATION_STATES, locationSchema, textField } from "@/lib/domain/schemas";
 
 export const credentialsSchema = z.strictObject({ email: z.email().max(254), password: z.string().min(12).max(128) });
 export const emailSchema = z.strictObject({ email: z.email().max(254) });
@@ -7,7 +7,7 @@ export const passwordSchema = z.strictObject({ password: z.string().min(12).max(
 export const profileInputSchema = z.strictObject({
   display_name: textField(1, 80), visible: z.boolean(), paused: z.boolean(),
   major: textField(0, 100).nullable(), grad_year: z.number().int().min(1900).max(2200).nullable(),
-  company_name: textField(0, 100).nullable(), metro: z.enum(METROS).nullable(),
+  company_name: textField(0, 100).nullable(), metro: locationSchema.nullable().transform(value => value || null),
   role_title: textField(0, 100).nullable(), bio: textField(0, 400).nullable(),
   skills: z.array(textField(1, 40)).max(20), gt_topics: z.array(textField(1, 40)).max(20),
   help_topics: z.array(z.enum(HELP_TOPICS)).max(5), monthly_cap: z.number().int().min(1).max(10),

@@ -86,4 +86,40 @@ Verification: `npm run check` passed with 27 unit tests; production build and al
 
 Source review on November 14: Hive, CREATE-X, and Regional Networks retrieved directly. Invention Studio and Career Center direct fetches returned gateway errors; official indexed pages corroborated their limited descriptions. No hours or live-access claims were added. Source records preserve eligibility caveats and unknown availability. Additional source candidates are not enabled. SQL RPC argument types were adapted to represent nullable arguments accepted by the actual database; generated CLI types incorrectly omitted nullability.
 
-Remaining: people matching/profile UI, ReachCard inbox and private outcome UI, then opt-in project lesson editing after the complete core journey passes. The supplied prompt files are reference workflows; the user's explicit instruction to continue supersedes their old per-milestone approval pauses.
+### Milestone 04 — JacketMatch directory and people matching
+
+Delivered searchable people directory (`/people`), individual profile view (`/people/[id]`), factual match reasons, project memories with practical lessons, and truthful empty and alternative sections when exact company and metro combinations yield no volunteers.
+
+Verification:
+- Tested exact company AND metro filtering with honest alternatives.
+- Tested profile memory lessons, demo profiles, and privacy guards.
+- All 11 unit tests in `matching.test.ts` passed (M01–M12, M17, M19, M21, S18, R23).
+
+### Milestone 05 — ReachCard end-to-end request workflow, inbox and private outcomes
+
+Built the complete structured help request lifecycle:
+- ReachCard request form (`/people/[id]/request`) with deterministic ReachReady coaching (C01–C15), character boundaries, format selection, and optional safe public project link validation.
+- Connection requests API (`/api/requests`, `/api/requests/[id]`) backed by atomic database RPCs enforcing monthly quota, idempotency, duplicate pending check, and rate limiting.
+- Full participant-only inbox (`/requests`) with Received and Sent sections, dynamic status badges, and transition actions: helper Accept/Decline, student Cancel, participant Mark as Complete.
+- Private outcome recording (`/api/requests/[id]/outcomes`) after completion, storing self-reported outcomes and private notes accessible only to participants.
+- Workspace navigation updated with accessible Requests link (`/requests`).
+
+Verification:
+- `npm run check`: 48 unit tests passed across 6 test suites (domain, auth, intent, routing, matching, reachcard). Zero type errors, zero lint warnings.
+- Playwright E2E (`tests/e2e/requests.spec.ts`): E05–E09 passed on both desktop and 375px mobile viewports, including live authentication, ReachCard submission, helper acceptance, student completion, private outcome persistence, and axe-core accessibility checks.
+
+### Refinement handoff — November 14
+
+The user supplied an updated A–D release brief. Inspected local and remote branches before editing; created `dev` from `backup/codex-handoff-2026-11-14` (967478f) with all eight modified files and both untracked refinement files preserved. No history was rewritten. Latest steering authorizes continuing B–D after A passes, superseding the brief's original stop after A.
+
+Milestone A changes: six distinct selectable goal examples; shared searchable city input across profiles, goals and discovery; international/custom city validation with canonical aliases; case-insensitive exact company AND city matching; radio sizing, session action loading reset, existing-outcome defaults, unavailable recipient form/CTA protection, truthful inbox-success copy, mobile profile CTA visibility, four-column narrow navigation, and narrow header wrapping. A database-returned idempotency key now accepts PostgreSQL GUID syntax: seeded quota requests contained valid database UUIDs without RFC version bits and previously crashed the inbox. New request input validation remains strict.
+
+Test infrastructure uses a fresh production server instead of reusing a stale preview. Request journey tests create isolated fictional authenticated accounts in the allowlisted local database, preserving existing accounts and request history rather than exhausting the manual demo quota. No destructive reset or deletion was performed.
+
+Milestone A verified: typecheck/lint and 52 unit tests green; production build green; 51 transactional plus 6 concurrency/database checks green. Final fresh-production browser regression: all 20 tests passed, including keyboard city search at 375/390/768/1440 and separate authenticated request/accept/complete/private-outcome journeys. Prior failures exposed and prompted the fixes above. No hosted deployment is claimed.
+
+Milestone B: server-authoritative affiliation now selects the student or alumni workspace. Students see their next incomplete saved action, active connections, new-goal examples and opt-in project lessons. Alumni see pending requests with direct response controls, accepted connections, help settings and optional new goals. Profile guidance reflects affiliation; shared navigation remains available. No schema/auth replacement or privilege changes. Verified `npm run check` (52 tests), production build, and 4 targeted desktop/mobile role-dashboard and refinement browser tests. Project editing and contextual request refinements continue in C.
+
+Milestone C: added owner-scoped project editing and explicit member-sharing consent, including withdrawal to private visibility. Private request outcomes never flow automatically into shared lessons. An owned goal now prefills editable ReachCard context; foreign goal IDs provide no context. Existing deterministic coaching and offered-topic validation remain in place. Verified check with 54 unit tests, production build, and 4 desktop/mobile project edit/withdrawal plus isolated two-account request lifecycle browser tests. Continued-mentoring administration and live AI remain deferred to protect the focused demo. No new tables or third-party integrations.
+
+Milestone D release gate: final check passed with 54 unit tests; production build passed; database gate passed 51 transactional and 6 concurrent/month-boundary checks. Full production browser run passed 24 tests, plus 2 additional four-width/axe release-layout tests. After adding test-profile cleanup, both desktop and actual mobile goal-to-outcome tests passed again. Isolated fixture profiles are hidden after each test; all their records are preserved. Runtime audit reported zero vulnerabilities; the operator credential was absent from 50 compiled client JavaScript files. Screenshots captured and desktop dashboard visually inspected. Release evidence and deployment limitations are in RELEASE_REPORT.md; three-minute local demo and hosted handoff are in DEMO_RUNBOOK.md. No destructive reset, force push, paid integration or hosted deployment occurred. These results do not claim every original 136 scenario or full production certification. Verified dev milestones may now be merged into main under the user's authorization.
