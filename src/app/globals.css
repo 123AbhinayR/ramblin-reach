@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+.next-action{padding:24px;border-left:4px solid #b69d57;background:#f2eee4;border-radius:0 12px 12px 0;margin-bottom:24px}.next-action h2{font-size:24px;margin:10px 0}.next-action>p:not(.eyebrow){font-size:14px;color:#4f6073}
+
 @media(max-width:550px){nav.workspace-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}nav.workspace-nav a{justify-content:center;font-size:12px;gap:5px}nav.workspace-nav a svg{width:15px}}
 
 @media(max-width:800px){.profile-layout>.workspace-aside{display:block}}
