@@ -53,8 +53,9 @@ export default async function SendRequestPage({ params, searchParams }: {
       <div className="reach-layout" style={{ marginTop: 24 }}>
         <div>
           <div style={{ marginBottom: 24 }}>
-            <p className="eyebrow">ReachCard</p>
-            <h1>Ask {person.display_name}.</h1>
+            <p className="eyebrow">QuickReach</p>
+            <h1>Reach out to {person.display_name}.</h1>
+            <p className="muted">Pick a reason, edit your message, and review before sending.</p>
 
             {!person.available && (
               <p className="notice">This member is not accepting new requests. Explore another helper or check back later.</p>

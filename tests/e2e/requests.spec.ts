@@ -31,7 +31,7 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   await expect(studentPage.getByRole("heading", { name: "DIY temperature logger" })).toBeVisible();
 
   // Click Send a ReachCard
-  await studentPage.getByRole("link", { name: "Connect" }).click();
+  await studentPage.getByRole("link", { name: /Reach out|Connect/ }).click();
   await expect(studentPage).toHaveURL(/\/people\/[0-9a-f-]+\/request/);
   await expect(studentPage.getByRole("heading", { name: /Ask Jordan Mercer/ })).toBeVisible();
 

@@ -20,10 +20,10 @@ export function CircleEditor({post,category="projects",projects=[],initialProjec
  return <form className="form-stack panel" onSubmit={submit}>
   <p className="field-hint">Shared with verified members. Include only information you have permission to share; no private contact details.</p>
   {projects.length>0&&<label>Linked project<select name="project_id" defaultValue={post?.project_id??initialProjectId??""}><option value="">No linked project</option>{projects.map(p=><option key={p.id} value={p.id}>{p.title}</option>)}</select></label>}
-  <label>Title<input name="title" required minLength={3} maxLength={100} defaultValue={post?.title} placeholder="What are you working on?"/></label>
+  <label>Title<input name="title" required minLength={3} maxLength={100} defaultValue={post?.title} placeholder="What are you building, and where are you stuck?"/></label>
   <div className="form-grid"><label>Circle<select name="category" defaultValue={post?.category??category}>{Object.entries(CIRCLES).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label><label>Post type<select name="kind" defaultValue={post?.kind??"help"}>{Object.entries(POST_TYPES).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label></div>
   <label>Description<textarea name="description" required minLength={10} maxLength={2000} rows={4} defaultValue={post?.description}/></label>
-  <label>Specific request<textarea name="specific_request" required minLength={10} maxLength={400} rows={2} defaultValue={post?.specific_request} placeholder="What would help you take the next step?"/></label>
+  <label>Specific request<textarea name="specific_request" required minLength={10} maxLength={400} rows={2} defaultValue={post?.specific_request} placeholder="What would help most?"/></label>
   <details><summary className="text-link">Add tags, links or team size (optional)</summary><div className="form-stack">
    <label>Skills / tags<input name="tags" maxLength={327} defaultValue={post?.tags.join(", ")} placeholder="sensor, electronics (up to 8)"/></label>
    <label>Public project URL<input name="project_url" type="url" maxLength={500} defaultValue={post?.project_url??""}/></label>

@@ -45,8 +45,8 @@ export function ProfileForm({ profile }: { profile: Profile }) {
     <label>Georgia Tech topics and communities<input name="gt_topics" defaultValue={profile.gt_topics.join(", ")} /></label>
     {profile.affiliation==="alumni"&&<fieldset><legend>Built at Tech (optional)</legend><p className="field-hint">Your own project history, self-reported. Clear the title to remove it. Shared only with your visible profile.</p><label>Project built at Tech<input name="built_title" maxLength={100} defaultValue={profile.built_at_tech?.title??""}/></label><label>Project year<input name="built_year" type="number" min={1900} max={2200} defaultValue={profile.built_at_tech?.year??""}/></label><label>Lab or club<input name="built_lab" maxLength={100} defaultValue={profile.built_at_tech?.lab??""}/></label></fieldset>}
     <h2>Learning Exchange</h2>
-    <label>Can teach<input name="can_teach" defaultValue={profile.can_teach.join(", ")}/></label>
-    <label>Want to learn<input name="want_learn" defaultValue={profile.want_learn.join(", ")}/></label>
+    <label>What I can teach<input name="can_teach" defaultValue={profile.can_teach.join(", ")}/></label>
+    <label>What I want to learn<input name="want_learn" defaultValue={profile.want_learn.join(", ")}/></label>
     <label>Interests<input name="interests" defaultValue={profile.interests.join(", ")}/><span className="field-hint">Comma-separated tags, up to 20 per field. Shared only when your profile is visible.</span></label>
     <fieldset><legend>Categories I can help with</legend>{["hackathons","startups","projects","research","clubs","careers"].map(c=><label className="check-label" key={c}><input type="checkbox" name="mentor_categories" value={c} defaultChecked={profile.mentor_categories.includes(c as typeof profile.mentor_categories[number])}/>{c}</label>)}</fieldset>
     <fieldset><legend>How you’d like to help</legend>{HELP_TOPICS.map(topic => <label className="check-label" key={topic}><input type="checkbox" name="help_topics" value={topic} defaultChecked={profile.help_topics.includes(topic)} />{labels[topic]}</label>)}</fieldset>

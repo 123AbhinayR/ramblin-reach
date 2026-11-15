@@ -19,7 +19,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="container disclaimer">
-        Ramblin&apos; Reach is an independent student project and is not affiliated with or endorsed by Georgia Tech.
+        An independent student project for the Georgia Tech Campus Solutions Hackathon 2026. Ramblin&apos; Reach is not affiliated with or endorsed by Georgia Tech.
       </div>
     </footer>
   );

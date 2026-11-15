@@ -9,7 +9,7 @@ test("welcome page fits viewports, has no overflow, and both buttons work", asyn
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      "Get unstuck on your project with help from Georgia Tech alumni and students"
+      "One network for Georgia Tech students and alumni to build, help, and learn together"
     );
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.screenshot({ path: `docs/screenshots/welcome-${width}.png`, fullPage: true });

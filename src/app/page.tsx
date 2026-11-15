@@ -31,12 +31,11 @@ export default function WelcomePage() {
     <>
       <section className="welcome-hero container">
         <h1 className="welcome-headline">
-          Get unstuck on your project with help from Georgia Tech alumni and students
+          One network for Georgia Tech students and alumni to build, help, and learn together
         </h1>
         <p className="welcome-support">
-          Ramblin&apos; Reach connects Georgia Tech students and alumni through what we&apos;re actually building.
-          Learn how to build, explore companies and startups where Jackets work, and connect across cities through
-          project-grounded conversations.
+          Post what you&apos;re building, see who can help and why, and reach out with a message you review first.
+          Alumni can help students and learn from them too.
         </p>
         <div className="welcome-actions">
           <Button asChild>
@@ -56,18 +55,16 @@ export default function WelcomePage() {
         <div className="welcome-audience-grid">
           <div className="welcome-audience-card">
             <span className="icon-tile"><GraduationCap size={24} /></span>
-            <h3>Students: Build, explore companies &amp; get unstuck</h3>
+            <h3>Students: ask for help, offer help, and build together</h3>
             <p>
-              Post your project blockers to get real-world guidance. Explore companies and startups where
-              Georgia Tech alumni work, ask for career advice and resume reviews, and learn directly from experienced builders.
+              Post project blockers in Circles, see which members have relevant experience, and reach out with a focused message you review first.
             </p>
           </div>
           <div className="welcome-audience-card">
             <span className="icon-tile"><HandHeart size={24} /></span>
-            <h3>Alumni: Give back &amp; connect in new cities</h3>
+            <h3>Alumni: help students and learn from them too</h3>
             <p>
-              Give back seamlessly on your schedule with 60-minute availability windows. Connect with fellow Yellow
-              Jackets when relocating to a new city, and stay plugged into what students are inventing on campus.
+              Offer help on your schedule, share what you know, and learn from what students are building now. Connect with fellow members in new cities.
             </p>
           </div>
         </div>
