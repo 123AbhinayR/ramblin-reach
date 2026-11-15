@@ -19,6 +19,9 @@ export const authorSchema=z.object({id:z.uuid(),display_name:z.string(),affiliat
 export type CirclePost=z.infer<typeof postSchema>;
 export type CircleComment=z.infer<typeof commentSchema>;
 export type CircleAuthor=z.infer<typeof authorSchema>;
+export function canManagePost(post:Pick<CirclePost,"owner_id">,viewerId:string|null|undefined){
+ return Boolean(viewerId)&&post.owner_id===viewerId;
+}
 export function orderPosts(posts:CirclePost[],category:string,sort:"recent"|"relevant",skills:string[]) {
  const tags=new Set(skills.map(s=>s.toLowerCase()));
  const score=(post:CirclePost)=>post.tags.filter(t=>tags.has(t.toLowerCase())).length;

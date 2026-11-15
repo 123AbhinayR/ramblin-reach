@@ -1,7 +1,8 @@
 import {describe,it,expect} from "vitest";
-import {postInputSchema,commentInputSchema,orderPosts,type CirclePost} from "../../src/lib/circles/schemas";
+import {postInputSchema,commentInputSchema,orderPosts,canManagePost,type CirclePost} from "../../src/lib/circles/schemas";
 const input={category:"projects",kind:"help",title:"Sensor calibration",description:"Building a fictional sensor project.",specific_request:"How should I test calibration?",tags:["sensor"],project_url:null,github_url:null,team_size:null};
 describe("Circles",()=>{
+ it("CI18 only the owner can edit, resolve or delete a post",()=>{const post={owner_id:"student-owner"};expect(canManagePost(post,"student-owner")).toBe(true);for(const viewer of ["alumni-helper","stranger",null,undefined,""])expect(canManagePost(post,viewer)).toBe(false);});
  it("CI01 validates required content and rejects forged ownership",()=>{expect(postInputSchema.safeParse(input).success).toBe(true);for(const patch of [{title:""},{specific_request:"short"},{category:"unknown"},{owner_id:"forged"},{tags:Array(9).fill("sensor")}])expect(postInputSchema.safeParse({...input,...patch}).success).toBe(false);});
  it("CI02 rejects unsafe project URLs",()=>{for(const project_url of ["javascript:alert(1)","http://example.com","https://127.0.0.1/a"])expect(postInputSchema.safeParse({...input,project_url}).success).toBe(false);});
  it("CI03 filters categories and ranks shared skills deterministically",()=>{

@@ -14,14 +14,16 @@ import {labels} from "@/lib/domain/schemas";
 import {candidatesFor} from "@/lib/matching/data";
 import {circlePosts,circleAuthors} from "@/lib/circles/data";
 import {orderPosts,CIRCLES} from "@/lib/circles/schemas";
+import {recentGoalHistory} from "@/lib/path/history";
 export const dynamic = "force-dynamic";
 export default async function DashboardPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   if (!isConfigured()) return <SetupState />;
   const { profile, client } = await requireMember();
   const example = (await searchParams).example;
-  const { data, error } = await client.from("goals").select("id,goal_text,intent,target_company,target_metro,extracted_tags,created_at").order("created_at", { ascending: false }).limit(6);
+  const { data, error } = await client.from("goals").select("id,goal_text,intent,target_company,target_metro,extracted_tags,created_at").order("created_at", { ascending: false }).limit(30);
   if (error) throw new Error("Your paths could not be loaded.");
   const goals = z.array(goalSchema).parse(data);
+  const history = recentGoalHistory(goals);
   const alumni=profile.affiliation==="alumni";
   const discussions=await circlePosts(client);
   const authors=await circleAuthors(client,discussions.map(post=>post.owner_id));
@@ -48,9 +50,9 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
           {alumni?<><DashboardConnections inbox={inbox} viewerId={profile.id} alumni/><section className="panel recent-paths"><h2>How I can help</h2><p className="muted">{profile.paused?"Requests paused":profile.visible?"Profile visible to members":"Profile hidden"} · Up to {profile.monthly_cap} incoming requests per month</p><div className="tag-list">{profile.help_topics.map(topic=><span key={topic}>{labels[topic]}</span>)}</div><Link className="text-link" href="/profile">Edit topics, availability and experience →</Link></section><details className="recent-paths"><summary className="text-link">Start a learning goal of your own</summary><GoalComposer initialExample={typeof example==="string"?example:undefined}/></details></>:<>{next&&<section className="next-action"><p className="eyebrow">My next step</p><h2>{next.title}</h2><p>{next.description}</p><Link className="text-link" href={`/path/${currentPath!.goal.id}`}>Continue your path →</Link></section>}<GoalComposer initialExample={typeof example === "string" ? example : undefined} /><DashboardConnections inbox={inbox} viewerId={profile.id} alumni={false}/></>}
           <section className="recent-paths">
             <h2>Pick up where you left off</h2>
-            {goals.length ? goals.map(goal => (
-              <Link className="recent-path" href={`/path/${goal.id}`} key={goal.id}>
-                <span>{goal.goal_text}</span>
+            {history.length ? history.map(({goal,saves}) => (
+              <Link className="recent-path saved-path" href={`/path/${goal.id}`} key={goal.id}>
+                <span className="saved-path-copy"><span className="saved-path-title">{goal.goal_text}</span><span className="saved-path-meta">{goal.intent==="project"?"Project":goal.intent==="career"?"Career":"Relocation"} · Saved {new Intl.DateTimeFormat("en-US",{month:"short",day:"numeric",timeZone:"America/New_York"}).format(new Date(goal.created_at))}{saves>1?` · ${saves} recent saves · opens latest`:""}</span></span>
                 <span aria-hidden="true">↗</span>
               </Link>
             )) : <p className="muted">Your saved paths will appear here. Start with a question you want to make progress on.</p>}

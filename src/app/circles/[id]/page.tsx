@@ -6,11 +6,11 @@ import {WorkspaceNav} from "@/components/workspace-nav";
 import {CircleActions} from "@/components/circle-actions";
 import {CircleEditor} from "@/components/circle-editor";
 import {circleDiscussion,circleAuthors} from "@/lib/circles/data";
-import {CIRCLES,POST_TYPES} from "@/lib/circles/schemas";
+import {CIRCLES,POST_TYPES,canManagePost} from "@/lib/circles/schemas";
 export const dynamic="force-dynamic";
 export default async function DiscussionPage({params}:{params:Promise<{id:string}>}){
  const {client,profile}=await requireMember();const id=z.uuid().safeParse((await params).id);if(!id.success)notFound();const discussion=await circleDiscussion(client,id.data);if(!discussion)notFound();const {post,comments}=discussion;
- const authors=await circleAuthors(client,[post.owner_id,...comments.map(c=>c.owner_id)]);const author=authors.find(a=>a.id===post.owner_id);const owner=post.owner_id===profile.id;
+ const authors=await circleAuthors(client,[post.owner_id,...comments.map(c=>c.owner_id)]);const author=authors.find(a=>a.id===post.owner_id);const owner=canManagePost(post,profile.id);
  const name=(ownerId:string)=>{const a=authors.find(p=>p.id===ownerId);return `${a?.display_name??"Member"} · ${a?.affiliation==="alumni"?"Alumni":"Student"}${a?.is_demo?" · DEMO DATA":""}`;};
  return <section className="container workspace"><WorkspaceNav/><Link className="text-link" href={`/circles?category=${post.category}`}>← {CIRCLES[post.category]}</Link><article className="panel circle-detail"><p className="eyebrow">{POST_TYPES[post.kind]} · {post.resolved?"Resolved":"Open"}</p><h1>{post.title}</h1><p className="field-hint">{name(post.owner_id)}</p><p className="preserve-lines">{post.description}</p><h2>What would help</h2><p className="preserve-lines">{post.specific_request}</p><div className="tag-list">{post.tags.map(tag=><span key={tag}>{tag}</span>)}</div>{post.team_size&&<p>Team size: {post.team_size}</p>}{post.project_url&&<a className="text-link" href={post.project_url} target="_blank" rel="noopener noreferrer">Public project ↗</a>}{post.github_url&&<a className="text-link" href={post.github_url} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}
  {!owner&&author&&<p><Link className="text-link" href={`/people/${author.id}`}>I can help · view member and connect →</Link></p>}

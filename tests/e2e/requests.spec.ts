@@ -78,7 +78,7 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   await expect(helperPage).toHaveURL(/dashboard$/);
 
   // Helper goes to /requests
-  await helperPage.getByRole("navigation", { name: "Workspace", exact: true }).getByRole("link", { name: "Requests", exact: true }).click();
+  await helperPage.getByRole("navigation", { name: "Workspace", exact: true }).getByRole("link", { name: "Inbox", exact: true }).click();
   await expect(helperPage).toHaveURL(/requests$/);
 
   // Accessibility scan on Requests inbox

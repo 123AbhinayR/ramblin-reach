@@ -1,7 +1,7 @@
 import {z} from "zod";
 import {apiMember} from "@/lib/api-member";
 import {failure,json,readInput,HttpError} from "@/lib/http";
-import {postInputSchema,postSchema,commentInputSchema,commentSchema} from "@/lib/circles/schemas";
+import {postInputSchema,postSchema,commentInputSchema,commentSchema,canManagePost} from "@/lib/circles/schemas";
 import {textField} from "@/lib/domain/schemas";
 const actionSchema=z.discriminatedUnion("action",[
  z.strictObject({action:z.literal("edit"),post:postInputSchema}),
@@ -24,7 +24,7 @@ export async function POST(request:Request,{params}:{params:Promise<{id:string}>
   if(error)throw new HttpError(error.code==="23505"?409:429,"REPORT_FAILED","Already reported, or too many reports. Try again later.");
   return json({reported:true});
  }
- if(post.owner_id!==profile.id)throw new HttpError(404,"NOT_FOUND","Discussion unavailable.");
+ if(!canManagePost(post,profile.id))throw new HttpError(404,"NOT_FOUND","Discussion unavailable.");
  if(input.action==="delete"){
   const {error}=await client.from("circle_posts").delete().eq("id",id).eq("owner_id",profile.id);if(error)throw error;return json({deleted:true});
  }
