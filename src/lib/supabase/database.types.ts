@@ -11,6 +11,7 @@ export type Database = {
             [_ in never]: never
           }
           Functions: {
+"set_available_now":{Args:{p_enabled:boolean};Returns:string|null},
             "graphql":
 { Args: { "extensions"?: Json,"operationName"?: string,"query"?: string,"variables"?: Json }; Returns: Json
                            }
@@ -329,15 +330,18 @@ isOneToOne: false
                   ]
                 },"profiles": {
                   Row: {
+                    "available_until": string | null,
                     "built_at_tech": Json | null,
                     "affiliation": Database["public"]['Enums']["affiliation"],"bio": string | null,"can_teach": (string)[],"company_name": string | null,"created_at": string,"display_name": string,"grad_year": number | null,"gt_topics": (string)[],"help_topics": (Database["public"]['Enums']["help_topic"])[],"id": string,"interests": (string)[],"is_demo": boolean,"major": string | null,"mentor_categories": (string)[],"metro": string | null,"monthly_cap": number,"paused": boolean,"role_title": string | null,"skills": (string)[],"updated_at": string,"verification_method": Database["public"]['Enums']["verification_method"],"verification_state": Database["public"]['Enums']["verification_state"],"verified_at": string | null,"visible": boolean,"want_learn": (string)[]
                   }
                   ComputedFields: never
                   Insert: {
+                    "available_until"?: string | null,
                     "built_at_tech"?: Json | null,
                     "affiliation"?: Database["public"]['Enums']["affiliation"],"bio"?: string | null,"can_teach"?: (string)[],"company_name"?: string | null,"created_at"?: string,"display_name"?: string,"grad_year"?: number | null,"gt_topics"?: (string)[],"help_topics"?: (Database["public"]['Enums']["help_topic"])[],"id": string,"interests"?: (string)[],"is_demo"?: boolean,"major"?: string | null,"mentor_categories"?: (string)[],"metro"?: string | null,"monthly_cap"?: number,"paused"?: boolean,"role_title"?: string | null,"skills"?: (string)[],"updated_at"?: string,"verification_method"?: Database["public"]['Enums']["verification_method"],"verification_state"?: Database["public"]['Enums']["verification_state"],"verified_at"?: string | null,"visible"?: boolean,"want_learn"?: (string)[]
                   }
                   Update: {
+                    "available_until"?: string | null,
                     "built_at_tech"?: Json | null,
                     "affiliation"?: Database["public"]['Enums']["affiliation"],"bio"?: string | null,"can_teach"?: (string)[],"company_name"?: string | null,"created_at"?: string,"display_name"?: string,"grad_year"?: number | null,"gt_topics"?: (string)[],"help_topics"?: (Database["public"]['Enums']["help_topic"])[],"id"?: string,"interests"?: (string)[],"is_demo"?: boolean,"major"?: string | null,"mentor_categories"?: (string)[],"metro"?: string | null,"monthly_cap"?: number,"paused"?: boolean,"role_title"?: string | null,"skills"?: (string)[],"updated_at"?: string,"verification_method"?: Database["public"]['Enums']["verification_method"],"verification_state"?: Database["public"]['Enums']["verification_state"],"verified_at"?: string | null,"visible"?: boolean,"want_learn"?: (string)[]
                   }
@@ -448,6 +452,7 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
+"set_available_now":{Args:{p_enabled:boolean};Returns:string|null},
             "consume_rate_limit":
 { Args: { "p_operation": string }; Returns: boolean
                            },

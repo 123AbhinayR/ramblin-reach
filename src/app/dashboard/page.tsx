@@ -1,3 +1,4 @@
+import {AvailableBadge} from "@/components/available-now";
 import { SetupState } from "@/components/setup-state";
 import { isConfigured } from "@/lib/env";
 import { requireMember } from "@/lib/auth/guard";
@@ -49,6 +50,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
         </div>
         <SignOut />
       </div>
+      {alumni&&mayHelp&&<AvailableBadge until={profile.available_until} asOf={new Date().toISOString()}/>}
       {profile.is_demo && <p className="demo-strip">Demo account · fictional profile, real authenticated session</p>}
       <section className="home-circles"><div className="results-heading"><h2>{alumni?"Students you can help":"Questions needing answers"}</h2><Link className="text-link" href="/circles">Explore Circles →</Link></div>{questions.length?<div className="circle-grid">{questions.map(post=>{return <article className="project-memory" key={post.id}><p className="eyebrow">{CIRCLES[post.category]}{authors.find(a=>a.id===post.owner_id)?.is_demo?" · DEMO DATA":""}</p><h3><Link href={`/circles/${post.id}`}>{post.title}</Link></h3><p>{post.specific_request}</p><p className="field-hint">{post.match.reasons[0]??"Recent open question"}</p><Link className="text-link" href={`/circles/${post.id}`}>Read and offer help →</Link></article>;})}</div>:<p className="muted">No open questions yet. <Link className="text-link" href="/circles/new">Share what you are working on →</Link></p>}</section>
       {!alumni&&<section className="home-circles" aria-label="Learning Exchange"><h2>People to learn from</h2>{teachers.map(p=><article className="project-memory" key={p.id}><h3><Link href={`/people/${p.id}`}>{p.display_name}</Link></h3><p className="field-hint">{p.is_demo?"Demo profile · fictional experience":"Member · self-reported experience"}</p><p>{p.reasons[0]} · Accepting requests</p></article>)}{!teachers.length&&<p>Add accurate Can teach and Want to learn tags to find reciprocal matches.</p>}<h2>Alumni want to learn this</h2>{learners.map(p=><article className="project-memory" key={p.id}><h3><Link href={`/circles/${p.id}`}>{p.title}</Link></h3><p>You can teach: {overlap(p.tags,profile.can_teach).join(", ")}</p></article>)}{!learners.length&&<p>No current Learning Requests match your teaching tags.</p>}</section>}

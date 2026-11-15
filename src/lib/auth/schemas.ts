@@ -18,7 +18,7 @@ export const profileInputSchema = z.strictObject({
 });
 export const profileSchema = profileInputSchema.extend({
   id: z.uuid(), affiliation: z.enum(AFFILIATIONS), verification_state: z.enum(VERIFICATION_STATES),
-  is_demo: z.boolean(),
+  is_demo: z.boolean(), available_until:z.string().nullable().default(null),
 });
-export const PROFILE_COLUMNS = "id,display_name,affiliation,verification_state,is_demo,visible,paused,major,grad_year,company_name,metro,role_title,bio,skills,gt_topics,help_topics,monthly_cap,built_at_tech,can_teach,want_learn,interests,mentor_categories";
+export const PROFILE_COLUMNS = "id,display_name,affiliation,verification_state,is_demo,visible,paused,major,grad_year,company_name,metro,role_title,bio,skills,gt_topics,help_topics,monthly_cap,available_until,built_at_tech,can_teach,want_learn,interests,mentor_categories";
 export type Profile = z.infer<typeof profileSchema>;
