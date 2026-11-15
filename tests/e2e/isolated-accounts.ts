@@ -7,8 +7,29 @@ import {test} from "@playwright/test";
 const createdIds:string[]=[];
 test.afterEach(async()=>{
  if(!createdIds.length)return;
+ const ids=createdIds.splice(0);
+ loadEnvFile(".env.seed.local");
+ const admin=createClient(process.env.SUPABASE_URL!,process.env.SUPABASE_SERVICE_ROLE_KEY!,{auth:{persistSession:false,autoRefreshToken:false}});
  const db=new pg.Client({connectionString:process.env.DATABASE_URL});await db.connect();
- try{await db.query("update public.profiles set visible=false,paused=true where id=any($1::uuid[])",[createdIds.splice(0)]);}finally{await db.end();}
+ try{
+  await db.query("delete from public.circle_comments where owner_id=any($1::uuid[]) or post_id in (select id from public.circle_posts where owner_id=any($1::uuid[]))",[ids]);
+  await db.query("delete from public.circle_posts where owner_id=any($1::uuid[])",[ids]);
+  await db.query("delete from public.request_messages where sender_id=any($1::uuid[]) or request_id in (select id from public.connection_requests where requester_id=any($1::uuid[]) or recipient_id=any($1::uuid[]))",[ids]);
+  await db.query("delete from public.request_reads where member_id=any($1::uuid[]) or request_id in (select id from public.connection_requests where requester_id=any($1::uuid[]) or recipient_id=any($1::uuid[]))",[ids]);
+  await db.query("delete from public.outcomes where reported_by=any($1::uuid[]) or request_id in (select id from public.connection_requests where requester_id=any($1::uuid[]) or recipient_id=any($1::uuid[]))",[ids]);
+  await db.query("delete from private.request_audit where request_id in (select id from public.connection_requests where requester_id=any($1::uuid[]) or recipient_id=any($1::uuid[]))",[ids]);
+  await db.query("delete from public.reports where reporter_id=any($1::uuid[]) or request_id in (select id from public.connection_requests where requester_id=any($1::uuid[]) or recipient_id=any($1::uuid[]))",[ids]);
+  await db.query("delete from public.connection_requests where requester_id=any($1::uuid[]) or recipient_id=any($1::uuid[])",[ids]);
+  await db.query("delete from public.member_projects where owner_id=any($1::uuid[])",[ids]);
+  await db.query("delete from public.goals where owner_id=any($1::uuid[])",[ids]);
+  await db.query("delete from public.notifications where recipient_id=any($1::uuid[]) or actor_id=any($1::uuid[])",[ids]);
+  await db.query("delete from public.blocks where blocker_id=any($1::uuid[]) or blocked_id=any($1::uuid[])",[ids]);
+  await db.query("delete from private.rate_limits where actor=any($1::uuid[])",[ids]);
+  await db.query("delete from public.profiles where id=any($1::uuid[])",[ids]);
+  for(const id of ids){
+   await admin.auth.admin.deleteUser(id).catch(()=>{});
+  }
+ }finally{await db.end();}
 });
 export async function isolatedAccounts(){
  loadEnvFile(".env.seed.local");

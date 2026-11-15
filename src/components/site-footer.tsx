@@ -1,5 +1,26 @@
+import Link from "next/link";
 import {getServerEnv} from "@/lib/env";
 import { Brand } from "./brand";
+
 export function SiteFooter() {
-  return <footer className="site-footer"><div className="container footer-inner"><Brand />{getServerEnv().DEMO_MODE==="1"&&<span className="environment-pill">Demo environment</span>}<p>Learn from the campus. Learn from each other. Pass it forward.</p></div><div className="container disclaimer">Ramblin&apos; Reach is an independent student project and is not affiliated with or endorsed by Georgia Tech.</div></footer>;
+  const isDemo = getServerEnv().DEMO_MODE === "1";
+  return (
+    <footer className="site-footer">
+      <div className="container footer-inner">
+        <Brand />
+        <div className="footer-links">
+          <a href="https://github.com/123AbhinayR/ramblin-reach" target="_blank" rel="noreferrer" className="text-link">GitHub</a>
+          <a href="https://github.com/123AbhinayR/ramblin-reach#readme" target="_blank" rel="noreferrer" className="text-link">README</a>
+          {isDemo && (
+            <Link href="/demo" className="environment-pill">
+              Demo environment
+            </Link>
+          )}
+        </div>
+      </div>
+      <div className="container disclaimer">
+        Ramblin&apos; Reach is an independent student project and is not affiliated with or endorsed by Georgia Tech.
+      </div>
+    </footer>
+  );
 }
