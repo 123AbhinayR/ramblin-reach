@@ -19,17 +19,17 @@ Accounts: Mira Talven (robotics student), Evan Corren (design/startups student),
 
 ## Click path
 
-**0:00–0:35 — Mira, mobile.** Open **Vision-guided robotics rover** from Profile, or `/projects/dddd0000-0000-4000-8000-000000000001`. Choose **Post a blocker or progress update**. Keep the linked project and Clubs. Describe the Pi/USB-camera lane detection flickering at the lab door, mention the lens cleaning/threshold attempt and ask what to hold fixed. Add `robotics, computer vision` tags. Publish.
+**0:00–0:35 -- Mira, mobile.** Open **Vision-guided robotics rover** from Profile, or `/projects/dddd0000-0000-4000-8000-000000000001`. Choose **Post a blocker or progress update**. Keep the linked project and Clubs. Describe the Pi/USB-camera lane detection flickering at the lab door, mention the lens cleaning/threshold attempt and ask what to hold fixed. Add `robotics, computer vision` tags. Publish.
 
-**0:35–1:00 — Arin.** Switch via `/demo`. Home shows **Students you can help**, a reason drawn from stored tags/Built at Tech, and the expiring Available now badge. Open the new blocker and offer to help compare controlled lighting tests. The other seeded discussions have varied replies, recent/older timestamps and a resolved packaging question; these are authored seed activity, not live-user statistics.
+**0:35–1:00 -- Arin.** Switch via `/demo`. Home shows **Students you can help**, a reason drawn from stored tags/Built at Tech, and the expiring Available now badge. Open the new blocker and offer to help compare controlled lighting tests. The other seeded discussions have varied replies, recent/older timestamps and a resolved packaging question; these are authored seed activity, not live-user statistics.
 
-**1:00–1:30 — Mira, then Arin.** Switch back to Mira. The project shows the reply. **Get Help** opens QuickReach with project context. Choose **Quick Question**, edit, review, explicitly send. Switch to Arin, open Inbox, locate the new question and Accept. A separate accepted lighting conversation is already seeded; choose the new request.
+**1:00–1:30 -- Mira, then Arin.** Switch back to Mira. The project shows the reply. **Get Help** opens QuickReach with project context. Choose **Quick Question**, edit, review, explicitly send. Switch to Arin, open Inbox, locate the new question and Accept. A separate accepted lighting conversation is already seeded; choose the new request.
 
-**1:30–2:00 — Both.** Mira sends a follow-up in the newly accepted thread; Arin replies. Polling preserves the messages. The preloaded lighting and logging conversations each contain a short back-and-forth; unread markers come from saved read cursors and notifications, not fabricated online presence.
+**1:30–2:00 -- Both.** Mira sends a follow-up in the newly accepted thread; Arin replies. Polling preserves the messages. The preloaded lighting and logging conversations each contain a short back-and-forth; unread markers come from saved read cursors and notifications, not fabricated online presence.
 
-**2:00–2:40 — Mira.** Close the new request. Record what changed and the next step in the existing outcome form, and explicitly share the reviewed Learning Log fields if desired. Show project progress, then Profile's Learning Log, private Impact Card and Help Chain. These derive only from the recorded request/outcome rows. The existing completed logging conversation has a modest outcome about saving camera settings beside clips and repeating the low-light run; no numbers or testimonials are generated.
+**2:00–2:40 -- Mira.** Close the new request. Record what changed and the next step in the existing outcome form, and explicitly share the reviewed Learning Log fields if desired. Show project progress, then Profile's Learning Log, private Impact Card and Help Chain. These derive only from the recorded request/outcome rows. The existing completed logging conversation has a modest outcome about saving camera settings beside clips and repeating the low-light run; no numbers or testimonials are generated.
 
-**2:40–3:00 — Reciprocal learning.** Mira's Home shows **Alumni want to learn this**: Arin's TypeScript narrowing request matches Mira's Can teach tag. End with the campus-resource / people / thoughtful-request workflow, without representing seeded interactions as real-world results.
+**2:40–3:00 -- Reciprocal learning.** Mira's Home shows **Alumni want to learn this**: Arin's TypeScript narrowing request matches Mira's Can teach tag. End with the campus-resource / people / thoughtful-request workflow, without representing seeded interactions as real-world results.
 
 ## Fallback
 

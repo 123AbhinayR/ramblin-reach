@@ -30,7 +30,6 @@ export function SiteHeader() {
       <div className="container header-inner">
         <Brand />
         <nav aria-label="Main navigation" className="header-nav">
-          <Link href="/#how-it-works">How it works</Link>
           <Link href="/circles">Circles</Link>
         </nav>
         <Button asChild variant="outline">
