@@ -6,9 +6,10 @@ import { publicEnvSchema } from "@/lib/env-schema";
 import type { Database } from "@/lib/supabase/database.types";
 
 export async function authClient(writable = false) {
+  // Establish request-only rendering before validating runtime configuration.
+  const jar = await cookies();
   getServerEnv();
   const env = publicEnvSchema.parse(process.env);
-  const jar = await cookies();
   return createServerClient<Database>(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
     cookies: {
       getAll: () => jar.getAll(),
