@@ -13,7 +13,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
     "test": "vitest run",
-    "test:db": "tsx scripts/test-db.ts && tsx scripts/test-circles-db.ts && tsx scripts/test-inbox-db.ts",
+    "test:db": "tsx scripts/test-db.ts && tsx scripts/test-circles-db.ts && tsx scripts/test-inbox-db.ts && tsx scripts/test-learning-db.ts",
     "test:e2e": "playwright test",
     "db:seed": "tsx --env-file=.env.seed.local scripts/seed.ts && tsx scripts/seed-resources.ts",
     "check": "npm run typecheck && npm run lint && npm run test"

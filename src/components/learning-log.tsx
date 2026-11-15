@@ -1,0 +1,4 @@
+import Link from 'next/link';
+import type {z} from 'zod';
+import type {learningRow} from '@/lib/learning/schemas';
+export function LearningLog({entries}:{entries:z.infer<typeof learningRow>[]}){return <section className="recent-paths"><h2>Learning Log</h2><p className="field-hint">Self-reported experiences. Shared entries contain only text their author chose to publish.</p>{entries.length?entries.map(e=><article className="project-memory" key={e.id}>{e.learned&&<p><strong>What I learned:</strong> {e.learned}</p>}{e.helped&&<p><strong>What I helped with:</strong> {e.helped}</p>}{e.next_step&&<p><strong>Next step:</strong> {e.next_step}</p>}{e.project_id&&<Link className="text-link" href={`/projects/${e.project_id}`}>Project progress →</Link>}</article>):<p className="muted">No recorded entries shared here yet.</p>}</section>;}

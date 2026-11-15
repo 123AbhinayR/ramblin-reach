@@ -7,6 +7,7 @@ export const CIRCLES = { hackathons: "Hackathons", startups: "Startups", project
 export const POST_TYPES = { help: "Ask for Help", building: "Building Something", teammates: "Looking for Teammates", feedback: "Project Feedback", update: "Project Update", learning: "Learning Request" } as const;
 export const categorySchema = z.enum(["hackathons", "startups", "projects", "research", "clubs", "careers"]);
 export const postInputSchema = z.strictObject({
+ project_id:z.uuid().nullable().default(null),
  category: categorySchema, kind: z.enum(["help", "building", "teammates", "feedback", "update", "learning"]),
  title: textField(3,100), description: textField(10,2000), specific_request: textField(10,400),
  tags: z.array(textField(1,40)).max(8), project_url: safeProjectUrlSchema.nullable(), github_url: safeProjectUrlSchema.nullable(),

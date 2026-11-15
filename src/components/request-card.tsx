@@ -36,6 +36,7 @@ export function RequestCard({ request, viewerId, peer, outcome }: RequestCardPro
   const [showOutcomeForm, setShowOutcomeForm] = useState(false);
   const [outcomeType, setOutcomeType] = useState<string>(outcome?.outcome_type ?? OUTCOME_TYPES[0]);
   const [privateNote, setPrivateNote] = useState(outcome?.private_note ?? "");
+  const [learned,setLearned]=useState(outcome?.learned??""),[helped,setHelped]=useState(outcome?.helped??""),[nextStep,setNextStep]=useState(outcome?.next_step??""),[shared,setShared]=useState(outcome?.log_shared??false);
   const [savingOutcome, setSavingOutcome] = useState(false);
   const [localOutcome, setLocalOutcome] = useState<OutcomeRow | undefined>(outcome);
 
@@ -67,7 +68,7 @@ export function RequestCard({ request, viewerId, peer, outcome }: RequestCardPro
       const res = await fetch(`/api/requests/${request.id}/outcomes`, {
         method,
         headers: { "Content-Type": "application/json", "Origin": window.location.origin },
-        body: JSON.stringify({ outcomeType, privateNote: privateNote.trim() || undefined }),
+        body: JSON.stringify({ outcomeType, privateNote: privateNote.trim() || undefined,learned,helped,next_step:nextStep,log_shared:shared,project_id:request.requester_id===viewerId?request.project_id:null }),
       });
       const json = await res.json() as { error?: { message: string }; outcome?: OutcomeRow };
       if (!res.ok) { setError(json.error?.message ?? "Could not save outcome."); setSavingOutcome(false); return; }
@@ -177,6 +178,11 @@ export function RequestCard({ request, viewerId, peer, outcome }: RequestCardPro
             />
             <span id="note-hint" className="field-hint">Max 300 characters. Never shown publicly.</span>
           </label>
+          <h3>Learning Log</h3><p className="field-hint">Record your own experience. Keep names, contact details and private request notes out of shared text.</p>
+          <label>What I learned<textarea maxLength={240} value={learned} onChange={e=>setLearned(e.target.value)}/></label>
+          <label>What I helped with<textarea maxLength={240} value={helped} onChange={e=>setHelped(e.target.value)}/></label>
+          <label>Next step<textarea maxLength={240} value={nextStep} onChange={e=>setNextStep(e.target.value)}/></label>
+          <label className="check-label"><input type="checkbox" checked={shared} onChange={e=>setShared(e.target.checked)}/>I reviewed this text and choose to share these Learning Log fields on my visible profile{request.project_id&&request.requester_id===viewerId?' and project progress':''}.</label>
           {error && <p className="form-message" role="alert">{error}</p>}
           <Button type="submit" disabled={savingOutcome}>{savingOutcome ? "Saving…" : localOutcome ? "Update outcome" : "Save outcome"}</Button>
         </form>

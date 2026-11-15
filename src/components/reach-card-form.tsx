@@ -11,6 +11,8 @@ interface Props {
   recipientName: string;
   recipientHelpTopics: string[];
   goalId?: string;
+  projectId?:string;
+  initialQuestion?:string;
   initialGoal?: string;
   preselectedTopic?: string;
 }
@@ -24,7 +26,7 @@ function randomUUID() {
 
 const CHAR_LIMITS = { goalContext: 240, specificQuestion: 400, priorEffort: 300 };
 
-export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics, goalId, preselectedTopic, initialGoal }: Props) {
+export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics, goalId, projectId,initialQuestion, preselectedTopic, initialGoal }: Props) {
   const router = useRouter();
   const idempotencyKey = useRef(randomUUID());
 
@@ -36,7 +38,7 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
   const [helpTopic, setHelpTopic] = useState(defaultTopic);
   const [format, setFormat] = useState<string>("written_advice");
   const [goalContext, setGoalContext] = useState(initialGoal?.slice(0,240) ?? "");
-  const [specificQuestion, setSpecificQuestion] = useState("");
+  const [specificQuestion, setSpecificQuestion] = useState(initialQuestion?.slice(0,400)??"");
   const [priorEffort, setPriorEffort] = useState("");
   const [safeProjectUrl, setSafeProjectUrl] = useState("");
   const [sending, setSending] = useState(false);
@@ -64,6 +66,7 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
         body: JSON.stringify({
           recipientId,
           goalId,
+          projectId,
           helpTopic,
           format,
           goalContext: goalContext.trim(),
@@ -108,7 +111,7 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
 
       <p className="field-hint">Offered topics: {availableTopics.map(t=>labels[t]).join(", ")}. Templates are starting points; edit them for your question. No message is sent until you confirm.</p>
       <label>Connection reason
-        <select required value={reason} onChange={e=>{const value=e.target.value as typeof QUICK_REASONS[number];setReason(value);if(value){const draft=quickTemplate(value);if(!goalContext)setGoalContext(draft.goal);setSpecificQuestion(draft.question);}setReview(false);}}>
+        <select required value={reason} onChange={e=>{const value=e.target.value as typeof QUICK_REASONS[number];setReason(value);if(value){const draft=quickTemplate(value);if(!goalContext)setGoalContext(draft.goal);if(!specificQuestion)setSpecificQuestion(draft.question);}setReview(false);}}>
           <option value="">Choose a reason</option>{QUICK_REASONS.map(r=><option key={r}>{r}</option>)}
         </select>
       </label>

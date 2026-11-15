@@ -4,11 +4,11 @@ import {useRouter} from "next/navigation";
 import {z} from "zod";
 import {Button} from "./ui/button";
 import {CIRCLES,POST_TYPES,postInputSchema,type CirclePost} from "@/lib/circles/schemas";
-export function CircleEditor({post,category="projects"}:{post?:CirclePost;category?:string}){
+export function CircleEditor({post,category="projects",projects=[],initialProjectId}:{post?:CirclePost;category?:string;projects?:{id:string;title:string}[];initialProjectId?:string}){
  const router=useRouter();const [busy,setBusy]=useState(false);const [message,setMessage]=useState("");
  async function submit(event:FormEvent<HTMLFormElement>){
   event.preventDefault();const form=new FormData(event.currentTarget);const parsed=postInputSchema.safeParse({
-   title:form.get("title"),category:form.get("category"),kind:form.get("kind"),description:form.get("description"),specific_request:form.get("specific_request"),
+   project_id:form.has("project_id")?(form.get("project_id")||null):(post?.project_id??null),title:form.get("title"),category:form.get("category"),kind:form.get("kind"),description:form.get("description"),specific_request:form.get("specific_request"),
    tags:String(form.get("tags")??"").split(",").map(t=>t.trim()).filter(Boolean),project_url:form.get("project_url")||null,github_url:form.get("github_url")||null,team_size:form.get("team_size")?Number(form.get("team_size")):null,
   });
   if(!parsed.success){setMessage(parsed.error.issues[0].message);return;}setBusy(true);setMessage("");
@@ -19,6 +19,7 @@ export function CircleEditor({post,category="projects"}:{post?:CirclePost;catego
  }
  return <form className="form-stack panel" onSubmit={submit}>
   <p className="field-hint">Shared with verified members. Include only information you have permission to share; no private contact details.</p>
+  {projects.length>0&&<label>Linked project<select name="project_id" defaultValue={post?.project_id??initialProjectId??""}><option value="">No linked project</option>{projects.map(p=><option key={p.id} value={p.id}>{p.title}</option>)}</select></label>}
   <label>Title<input name="title" required minLength={3} maxLength={100} defaultValue={post?.title} placeholder="What are you working on?"/></label>
   <div className="form-grid"><label>Circle<select name="category" defaultValue={post?.category??category}>{Object.entries(CIRCLES).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label><label>Post type<select name="kind" defaultValue={post?.kind??"help"}>{Object.entries(POST_TYPES).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label></div>
   <label>Description<textarea name="description" required minLength={10} maxLength={2000} rows={4} defaultValue={post?.description}/></label>

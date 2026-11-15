@@ -6,7 +6,7 @@ import { Brand } from "./brand";
 import { Button } from "./ui/button";
 export function SiteHeader() {
   const path=usePathname();
-  const workspace=["/dashboard","/people","/requests","/profile","/path","/circles"].some(prefix=>path===prefix||path.startsWith(`${prefix}/`));
+  const workspace=["/dashboard","/people","/requests","/profile","/path","/circles","/projects","/notifications"].some(prefix=>path===prefix||path.startsWith(`${prefix}/`));
   return <header className="site-header"><div className="container header-inner">
     <Brand /><nav aria-label="Main navigation" className="header-nav"><Link href="/#how-it-works">How it works</Link><Link href="/#our-approach">Our approach</Link></nav>
     <Button asChild variant="outline"><Link href={workspace?"/dashboard":"/login"}>{workspace?"My workspace":"Sign in"} <ArrowUpRight size={16} /></Link></Button>

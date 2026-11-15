@@ -36,6 +36,7 @@ export const safeProjectUrlSchema = z.string().transform(v => v.trim()).pipe(
 
 export const createRequestSchema = z.strictObject({
   recipientId: z.uuid(),
+  projectId:z.uuid().optional(),
   goalId: z.uuid().optional(),
   helpTopic: z.enum(HELP_TOPICS),
   format: z.enum(FORMATS),
@@ -50,7 +51,9 @@ export const transitionSchema = z.strictObject({
   action: z.enum(["accept", "decline", "cancel", "complete"]),
 });
 
+export const logFields={learned:textField(0,240).default(""),helped:textField(0,240).default(""),next_step:textField(0,240).default(""),log_shared:z.boolean().default(false),project_id:z.uuid().nullable().default(null)};
 export const outcomeSchema = z.strictObject({
+  ...logFields,
   outcomeType: z.enum(OUTCOME_TYPES),
   privateNote: textField(0, 300).optional(),
 });
@@ -58,6 +61,7 @@ export const outcomeSchema = z.strictObject({
 export const requestRowSchema = z.object({
   id: z.uuid(),
   requester_id: z.uuid(),
+  project_id:z.uuid().nullable().default(null),
   recipient_id: z.uuid(),
   goal_id: z.uuid().nullable(),
   help_topic: z.enum(HELP_TOPICS),
@@ -74,6 +78,7 @@ export const requestRowSchema = z.object({
 });
 
 export const outcomeRowSchema = z.object({
+  ...logFields,
   id: z.uuid(),
   request_id: z.uuid(),
   reported_by: z.uuid(),

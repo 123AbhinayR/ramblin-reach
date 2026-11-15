@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     const { client } = await apiMember();
     const input = await readInput(request, createRequestSchema);
-    const { data, error } = await client.rpc("create_connection_request", {
+    const { data, error } = input.projectId?await client.rpc("create_project_reachcard",{p_project_id:input.projectId,p_input:input}):await client.rpc("create_connection_request", {
       p_recipient_id: input.recipientId,
       p_goal_id: input.goalId ?? null,
       p_help_topic: input.helpTopic,

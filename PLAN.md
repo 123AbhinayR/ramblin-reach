@@ -16,11 +16,11 @@ Member-only circle posts/comments/reports with atomic write limits and ownership
 - [x] 1: mobile bottom navigation, shared styles, role home; build, full browser regression, responsive Home/People checks and screenshots verified.
 - [x] 2: six Circles, post/edit/delete/resolve/report, comments, help action; validation/category/ownership unit tests, DB controls, and two-account E2E verified.
 - [x] 3: QuickReach templates/review, accepted-request messages, polling/unread Inbox; security + persisted two-account E2E.
-- [ ] 4: project-to-people loop, explainable teach/learn matching, outcomes and notifications; full-loop E2E.
+- [x] 4: project-to-people loop, explainable teach/learn matching, outcomes and notifications; full-loop E2E.
 - [ ] 4B: Built at Tech, expiring availability, recorded-data Impact Card/Help Chain only after P0 green.
 - [ ] 5: deterministic isolated authenticated demo/reset, screenshots, full regression and release documentation.
 
-Commit and push each verified gate; never merge main or force-push. First unfinished gate is 3. Cut Help Chain SVG, learning-log polish, notifications, extra circle styling first; preserve posting, requests, inbox, project links, seeded demo and mobile quality. No new auth/backend, email, calendar, scraping, attachments, embeddings, referrals, or websockets.
+Commit and push each verified gate; never merge main or force-push. First unfinished gate is 4B; Phase 5 remains open. Cut Help Chain SVG, learning-log polish, notifications, extra circle styling first; preserve posting, requests, inbox, project links, seeded demo and mobile quality. No new auth/backend, email, calendar, scraping, attachments, embeddings, referrals, or websockets.
 
 ## Phase 2 checkpoint — November 14, 2026
 
@@ -53,3 +53,24 @@ Changed areas: ReachCard templates/review and Connect links; request list/detail
 Initial browser runs exposed a Reply accessible-label ambiguity, a hidden-profile name assumption and two test navigation races. Corrected them; the final full run above passed all 28. Prior assertions were retained, with Close exercising the existing Complete transition. Local screenshot files remain ignored review artifacts. Existing generated `next-env.d.ts` changes are excluded from the commit.
 
 Operational limits: deploy both additive migrations before using this build against another database. The Inbox lists the latest 50 requests; thread history catches up in ordered batches of 100. No email delivery, realtime sockets, attachments or hosted integration is claimed. Phases 4, 4B and 5 remain open; next bounded work is Phase 4 per this plan.
+
+## Phase 4 checkpoint — November 14, 2026
+
+| Checkpoint | Result | Evidence |
+|---|---|---|
+| Phase 3 saved | Verified on GitHub | Remote `feat/circles-quickreach` was `364d834c08470490b23f32c47f0408bcade4f34f` before Phase 4, confirmed with `git ls-remote`. |
+| Project / QuickReach loop | Passed | Existing member projects now have category, skills, current challenge, requested help, linked blockers/replies/progress, explained available mentors and owner Get Help with editable prefilled project context. Existing atomic ReachCard creation and messaging reused. |
+| Matching / Learning Exchange | Passed | One pure exact-tag matcher reused for mentors, Students you can help and People to learn from. Can teach / Want to learn / interests / categories are editable opt-in profile fields; matching students see alumni Learning Requests in their dedicated section. |
+| Learning Log | Passed | Existing outcomes extended with learned/helped/next-step and explicit sharing. Both participants can record separate outcomes. Private request text/notes remain private; only narrow consented log fields appear on visible profiles and owned project progress. |
+| In-app notifications | Passed | DB-triggered request, acceptance, message, reply and matched-request events; persistent RLS, retry deduplication, unread badge, deep links and mark-read. Pause/cap/block/consent checks preserved. No email or third-party actions. |
+| Typecheck / lint / units | Passed | Final `npm run check`: typecheck, zero-warning lint, 71 tests in 12 suites. Seven added LX01–LX07 tests cover matching and deep links. |
+| Database / RLS | Passed | `npm run test:db`: 103 = 51 transactional + 6 concurrency/month-boundary + 11 Circles + 16 Inbox + 19 learning-loop checks. LX08–LX23/LX25–LX27 test all five notification generators, retry deduplication, recipient-only access, SQL parity, foreign project denial, public/private log separation, both reporters, blocks/withdrawal, paused generation and tag bounds. |
+| Production build / Playwright | Passed | Final `npm run test:e2e` built the production app and passed all 30 desktop/mobile tests. LX24 exercises blocker → alumnus discovery/offer → reviewed QuickReach → acceptance → two-way reply → published outcome/log/project progress after reload; notification deep links/mark-read persistence; reciprocal alumni Learning Request. No skipped tests. |
+| Visual / accessibility | Passed | Project loop captured at desktop and 375px mobile, reviewed, and copied to `.tmp/phase4-review/`. Project axe checks have no serious/critical violations; overflow assertions and existing four-width release-layout checks pass. |
+| Delivery scope | Feature branch / local verification | Additive migrations 007–009 applied locally. This checkpoint is committed/pushed only on `feat/circles-quickreach`; no main merge or hosted deployment. |
+
+Changed areas: projects/detail/editor; profile learning tags and log; shared deterministic matching and dashboard suggestions; linked Circle discussions; project-context ReachCard wrapper; outcomes' reviewed publication fields; persistent notifications and Updates UI; generated database types, tests and contracts. No dependencies or AI infrastructure added. The unrelated generated `next-env.d.ts` edit is excluded from commits.
+
+Initial checks caught a validator execution-context issue, duplicated Learning Request cards, missing workspace header handling on new routes, and a test reloading before mark-read completed. Corrected these before the final full green regression; no prior tests or assertions were removed.
+
+Operational limits: apply migrations 007–009 before using this build against another database. Matching examines the existing bounded candidate/discussion selections; notification/log views show the latest 50 entries. Public logs are the author's reviewed self-report, never verified results or third-party endorsements. Profiles and project consent can revoke published access. Phases 4B and 5 remain open and are not claimed by this checkpoint.

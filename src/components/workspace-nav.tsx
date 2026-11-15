@@ -1,4 +1,5 @@
 "use client";
+import {Notifications} from "./notifications";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Inbox, UserRound, Users, CircleHelp } from "lucide-react";
@@ -12,10 +13,10 @@ const destinations = [
 ];
 export function WorkspaceNav() {
   const pathname = usePathname();
-  return <nav className="workspace-nav" aria-label="Workspace">
+  return <><nav className="workspace-nav" aria-label="Workspace">
     {destinations.map(({ href, label, icon: Icon }) => <Link key={href} href={href}
       aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined}>
       <Icon size={19} aria-hidden="true"/><span>{label}</span>
     </Link>)}
-  </nav>;
+  </nav><Notifications compact/></>;
 }
