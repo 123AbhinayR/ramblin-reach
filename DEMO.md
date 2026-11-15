@@ -1,38 +1,42 @@
-# Three-minute local DEMO DATA rehearsal
+# Three-minute seeded-data walkthrough
 
-## Prepare
+All people, projects, conversations and outcomes in this walkthrough are **seeded sample data**, not real members or real mentorship results. Names are invented and employers are industry descriptors. In demo mode the UI shows one small **Demo environment** pill in the footer; there are no per-item fixture badges. Internal `is_demo` flags remain for filtering and reset. No referrals, endorsements, testimonials or measured impact are claimed.
 
-Follow README local setup, apply migrations, enable local demo mode, then:
+## Start / reset
+
+With local environment files configured and demo mode enabled:
 
 ```sh
+npx supabase start
+npx supabase migration up --local
 npm run demo:seed
 npm run dev
 ```
 
-Open `/demo` at 375px mobile width. The seven personas are fictional; every seeded project, discussion, message and outcome is simulated DEMO DATA. No real affiliation, referral or endorsement is asserted. Use the scenario below; do not present a recorded demo outcome as proof that an actual mentoring interaction occurred.
+Open `/demo` and choose **Mira Talven**. To start over, return there and press **Reset workspace**, waiting for the completion message. CLI alternative: `npm run demo:reset`. Reset preserves Auth accounts and unrelated records, and refuses outside interactions. Names/content/IDs are stable; activity timestamps and Arin's availability refresh relative to reset time. Real Supabase sign-in and normal RLS apply.
 
-Before each rehearsal, sign in as `student-robotics`, return to `/demo`, and press **Reset isolated DEMO DATA**. Wait for the reset-complete message. The CLI alternative is `npm run demo:reset`. The reset preserves real Auth accounts and refreshes Rowan’s 60-minute availability. The pre-existing accepted/completed examples are deliberate simulated records.
+Accounts: Mira Talven (robotics student), Evan Corren (design/startups student), Noor Bellamy (math/quant student), Arin Velden (robotics/perception alumnus), Lena Quillan (product design alumnus), Owen Kestrel (quant research alumnus), Tessa Marlowe (software engineering alumnus). Private login credentials remain in the ignored local account file, never in these docs or browser payloads.
 
 ## Click path
 
-**0:00–0:35 — Casey, `student-robotics`.** Open your profile’s project list and **DEMO DATA: vision-guided robotics rover**, or go to `/projects/dddd0000-0000-4000-8000-000000000001`. Choose **Post a blocker or progress update**. Keep the linked project; use Clubs. Title: “DEMO DATA: vision lighting blocker.” Describe the simulated lighting flicker; ask how to compare lighting conditions. Expand optional fields; tags `robotics, computer vision`. Publish.
+**0:00–0:35 — Mira, mobile.** Open **Vision-guided robotics rover** from Profile, or `/projects/dddd0000-0000-4000-8000-000000000001`. Choose **Post a blocker or progress update**. Keep the linked project and Clubs. Describe the Pi/USB-camera lane detection flickering at the lab door, mention the lens cleaning/threshold attempt and ask what to hold fixed. Add `robotics, computer vision` tags. Publish.
 
-**0:35–1:00 — Rowan, `alumni-robotics`.** Return to `/demo` and choose Rowan. On Home, show **Students you can help**, the blocker’s stored-data reason and **Available now · self-reported**. Built at Tech is explicitly fictional/self-reported, not graduation evidence. Open the blocker and reply: “DEMO DATA: I can help compare controlled lighting tests.” No request is automatically sent.
+**0:35–1:00 — Arin.** Switch via `/demo`. Home shows **Students you can help**, a reason drawn from stored tags/Built at Tech, and the expiring Available now badge. Open the new blocker and offer to help compare controlled lighting tests. The other seeded discussions have varied replies, recent/older timestamps and a resolved packaging question; these are authored seed activity, not live-user statistics.
 
-**1:00–1:30 — Casey, then Rowan.** Switch to Casey using `/demo`. Open the rover project; show the reply and Relevant mentors. **Get Help** opens a ReachCard with the project context. Choose **Quick Question**, edit the question if needed, review, then explicitly send. Switch to Rowan, open Inbox, locate the new question (there is already a different accepted seeded conversation), and Accept.
+**1:00–1:30 — Mira, then Arin.** Switch back to Mira. The project shows the reply. **Get Help** opens QuickReach with project context. Choose **Quick Question**, edit, review, explicitly send. Switch to Arin, open Inbox, locate the new question and Accept. A separate accepted lighting conversation is already seeded; choose the new request.
 
-**1:30–2:00 — Both personas.** Switch to Casey; open the newly accepted thread. Send a DEMO DATA follow-up. Switch to Rowan; reply in that same thread. Polling persists the exchange; there is no live presence or scheduling. If useful, show an in-app unread update and its deep link.
+**1:30–2:00 — Both.** Mira sends a follow-up in the newly accepted thread; Arin replies. Polling preserves the messages. The preloaded lighting and logging conversations each contain a short back-and-forth; unread markers come from saved read cursors and notifications, not fabricated online presence.
 
-**2:00–2:40 — Casey.** Switch back, Close the new request, return to Inbox, and Record outcome. Fill “What I learned / helped with / next step” using explicitly simulated DEMO DATA text. Review the text and opt into sharing those log fields. Save. Show the rover’s Progress updates, then `/profile`: Learning Log, private Impact Card (problem/helper/recorded outcome), and private Help Chain SVG. The existing seeded completed outcome also has a card. Raw request notes and helper attribution are not made public.
+**2:00–2:40 — Mira.** Close the new request. Record what changed and the next step in the existing outcome form, and explicitly share the reviewed Learning Log fields if desired. Show project progress, then Profile's Learning Log, private Impact Card and Help Chain. These derive only from the recorded request/outcome rows. The existing completed logging conversation has a modest outcome about saving camera settings beside clips and repeating the low-light run; no numbers or testimonials are generated.
 
-**2:40–3:00 — Reciprocal learning.** Casey’s Home includes **Alumni want to learn this**: Rowan’s seeded TypeScript Learning Request matches Casey’s Can teach tag. Rowan can post another Learning Request through Circles. End with “learn from campus, learn from each other, pass it forward,” without claims about real employment or mentorship results.
+**2:40–3:00 — Reciprocal learning.** Mira's Home shows **Alumni want to learn this**: Arin's TypeScript narrowing request matches Mira's Can teach tag. End with the campus-resource / people / thoughtful-request workflow, without representing seeded interactions as real-world results.
 
-## Fallbacks
+## Fallback
 
-- `/demo` is 404: check local app environment and the demo flag, then restart the app. Production demo mode is deliberately forbidden.
-- Persona switch fails: rerun `npm run demo:seed`; use the private ignored account file for ordinary `/login` if needed. Do not publish its credentials.
-- Available now expired: reset the scenario, or sign in as Rowan, open Profile and choose **Available for 60 minutes**. This does not promise a reply or a meeting.
-- New blocker is not visible: check the linked project/profile are shared, keep exact `robotics, computer vision` tags, and reload Rowan’s Home. Use Circles directly if outside the bounded Home selection.
-- Inbox appears unchanged: allow a polling cycle or reload. Choose the new question, not the seeded accepted request. Acceptance is required before messaging.
-- Outcome is absent from project: complete the request, record nonempty log fields, explicitly share them, and ensure the ReachCard was created through that owned project’s Get Help action.
-- Reset refuses: an outside account interacted with these personas. Do not delete their content to force a reset. Rehearse the existing records, or provision a fresh isolated local Supabase project and seed it.
+- `/demo` is 404: check local environment/demo flag and restart. Disabled mode still returns actual HTTP 404 for the page and API.
+- Switch fails: rerun `npm run demo:seed`; ordinary login can use the private ignored credential file.
+- Availability expired: reset, or sign in as Arin and enable it for 60 minutes in Profile. It is willingness to accept a request, not guaranteed response time.
+- Missing suggestion: keep exact tags, shared project/profile consent and available capacity; reload, or open the discussion directly from Circles.
+- Missing messages: wait for polling or reload; acceptance unlocks the thread.
+- Missing project update: complete the project-linked ReachCard, record nonempty log fields and explicitly choose sharing.
+- Reset refuses: preserve the outside account's contribution. Rehearse existing records or use a fresh isolated local Supabase instance rather than deleting unrelated data.

@@ -13,9 +13,9 @@ export const postInputSchema = z.strictObject({
  tags: z.array(textField(1,40)).max(8), project_url: safeProjectUrlSchema.nullable(), github_url: safeProjectUrlSchema.nullable(),
  team_size: z.number().int().min(1).max(100).nullable(),
 });
-export const postSchema = postInputSchema.extend({ id:z.uuid(),owner_id:z.uuid(),resolved:z.boolean(),created_at:z.string(),updated_at:z.string() });
+export const postSchema = postInputSchema.extend({ is_demo:z.boolean().optional(),id:z.uuid(),owner_id:z.uuid(),resolved:z.boolean(),created_at:z.string(),updated_at:z.string() });
 export const commentInputSchema = z.strictObject({body:textField(2,1000),parent_id:z.uuid().nullable()});
-export const commentSchema = commentInputSchema.extend({id:z.uuid(),post_id:z.uuid(),owner_id:z.uuid(),created_at:z.string()});
+export const commentSchema = commentInputSchema.extend({is_demo:z.boolean().optional(),id:z.uuid(),post_id:z.uuid(),owner_id:z.uuid(),created_at:z.string()});
 export const authorSchema=z.object({id:z.uuid(),display_name:z.string(),affiliation:z.enum(["student","alumni"]),is_demo:z.boolean()});
 export type CirclePost=z.infer<typeof postSchema>;
 export type CircleComment=z.infer<typeof commentSchema>;

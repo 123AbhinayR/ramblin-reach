@@ -43,10 +43,10 @@ Open [the local demo](http://127.0.0.1:3000/demo). Choose a persona; the server 
 
 ## Seven demo personas
 
-All are explicitly **DEMO DATA**, not real members or verified real-world affiliations. Persona buttons use these aliases:
+These are seeded sample data, not real members or verified real-world affiliations. Demo mode shows one **Demo environment** footer indicator. Account aliases remain stable, while persona buttons display natural names:
 
-- Students: `student-robotics` (Casey), `student-startup` (Alex), `student-quant` (Sam).
-- Alumni: `alumni-robotics` (Rowan: ML/robotics), `alumni-startup` (Jamie), `alumni-quant` (Quinn), `alumni-software` (Avery).
+- Students: `student-robotics` (Mira Talven), `student-startup` (Evan Corren), `student-quant` (Noor Bellamy).
+- Alumni: `alumni-robotics` (Arin Velden: ML/robotics), `alumni-startup` (Lena Quillan), `alumni-quant` (Owen Kestrel), `alumni-software` (Tessa Marlowe).
 
 No shared password is published. The private credential file supports operator login if the switcher fails. Existing local accounts and regression fixtures are preserved; these seven personas form a separate reset namespace.
 
@@ -54,7 +54,7 @@ No shared password is published. The private credential file supports operator l
 npm run demo:reset
 ```
 
-The reset command preserves Auth identities and restores fixed scenario IDs/content: three projects, discussions across six Circles, a Learning Request, one accepted conversation, and one completed simulated outcome. That outcome generates a private Impact Card. Rowan has Built at Tech history and a fresh availability window. `/demo` also has a reset button requiring a registered demo session. Reset refuses cross-namespace requests/comments/reports instead of deleting other users’ data. Relative server timestamps and the expiry window refresh on reset; persona identities and scenario content remain stable.
+The reset command preserves Auth identities and restores fixed scenario IDs/content: three projects, discussions across six Circles, a Learning Request, one accepted conversation, and one completed simulated outcome. That outcome generates a private Impact Card. Arin has Built at Tech history and a fresh availability window. `/demo` also has a reset button requiring a registered demo session. Reset refuses cross-namespace requests/comments/reports instead of deleting other users’ data. Relative server timestamps and the expiry window refresh on reset; persona identities and scenario content remain stable.
 
 ## Tests
 

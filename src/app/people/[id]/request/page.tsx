@@ -55,7 +55,7 @@ export default async function SendRequestPage({ params, searchParams }: {
           <div style={{ marginBottom: 24 }}>
             <p className="eyebrow">ReachCard</p>
             <h1>Ask {person.display_name}.</h1>
-            {person.is_demo && <p className="notice">Demo profile · fictional person. This request is for demonstration purposes.</p>}
+
             {!person.available && (
               <p className="notice">This member is not accepting new requests. Explore another helper or check back later.</p>
             )}

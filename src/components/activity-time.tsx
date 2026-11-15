@@ -1,0 +1,3 @@
+"use client";
+import {useEffect,useState} from 'react';
+export function ActivityTime({at,asOf}:{at:string;asOf:string}){const [clock,setClock]=useState(asOf);useEffect(()=>{const timer=setInterval(()=>setClock(new Date().toISOString()),60000);return()=>clearInterval(timer);},[]);const seconds=Math.max(0,(Date.parse(clock)-Date.parse(at))/1000);const unit=seconds<3600?'minute':seconds<86400?'hour':'day';const count=Math.max(1,Math.floor(seconds/(unit==='minute'?60:unit==='hour'?3600:86400)));return <time dateTime={at}>{new Intl.RelativeTimeFormat('en',{numeric:'always'}).format(-count,unit)}</time>;}

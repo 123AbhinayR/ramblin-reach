@@ -40,7 +40,7 @@ API routes: `/api/auth/[action]`, `/api/membership`, `/api/profile`, `/api/profi
 
 ## Fully built
 
-Persisted source-backed paths; opt-in directory and project detail; Circle posts/replies and learning requests; deterministic reasoned matching and teach/learn fields; alumni Built at Tech; server-expiring alumni availability and People filter; reviewed QuickReach; atomic requests and accepted-request polling threads; per-participant outcomes; explicitly shared Learning Logs/project progress; private Impact Cards/Help Chain; persistent private in-app notifications; seven-person real-auth local demo and isolated reset.
+Persisted source-backed paths; opt-in directory and project detail; Circle posts/replies and learning requests; deterministic reasoned matching and teach/learn fields; alumni Built at Tech; server-expiring alumni availability and People filter; reviewed QuickReach; atomic requests and accepted-request polling threads; per-participant outcomes; explicitly shared Learning Logs/project progress; private Impact Cards/Help Chain; persistent private in-app notifications; seven-person real-auth local seeded-data workspace and isolated reset.
 
 ## Deliberate limits / partial / skipped
 
@@ -59,3 +59,12 @@ Persisted source-backed paths; opt-in directory and project detail; Circle posts
 ## Main release result
 
 Normal merge `9698901` completed without conflicts. `npm run build` ran once on main and passed, including TypeScript compilation; main was pushed afterward. The pre-merge main is preserved by the pushed `pre-merge-backup` tag. Branch tip recovery records are in DELETED_BRANCHES.md; all other local/origin branches were removed with normal delete commands after verifying their tips were contained in main. The subsequent recovery-record commit is documentation-only. No hosted deployment occurred.
+
+## Seed presentation follow-up — November 14, 2026
+
+The seven-person scene is seeded sample data, not real activity, affiliations or mentorship results. The app now shows one small **Demo environment** pill in the footer when demo mode is enabled; per-card/post/profile fixture labels are removed. Server-owned `is_demo` metadata remains on profiles/projects and seeded posts, comments, requests, messages, outcomes and notifications. No verified identity or employer badges are displayed. Existing real authentication, RLS, consent and disabled-mode guards remain.
+
+The deterministic scene uses invented natural names, short bios, industry descriptors instead of real employers, initial-based avatars with deterministic varied colors, student activity across all six circles, multiple reply threads and one resolved question. Relative timestamps refresh from server time on reset. Both the accepted lighting exchange and completed logging exchange contain six saved messages. Inbox read cursors and notification rows produce unread indicators. The modest logging outcome and its private Impact Card/Help Chain derive from recorded rows, without performance numbers, endorsements or testimonials.
+
+Only the requested seed checks and one seeded Playwright loop are run for this follow-up; this is not a new full regression or production certification. Earlier test counts above are historical release evidence, not a claim that those suites were rerun after this presentation change.
+Current follow-up checks: `npm run demo:seed` succeeded; `npm run test:seed` passed 9 assertions; the single `demo-loop.spec.ts` case passed on desktop and mobile (2 executions), including the single footer indicator. The first loop exposed a strict row-schema provenance mismatch; it was corrected without relaxing write-input validation, then the loop passed. With the flag disabled, both `/demo` and `/api/demo` returned HTTP 404. No full regression was run in this follow-up.

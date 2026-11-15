@@ -42,7 +42,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   return (
     <section className="container workspace">
       <WorkspaceNav />
-      {getServerEnv().DEMO_MODE==="1"&&getServerEnv().APP_ENV==="local"&&<p><Link className="text-link" href="/demo">DEMO DATA · switch persona / reset →</Link></p>}
+      {getServerEnv().DEMO_MODE==="1"&&getServerEnv().APP_ENV==="local"&&<p><Link className="text-link" href="/demo">Switch account / reset →</Link></p>}
       <div className="workspace-heading">
         <div>
           <p className="eyebrow">Georgia Tech · shared roots, new possibilities</p>
@@ -52,9 +52,9 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
         <SignOut />
       </div>
       {alumni&&mayHelp&&<AvailableBadge until={profile.available_until} asOf={new Date().toISOString()}/>}
-      {profile.is_demo && <p className="demo-strip">Demo account · fictional profile, real authenticated session</p>}
-      <section className="home-circles"><div className="results-heading"><h2>{alumni?"Students you can help":"Questions needing answers"}</h2><Link className="text-link" href="/circles">Explore Circles →</Link></div>{questions.length?<div className="circle-grid">{questions.map(post=>{return <article className="project-memory" key={post.id}><p className="eyebrow">{CIRCLES[post.category]}{authors.find(a=>a.id===post.owner_id)?.is_demo?" · DEMO DATA":""}</p><h3><Link href={`/circles/${post.id}`}>{post.title}</Link></h3><p>{post.specific_request}</p><p className="field-hint">{post.match.reasons[0]??"Recent open question"}</p><Link className="text-link" href={`/circles/${post.id}`}>Read and offer help →</Link></article>;})}</div>:<p className="muted">No open questions yet. <Link className="text-link" href="/circles/new">Share what you are working on →</Link></p>}</section>
-      {!alumni&&<section className="home-circles" aria-label="Learning Exchange"><h2>People to learn from</h2>{teachers.map(p=><article className="project-memory" key={p.id}><h3><Link href={`/people/${p.id}`}>{p.display_name}</Link></h3><p className="field-hint">{p.is_demo?"Demo profile · fictional experience":"Member · self-reported experience"}</p><p>{p.reasons[0]} · Accepting requests</p></article>)}{!teachers.length&&<p>Add accurate Can teach and Want to learn tags to find reciprocal matches.</p>}<h2>Alumni want to learn this</h2>{learners.map(p=><article className="project-memory" key={p.id}><h3><Link href={`/circles/${p.id}`}>{p.title}</Link></h3><p>You can teach: {overlap(p.tags,profile.can_teach).join(", ")}</p></article>)}{!learners.length&&<p>No current Learning Requests match your teaching tags.</p>}</section>}
+
+      <section className="home-circles"><div className="results-heading"><h2>{alumni?"Students you can help":"Questions needing answers"}</h2><Link className="text-link" href="/circles">Explore Circles →</Link></div>{questions.length?<div className="circle-grid">{questions.map(post=>{return <article className="project-memory" key={post.id}><p className="eyebrow">{CIRCLES[post.category]}</p><h3><Link href={`/circles/${post.id}`}>{post.title}</Link></h3><p>{post.specific_request}</p><p className="field-hint">{post.match.reasons[0]??"Recent open question"}</p><Link className="text-link" href={`/circles/${post.id}`}>Read and offer help →</Link></article>;})}</div>:<p className="muted">No open questions yet. <Link className="text-link" href="/circles/new">Share what you are working on →</Link></p>}</section>
+      {!alumni&&<section className="home-circles" aria-label="Learning Exchange"><h2>People to learn from</h2>{teachers.map(p=><article className="project-memory" key={p.id}><h3><Link href={`/people/${p.id}`}>{p.display_name}</Link></h3><p className="field-hint">Member · self-reported experience</p><p>{p.reasons[0]} · Accepting requests</p></article>)}{!teachers.length&&<p>Add accurate Can teach and Want to learn tags to find reciprocal matches.</p>}<h2>Alumni want to learn this</h2>{learners.map(p=><article className="project-memory" key={p.id}><h3><Link href={`/circles/${p.id}`}>{p.title}</Link></h3><p>You can teach: {overlap(p.tags,profile.can_teach).join(", ")}</p></article>)}{!learners.length&&<p>No current Learning Requests match your teaching tags.</p>}</section>}
       {alumni&&<p><Link className="text-link" href="/circles/new">Post a Learning Request →</Link></p>}
       <div className="dashboard-grid">
         <div>
@@ -68,7 +68,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
               </Link>
             )) : <p className="muted">Your saved paths will appear here. Start with a question you want to make progress on.</p>}
           </section>
-          <section className="recent-paths"><h2>{alumni?"Experience worth passing on":"Learn from others"}</h2>{memories.map(project=><article className="project-memory" key={project.id}><p className="eyebrow">{project.is_demo?"Demo project lesson":"Shared project lesson"}</p><h3>{project.title}</h3><p>{project.one_lesson}</p><Link className="text-link" href={`/people/${project.memberId}`}>Read the project and offered help →</Link></article>)}{!memories.length&&<p className="muted">Opt-in project lessons will appear here as members share their experience.</p>}<Link className="text-link" href="/people">Explore people and project experience →</Link></section>
+          <section className="recent-paths"><h2>{alumni?"Experience worth passing on":"Learn from others"}</h2>{memories.map(project=><article className="project-memory" key={project.id}><p className="eyebrow">Shared project lesson</p><h3>{project.title}</h3><p>{project.one_lesson}</p><Link className="text-link" href={`/people/${project.memberId}`}>Read the project and offered help →</Link></article>)}{!memories.length&&<p className="muted">Opt-in project lessons will appear here as members share their experience.</p>}<Link className="text-link" href="/people">Explore people and project experience →</Link></section>
         </div>
         <aside className="workspace-aside">
           <p className="eyebrow">From an idea to a next step</p>

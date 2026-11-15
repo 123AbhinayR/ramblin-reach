@@ -82,7 +82,6 @@ export function RequestCard({ request, viewerId, peer, outcome }: RequestCardPro
   }
 
   const peerName = peer?.display_name ?? "Unknown member";
-  const peerDemo = peer?.is_demo;
 
   return (
     <article className="request-card">
@@ -90,7 +89,7 @@ export function RequestCard({ request, viewerId, peer, outcome }: RequestCardPro
         <div>
           <span className="request-direction">{isSender ? "Sent to" : "Received from"}</span>
           <strong className="request-peer"> {peerName}</strong>
-          {peerDemo && <span className="demo-badge"> · Demo</span>}
+
         </div>
         <span className="request-status" style={{ color: statusColor[request.status] }}>
           {statusLabel[request.status] ?? request.status}
