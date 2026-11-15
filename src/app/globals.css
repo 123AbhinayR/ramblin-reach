@@ -259,6 +259,12 @@ svg { flex-shrink: 0; }
 .welcome-circles-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .welcome-circle-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; min-height: 44px; background: white; border: 1px solid #dce2e8; border-radius: 999px; color: var(--primary); font-size: 13px; font-weight: 600; transition: all 0.15s ease; }
 .welcome-circle-chip:hover { background: #f7f9fa; border-color: #c4d0de; }
+.welcome-features-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.welcome-feature-card { background: white; border: 1px solid #e0e5ea; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.welcome-feature-card .feature-icon-tile { width: 36px; height: 36px; border-radius: 10px; background: #eef2f6; color: var(--primary); display: inline-flex; align-items: center; justify-content: center; }
+.welcome-feature-card h3 { font-size: 15px; font-weight: 700; color: var(--primary); margin: 0; }
+.welcome-feature-card p { font-size: 13px; line-height: 1.55; color: #5f6e80; margin: 0; }
+.welcome-pipeline-tag { display: inline-block; font-size: 12px; font-weight: 600; color: #475569; background: #f1f5f9; padding: 4px 10px; border-radius: 999px; margin-bottom: 12px; }
 .header-actions { display: flex; align-items: center; gap: 16px; }
 .footer-links { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 
@@ -266,6 +272,7 @@ svg { flex-shrink: 0; }
   .welcome-hero { padding-block: 36px 28px; }
   .welcome-steps-grid { grid-template-columns: 1fr; gap: 12px; }
   .welcome-audience-grid { grid-template-columns: 1fr; gap: 12px; }
+  .welcome-features-grid { grid-template-columns: 1fr; gap: 12px; }
   .welcome-actions { flex-direction: column; align-items: stretch; width: 100%; }
   .welcome-actions a, .welcome-actions button { width: 100%; justify-content: center; }
   .welcome-circles-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }

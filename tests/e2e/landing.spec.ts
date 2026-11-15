@@ -20,10 +20,12 @@ test("welcome page fits viewports, has no overflow, and both buttons work", asyn
   await page.locator(".welcome-actions").getByRole("link", { name: "Sign in" }).click();
   await expect(page).toHaveURL(/\/login$/);
 
-  // Test secondary button "Browse Circles"
+  // Test secondary button "Browse Circles" (links to /circles; unauthenticated visitors are redirected to /login)
   await page.goto("/");
-  await page.locator(".welcome-actions").getByRole("link", { name: "Browse Circles" }).click();
-  await expect(page).toHaveURL(/\/circles$/);
+  const browseBtn = page.locator(".welcome-actions").getByRole("link", { name: "Browse Circles" });
+  await expect(browseBtn).toHaveAttribute("href", "/circles");
+  await browseBtn.click();
+  await expect(page).toHaveURL(/\/login$|\/circles$/);
 
   // Accessibility check
   await page.goto("/");
