@@ -1,3 +1,4 @@
+import type { InboxTables, InboxFunctions } from "@/lib/requests/messages";
 
 import type { CircleTables } from "@/lib/circles/database";
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
@@ -5,7 +6,7 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
 
   "public": {
-          Tables: CircleTables & {
+          Tables: InboxTables & CircleTables & {
             "blocks": {
                   Row: {
                     "blocked_id": string,"blocker_id": string,"created_at": string
@@ -241,7 +242,7 @@ isOneToOne: false
           Views: {
             [_ in never]: never
           }
-          Functions: {
+          Functions: InboxFunctions & {
             "consume_rate_limit":
 { Args: { "p_operation": string }; Returns: boolean
                            },

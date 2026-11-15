@@ -1,0 +1,17 @@
+"use client";
+import {useEffect,useRef,useState} from "react";
+import {z} from "zod";
+import {messageRow,type Message} from "@/lib/requests/messages";
+import {Button} from "./ui/button";
+const response=z.object({messages:z.array(messageRow),status:z.enum(['accepted','completed'])});
+export function Thread({requestId,viewerId,onClosed}:{requestId:string;viewerId:string;onClosed:()=>void}){
+ const [messages,setMessages]=useState<Message[]>([]),[body,setBody]=useState(''),[error,setError]=useState(''),[loading,setLoading]=useState(true),[busy,setBusy]=useState(false),[closed,setClosed]=useState(false);
+ const cursor=useRef(0),key=useRef(crypto.randomUUID());
+ const endpoint=`/api/requests/${requestId}/messages`;
+ useEffect(()=>{let active=true;async function poll(){try{const r=await fetch(`${endpoint}?after=${cursor.current}`,{cache:'no-store'});if(!r.ok)throw new Error();const value=response.parse(await r.json());if(!active)return;setClosed(value.status==='completed');setMessages(old=>[...old,...value.messages.filter(m=>!old.some(o=>o.id===m.id))]);const last=value.messages.at(-1)?.id??cursor.current;if(last){cursor.current=last;if(document.visibilityState==='visible'){const mark=await fetch(endpoint,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({lastId:last})});if(!mark.ok)throw new Error();}}setError('');}catch{if(active)setError('Thread could not refresh. Retrying shortly.');}finally{if(active)setLoading(false);}}void poll();const timer=setInterval(()=>void poll(),3000);return()=>{active=false;clearInterval(timer);};},[endpoint]);
+ async function send(e:React.FormEvent){e.preventDefault();if(busy)return;setBusy(true);setError('');try{const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({body,key:key.current})});if(!r.ok)throw new Error();setBody('');key.current=crypto.randomUUID();}catch{setError('Message was not confirmed. Retry to safely check or send it.');}finally{setBusy(false);}}
+ async function close(){setBusy(true);try{const r=await fetch(`/api/requests/${requestId}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'complete'})});if(!r.ok)throw new Error();setClosed(true);onClosed();}catch{setError('Could not close the request. Please retry.');}finally{setBusy(false);}}
+ return <div className="thread-panel">{loading&&<p role="status">Loading messages…</p>}<div className="thread-messages" role="log" aria-label="Messages" aria-live="polite">{!loading&&!messages.length&&<p>No messages yet. Start with your specific question.</p>}{messages.map(m=><article className={`message ${m.sender_id===viewerId?'mine':''}`} key={m.id}><strong>{m.sender_id===viewerId?'You':'Member'}</strong><p className="preserve-lines">{m.body}</p><time dateTime={m.created_at}>{new Date(m.created_at).toLocaleString()}</time></article>)}</div>{error&&<p role="alert">{error}</p>}{closed?<p role="status">This request is closed. Messages are read-only.</p>:<><form className="form-stack" onSubmit={send}><label>Reply<textarea aria-label="Reply" value={body} onChange={e=>setBody(e.target.value)} maxLength={2000} required rows={3}/><span className="field-hint">Up to 2,000 characters. Avoid private contact details and confidential artifacts.</span></label><Button disabled={busy||!body.trim()}>{busy?'Sending…':'Send reply'}</Button></form><Button onClick={close} disabled={busy}>Close request</Button></>}</div>;
+}
+
+

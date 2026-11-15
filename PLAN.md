@@ -15,7 +15,7 @@ Member-only circle posts/comments/reports with atomic write limits and ownership
 - [x] 0: inspect stack, establish branch, record scope. Baseline check: 54 tests passed, typecheck/lint passed.
 - [x] 1: mobile bottom navigation, shared styles, role home; build, full browser regression, responsive Home/People checks and screenshots verified.
 - [x] 2: six Circles, post/edit/delete/resolve/report, comments, help action; validation/category/ownership unit tests, DB controls, and two-account E2E verified.
-- [ ] 3: QuickReach templates/review, accepted-request messages, polling/unread Inbox; security + persisted two-account E2E.
+- [x] 3: QuickReach templates/review, accepted-request messages, polling/unread Inbox; security + persisted two-account E2E.
 - [ ] 4: project-to-people loop, explainable teach/learn matching, outcomes and notifications; full-loop E2E.
 - [ ] 4B: Built at Tech, expiring availability, recorded-data Impact Card/Help Chain only after P0 green.
 - [ ] 5: deterministic isolated authenticated demo/reset, screenshots, full regression and release documentation.
@@ -35,3 +35,21 @@ Commit and push each verified gate; never merge main or force-push. First unfini
 - [ ] Phase 3 implementation: QuickReach templates/review and accepted-request messaging with participant/read-cursor security. Not implemented or claimed by this checkpoint.
 
 Phases 4, 4B and 5 remain open. Earlier saved data and unrelated files are preserved. Final changes are committed/pushed only on this feature branch; no merge to main.
+
+## Phase 3 checkpoint — November 14, 2026
+
+| Checkpoint | Result | Evidence |
+|---|---|---|
+| QuickReach | Passed | Connect on People cards, helper profiles and Circle posts; eight static editable reason templates, offered topics, review then explicit send. Existing ReachCard creation/caps retained. |
+| Lifecycle / Inbox | Passed | Existing request is thread identity; recipient accepts/declines, both reply only after acceptance, Close uses Completed and preserves outcomes. Desktop split view, mobile list/detail/back, 3s thread and 5s Inbox polling, unread read cursors. |
+| Typecheck / lint / units | Passed | `npm run check`: typecheck, zero-warning lint, 64 tests in 11 suites. QR16–QR17 cover template and message boundaries. |
+| Database / RLS | Passed | `npm run test:db`: 84 total = 51 transactional + 6 concurrent/month-boundary + 11 Circles + 16 Inbox (QR01–QR15, QR19). Tests include participant/anonymous denial, direct-write denial, retries, length, rate, consent/block, decline and close. |
+| Production build / browser | Passed | `npm run test:e2e` builds the production app, then all 28 tests passed on desktop/375px mobile. QR18 extends E05–E09/E16: two real authenticated parties reply, unread indicator, reload persistence, unrelated HTTP and page denial, close and private outcome. No skipped tests. |
+| Visual review | Passed | Loaded desktop split view and mobile Inbox/thread screenshots copied to `.tmp/phase3-review/`; thread axe scans have no serious/critical violations and overflow assertions pass. |
+| Delivery scope | Local verified | Migrations 005/006 applied to isolated local Supabase. Commit/push remains on `feat/circles-quickreach`; no main merge, hosted migration or deployment. |
+
+Changed areas: ReachCard templates/review and Connect links; request list/detail, polling and message APIs; Inbox/Thread components; message/read schemas and database types; two additive migrations; database/unit/browser tests and API/test/implementation records. No dependency additions or replacement backend.
+
+Initial browser runs exposed a Reply accessible-label ambiguity, a hidden-profile name assumption and two test navigation races. Corrected them; the final full run above passed all 28. Prior assertions were retained, with Close exercising the existing Complete transition. Local screenshot files remain ignored review artifacts. Existing generated `next-env.d.ts` changes are excluded from the commit.
+
+Operational limits: deploy both additive migrations before using this build against another database. The Inbox lists the latest 50 requests; thread history catches up in ordered batches of 100. No email delivery, realtime sockets, attachments or hosted integration is claimed. Phases 4, 4B and 5 remain open; next bounded work is Phase 4 per this plan.

@@ -1,5 +1,6 @@
+import { loadInbox } from "@/lib/requests/data";
 import { apiMember } from "@/lib/api-member";
-import { createRequestSchema } from "@/lib/requests/schemas";
+import { createRequestSchema, requestRowSchema } from "@/lib/requests/schemas";
 import { failure, json, readInput } from "@/lib/http";
 
 export async function POST(request: Request) {
@@ -26,8 +27,10 @@ export async function POST(request: Request) {
       if (msg.includes("RATE_LIMIT")) return json({ error: { code: "RATE_LIMIT", message: "Please wait a moment before sending another request." } }, 429);
       throw error;
     }
-    return json({ request: data }, 201);
+    return json({ request: requestRowSchema.parse(data) }, 201);
   } catch (error) {
     return failure(error);
   }
 }
+
+export async function GET(){try{const {client}=await apiMember();return json(await loadInbox(client));}catch(error){return failure(error);}}

@@ -1,4 +1,5 @@
 "use client";
+import { QUICK_REASONS, quickTemplate } from "@/lib/requests/templates";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FORMATS, HELP_TOPICS, labels } from "@/lib/domain/schemas";
@@ -41,6 +42,8 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
+  const [review, setReview] = useState(false);
+  const [reason, setReason] = useState("");
 
   const { hints, warnings, isReady } = evaluateReachReady({
     goalContext,
@@ -51,6 +54,7 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (sending) return;
+    if (!review) { setReview(true); return; }
     setError("");
     setSending(true);
     try {
@@ -102,6 +106,12 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
         <p className="field-hint">They&apos;ll see your question, topic, and format preference. Private request text is only visible to both of you.</p>
       </div>
 
+      <p className="field-hint">Offered topics: {availableTopics.map(t=>labels[t]).join(", ")}. Templates are starting points; edit them for your question. No message is sent until you confirm.</p>
+      <label>Connection reason
+        <select required value={reason} onChange={e=>{const value=e.target.value as typeof QUICK_REASONS[number];setReason(value);if(value){const draft=quickTemplate(value);if(!goalContext)setGoalContext(draft.goal);setSpecificQuestion(draft.question);}setReview(false);}}>
+          <option value="">Choose a reason</option>{QUICK_REASONS.map(r=><option key={r}>{r}</option>)}
+        </select>
+      </label>
       <label htmlFor="helpTopic">
         Help topic
         <select id="helpTopic" value={helpTopic} onChange={e => setHelpTopic(e.target.value)} required>
@@ -210,9 +220,10 @@ export function ReachCardForm({ recipientId, recipientName, recipientHelpTopics,
 
       {error && <p className="form-message" role="alert">{error}</p>}
 
+      {review&&<section className="quick-review" aria-label="Review ReachCard"><h2>Review your ReachCard</h2><p>To: {recipientName}</p><p>{labels[helpTopic as keyof typeof labels]} · {labels[format as keyof typeof labels]}</p><p>{goalContext}</p><p>{specificQuestion}</p>{priorEffort&&<p>{priorEffort}</p>}{safeProjectUrl&&<p>{safeProjectUrl}</p>}<p className="field-hint">Confirm the words above before sending. You can still edit every field.</p><Button type="button" onClick={()=>setReview(false)}>Back to edit</Button></section>}
       <div className="reach-actions">
         <Button type="submit" disabled={sending} aria-busy={sending}>
-          {sending ? "Sending…" : "Send ReachCard"}
+          {sending ? "Sending…" : review ? "Send ReachCard" : "Review ReachCard"}
         </Button>
         {isReady && <span className="reach-ready-badge">✓ ReachReady</span>}
       </div>

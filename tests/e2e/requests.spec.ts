@@ -3,6 +3,7 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private outcome flow", async ({ browser }, testInfo) => {
+  test.setTimeout(120000);
   const {studentAccount,helperAccount}=await isolatedAccounts();
 
   // 1. Student context: log in and send ReachCard to Jordan Mercer (A1)
@@ -30,10 +31,11 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   await expect(studentPage.getByRole("heading", { name: "DIY temperature logger" })).toBeVisible();
 
   // Click Send a ReachCard
-  await studentPage.getByRole("link", { name: "Send a ReachCard" }).click();
+  await studentPage.getByRole("link", { name: "Connect" }).click();
   await expect(studentPage).toHaveURL(/\/people\/[0-9a-f-]+\/request/);
   await expect(studentPage.getByRole("heading", { name: /Ask Jordan Mercer/ })).toBeVisible();
 
+  await studentPage.getByLabel("Connection reason").selectOption("Project Feedback");
   // Fill ReachCard form
   const goalContextField = studentPage.getByLabel(/What I.*trying to achieve/);
   await expect(goalContextField).toHaveValue(/environmental sensor/);
@@ -53,6 +55,7 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   expect(scanReach.violations.filter(v => ["serious", "critical"].includes(v.impact ?? ""))).toEqual([]);
 
   // Submit ReachCard
+  await studentPage.getByRole("button", { name: "Review ReachCard" }).click();
   await studentPage.getByRole("button", { name: "Send ReachCard" }).click();
   await expect(studentPage.getByRole("heading", { name: /Your request is on its way to Jordan Mercer/ })).toBeVisible();
 
@@ -101,10 +104,40 @@ test("E05–E09/E16 full ReachCard request, alumni accept, complete, and private
   await studentPage.reload();
   await expect(studentPage.getByText("Accepted", { exact: true })).toBeVisible();
 
+  // QR18 persisted participant thread, polling, unread and third-party denial.
+  await studentPage.screenshot({path:testInfo.outputPath("inbox-list.png"),fullPage:true});
+  await studentPage.getByRole("link",{name:/Open thread with Jordan Mercer/}).click();
+  await expect(studentPage).toHaveURL(/\/requests\/[0-9a-f-]+$/);
+  const threadUrl=studentPage.url();const requestId=threadUrl.split('/').at(-1)!;
+  await studentPage.getByLabel("Reply",{exact:true}).fill("How should I choose a calibration reference for this sensor?");
+  await studentPage.getByRole("button",{name:"Send reply",exact:true}).click();
+  await expect(helperPage.getByText('· Unread',{exact:true})).toBeVisible({timeout:20000});
+  await helperPage.getByRole("link",{name:/Open thread with/}).click();
+  await expect(helperPage.getByText("How should I choose a calibration reference for this sensor?",{exact:true})).toBeVisible();
+  await helperPage.getByLabel("Reply",{exact:true}).fill("Compare two known reference points and record the drift.");
+  await helperPage.getByRole("button",{name:"Send reply",exact:true}).click();
+  await expect(studentPage.getByText("Compare two known reference points and record the drift.",{exact:true})).toBeVisible();
+  await studentPage.reload();
+  await expect(studentPage.getByText("Compare two known reference points and record the drift.",{exact:true})).toBeVisible();
+  await studentPage.screenshot({path:testInfo.outputPath("inbox-thread.png"),fullPage:true});
+  const threadScan=await new AxeBuilder({page:studentPage}).analyze();
+  expect(threadScan.violations.filter(v=>['serious','critical'].includes(v.impact??''))).toEqual([]);
+  expect(await studentPage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  const unrelated=(await isolatedAccounts()).studentAccount;
+  const strangerContext=await browser.newContext();const stranger=await strangerContext.newPage();
+  await stranger.goto('/login');await stranger.getByLabel('Email address').fill(unrelated.email);await stranger.getByLabel('Password',{exact:true}).fill(unrelated.password);await stranger.getByRole('button',{name:'Sign in',exact:true}).click();await expect(stranger).toHaveURL(/dashboard$/);
+  expect((await stranger.request.get(`/api/requests/${requestId}/messages`)).status()).toBe(404);
+  expect((await stranger.request.post(`/api/requests/${requestId}/messages`,{headers:{Origin:'http://127.0.0.1:3000'},data:{body:'Foreign access denied',key:crypto.randomUUID()}})).status()).toBe(409);
+  await stranger.goto(threadUrl);await expect(stranger.getByText('Compare two known reference points and record the drift.',{exact:true})).toHaveCount(0);
+  await strangerContext.close();
+  await studentPage.getByRole('button',{name:'Close request',exact:true}).click();
+  await expect(studentPage.getByText('This request is closed. Messages are read-only.')).toBeVisible();
+  await studentPage.getByRole('link',{name:'← Back to Inbox'}).click();
+  await expect(studentPage).toHaveURL(/\/requests$/);
   // Student marks request completed
   const completeButton = studentPage.getByRole("button", { name: "Mark as Complete" }).first();
-  await expect(completeButton).toBeVisible();
-  await completeButton.click();
+  await expect(completeButton).toHaveCount(0);
+  // Already closed through the thread; the same existing Completed state applies.
 
   // Verify status is Completed
   await expect(studentPage.getByText("Completed", { exact: true })).toBeVisible();

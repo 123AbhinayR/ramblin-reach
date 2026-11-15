@@ -194,3 +194,8 @@ Canonical fixtures:
 CI01–CI04: required fields, forged ownership inputs, safe URLs, deterministic category/shared-skill ordering, comment limits (`tests/unit/circles.test.ts`).
 CI05–CI15: authenticated persistence, anonymous denial, owner-only edits/deletes, spoof prevention, one reply level, resolved-write denial, report privacy, blocks, withdrawn visibility, direct-SQL rate limits, cascading deletion (`scripts/test-circles-db.ts`; part of `npm run test:db`).
 CI16–CI17: two real authenticated accounts post/reply/resolve with category isolation, reload persistence and foreign HTTP mutation denial (`tests/e2e/circles.spec.ts`).
+
+## QuickReach / Inbox extension
+QR01–QR15 (`scripts/test-inbox-db.ts`): pending lock, duplicate pending requests, recipient acceptance, retry idempotency/conflict, both participants reply, direct SQL/sender spoof denial, unrelated and anonymous denial, database length/normalization, participant read cursors, atomic message rate limit, blocks, recipient consent withdrawal, closed read-only state, declined lock. QR19 verifies unread summary cursor and participant restrictions. These extend the existing R/S state-machine and concurrent-cap checks; no replacement request system.
+QR16–QR17 (`tests/unit/inbox.test.ts`): all eight static templates validate as existing ReachCards; message boundary rejects empty/invisible/overlong/spoofed input.
+QR18 (`tests/e2e/requests.spec.ts`, desktop and 375px mobile): reviewed send, recipient accept, both reply through polling, unread indicator, persistence on reload, unrelated HTTP/page denial, close and existing private outcome flow; Inbox/thread screenshots and axe/overflow checks.

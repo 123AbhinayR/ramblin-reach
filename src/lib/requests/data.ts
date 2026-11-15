@@ -39,7 +39,14 @@ export async function loadInbox(client: Client) {
     outcomes.push(...z.array(outcomeRowSchema).parse(outcomeData));
   }
 
-  return { rows, profiles, outcomes };
+  const ids=rows.map(r=>r.id);
+  const unreadIds:string[]=[];
+  if(ids.length){
+    const {data,error}=await client.rpc("unread_request_ids",{p_ids:ids});
+    if(error)throw new Error("Unread status could not be loaded.");
+    unreadIds.push(...z.array(z.object({request_id:z.uuid()})).parse(data).map(r=>r.request_id));
+  }
+  return { rows, profiles, outcomes, unreadIds };
 }
 
 export async function loadRequest(client: Client, id: string) {
