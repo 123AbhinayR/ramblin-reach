@@ -1,9 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { publicEnvSchema } from "@/lib/env-schema";
+import { publicEnvSchema,serverEnvSchema } from "@/lib/env-schema";
 import type { Database } from "@/lib/supabase/database.types";
 
 export async function proxy(request: NextRequest) {
+  if(request.nextUrl.pathname==="/demo"||request.nextUrl.pathname==="/api/demo"){
+    const demo=serverEnvSchema.safeParse(process.env);
+    if(!demo.success||demo.data.DEMO_MODE!=="1"||demo.data.APP_ENV!=="local")return new NextResponse("Not found.",{status:404,headers:{"Cache-Control":"private, no-store"}});
+  }
   const env = publicEnvSchema.safeParse(process.env);
   let response = NextResponse.next({ request });
   response.headers.set("Cache-Control", "private, no-store");
