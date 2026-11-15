@@ -16,11 +16,13 @@ Single Georgia Tech-specific app; core capability names remain JacketPath, Jacke
 
 ## Release / cleanup (authorized by latest user instruction)
 
-- [ ] Confirm clean task work and no tracked/staged secrets; preserve unrelated generated next-env.d.ts.
-- [ ] Tag current main as pre-merge-backup and push the tag.
-- [ ] Normal merge into main; stop on conflicts. Build main once and push only if it passes.
-- [ ] Record every other local/remote branch and tip in DELETED_BRANCHES.md before normal deletion; retain main.
+- [x] Confirm clean task work and no tracked/staged secrets; preserve unrelated generated next-env.d.ts.
+- [x] Tag current main as pre-merge-backup and push the tag.
+- [x] Normal merge into main; stop on conflicts. Build main once and push only if it passes.
+- [x] Record every other local/remote branch and tip in DELETED_BRANCHES.md before normal deletion; retain main.
 
 ## Boundaries
 
 Apply migrations through 013 before this build. Seed/reset commands require isolated local Supabase and explicit seed consent. Demo passwords remain in ignored `.tmp/reach-demo-accounts.json`; the application has no service-role client. Reset refuses cross-namespace interactions. Private notes never become public log text automatically. No hosted deployment, institutional verification, live presence, guaranteed mentoring, job/referral outcome, external messaging or calendar is claimed. Rehearsal and recovery commands are in README.md and DEMO.md.
+
+Release result: normal merge `9698901` completed without conflicts; the build on main passed and main was pushed. `pre-merge-backup` preserves `77e759522980316d361e74bed4c4496462eacb3b`. All three other branches were recorded in DELETED_BRANCHES.md before normal deletion locally and on origin. Only main remains. The final recovery-record commit changes documentation only; no second main build was run.
