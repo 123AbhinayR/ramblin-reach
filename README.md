@@ -1,10 +1,10 @@
 # Ramblin' Reach
 
-**Post what you're building. Find who can help. Learn in both directions.**
+**One network for Georgia Tech students and alumni to build, help, and learn together.**
 
-Ramblin' Reach turns a Georgia Tech student's project problem into a useful conversation and a recorded next step. Built for the Georgia Tech Campus Solutions Hackathon 2026.
+Post what you're building, see who can help and why, and reach out with a message you review first. Students get unstuck and find their next opportunity. Alumni get help from each other, network in Circles, and learn from current students. Built for the Georgia Tech Campus Solutions Hackathon 2026.
 
-[The problem](#the-problem) · [Why it matters](#why-it-matters-for-georgia-tech) · [What it does](#what-it-does) · [Architecture](#architecture-and-system-design) · [Run it](#quick-start) · [Demo](#try-the-demo)
+[The problem](#the-problem) · [Who it's for](#who-its-for) · [Why it matters](#why-it-matters-for-georgia-tech) · [What it does](#what-it-does) · [Architecture](#architecture-and-system-design) · [Run it](#quick-start) · [Demo](#try-the-demo)
 
 <!--
 Add after recording and capturing:
@@ -18,16 +18,18 @@ Add after recording and capturing:
 
 ## The problem
 
-Imagine you're building a robotics project at Georgia Tech. Your computer-vision model keeps lagging, and you need someone who has solved that problem before.
+Georgia Tech has a very large alumni community, and most of it is hard to reach.
 
-The expertise may well exist. The Georgia Tech Alumni Association reports [more than 200,000 living alumni](https://gtalumni.org/about-us/default.html). The hard part is finding the right person, and giving them a reason to answer a stranger.
+The Georgia Tech Alumni Association reports [more than 200,000 living alumni](https://gtalumni.org/about-us/default.html). Somewhere in that group is the person who has already fixed your computer-vision latency problem, works at the company you're applying to, lives in the city you're moving to, or wants to hear what students are building right now. The hard part is finding that person, and giving them a reason to answer a stranger.
 
 Tech already has a foundation to build on, and a gap to close:
 
 - **Georgia Tech Connect**, the Alumni Association's online network exclusive to Yellow Jackets, has roughly 20,000 alumni on it, according to figures reported to our team. A May 2025 Alumni Association presentation described [more than 16,500 alumni](https://giving.parents.gatech.edu/sites/default/files/workshops_2025-05/WB%205%207%2025%20Alumni%20Assoc%20presentation.pdf) on the network.
 - **Mentor Jackets**, the student-alumni mentoring program, has about 1,000 students and mentors participating today, by the same account. When the Alumni Association described its move to the platform (around 2021), the program [served approximately 700 student-alumni pairs per academic year](https://www.peoplegrove.com/?p=3220).
 
-So a small share of a very large alumni community is currently reachable through a structured program: about 1,000 participants against roughly 20,000 alumni on the network and more than 200,000 living alumni overall. Other universities run dedicated platforms too, such as [Stanford Alumni Mentoring (SAM)](https://careered.stanford.edu/resources/stanford-alumni-mentoring-sam), where students browse alumni profiles and message alumni directly, and [Connect GSD](https://www.gsd.harvard.edu/offices-and-facilities/career-services/connect-gsd/connect-gsd-career/) at Harvard's Graduate School of Design, which pairs students with alumni mentors. Ramblin' Reach is meant to help bridge the gap between how many Georgia Tech alumni could help and how many currently do, by starting from what students are building instead of from a profile list.
+So a small share of a very large alumni community is currently reachable through a structured program: about 1,000 participants against roughly 20,000 alumni on the network and more than 200,000 living alumni overall. Those tools also sit apart from each other and from the work people are actually doing, so connecting through them usually means knowing which one to open, browsing a list of names, and sending a cold message.
+
+Other universities run dedicated platforms too, such as [Stanford Alumni Mentoring (SAM)](https://careered.stanford.edu/resources/stanford-alumni-mentoring-sam), where students browse alumni profiles and message alumni directly, and [Connect GSD](https://www.gsd.harvard.edu/offices-and-facilities/career-services/connect-gsd/connect-gsd-career/) at Harvard's Graduate School of Design, which pairs students with alumni mentors. These show that alumni engage when access is easy and designed on purpose. They are still built around profiles and pairings, though, and mostly point one way, from alumni to students.
 
 This is not unique to Tech, and the numbers show it:
 
@@ -36,25 +38,39 @@ This is not unique to Tech, and the numbers show it:
 | Only **56%** of student success administrators said their career center effectively connects students with the institution's alumni network. | [Inside Higher Ed, 2024 survey](https://www.insidehighered.com/node/183566) |
 | Median alumni engagement was just **14.7%** across **398 institutions** in 18 countries, counting anyone who took part in at least one of four modes (communication, experiential, volunteering, philanthropy). | [CASE Insights on Alumni Engagement, 2025](https://www.case.org/system/files/media/inline/CASE%20Insights%20on%20Alumni%20Engagement%202025%20Key%20Findings.pdf) |
 
-Most alumni directories give you names, not context. Students search profiles, guess who might be useful, send cold messages, and hope. Alumni get requests with no background and little reason to say yes. A student can lose weeks on a problem someone in the network already solved.
+Most directories give you names, not context. People search profiles, guess who might be useful, send cold messages, and hope. The person on the other end gets a request with no background and little reason to say yes. And reaching an alum often depends on being in the right program or the right meeting, when it should be open to everyone in the community.
+
+## Who it's for
+
+Ramblin' Reach is one network with a few different ways in, and they share the same Circles, People search, and Inbox.
+
+**Students who are building.** Post a project and where you're stuck. The app shows who is relevant, with a plain reason for every match, and you can learn from past projects and from alumni who built something similar at Tech.
+
+**Students and alumni looking for a job or a connection.** Search People by skill, company, city, or topic, then reach out with a Career Question, Resume Review, Mock Interview, or Coffee Chat. Alumni who are job hunting or moving use the same search.
+
+**Alumni who want to give back.** Your home shows students you can help, matched on skills and what you built at Tech. Turn on Available now for a 60-minute window when you can answer a quick question.
+
+**Alumni who want to network and keep learning.** Circles are shared spaces where alumni ask each other for help, talk about careers, and meet people working on similar things. Alumni can also post Learning Requests, such as how people deploy vision models today, and students can answer them.
+
+What makes it different is that these are one platform instead of separate tools. A student who gets help on a project can later find a contact at a company in the same place, and an alum who helps a student can learn something back and meet other alumni in the same Circle. It supports a relationship with Georgia Tech that lasts a whole career, in both directions.
 
 ## Why it matters for Georgia Tech
 
-Tech students are always building: hackathon prototypes, research projects, startups, club initiatives. These projects get stuck on specific, solvable problems, and the people who know the answers have often graduated. Meanwhile, alumni who want to stay connected to what students are working on today have no easy way in.
+Tech students are always building: hackathon prototypes, research projects, startups, club initiatives. These projects get stuck on specific, solvable problems, and the people who know the answers have often graduated. Students also need to find internships, jobs, and advice, and alumni who want to stay connected to what students are working on today have no easy way in.
 
-A network that starts from the work, not the résumé, could shorten the distance between a stuck student and a useful answer. It could also help clubs keep hard-won lessons after their members graduate. That is the gap Ramblin' Reach is built to close.
+A network that starts from the work and the goal, not the résumé, could shorten the distance between a person who needs something and someone who can help. It could also help clubs keep hard-won lessons after their members graduate. That is the gap Ramblin' Reach is built to close.
 
-## Our approach: projects, not profiles
+## Our approach: projects and goals, not just profiles
 
 **Problem → Community → Relevant Person → Conversation → Action → Outcome**
 
-1. A student posts a project and where they're stuck.
+1. A member posts what they're working on, or what they need, in a Circle.
 2. The app shows who is relevant, with a plain reason for every match.
-3. The student sends a short request they reviewed first. The other person accepts or declines.
+3. The member sends a short request they reviewed first. The other person accepts or declines.
 4. They talk in a private inbox.
 5. Both sides record what was learned and the next step.
 
-Alumni learn too. Anyone can list what they can teach and what they want to learn, and alumni can post Learning Requests that students can answer.
+Learning runs in both directions. Anyone can list what they can teach and what they want to learn, and alumni can post Learning Requests that students can answer.
 
 The app builds on three capabilities: **JacketPath** for source-backed next steps, **JacketMatch** for finding relevant people and Circles, and **ReachCard** for reviewed requests and accepted conversations.
 
@@ -62,10 +78,12 @@ The app builds on three capabilities: **JacketPath** for source-backed next step
 
 | A typical directory | Ramblin' Reach |
 | --- | --- |
-| Starts from a profile | Starts from a project: the challenge, work already done, and the specific help needed |
+| Separate tools for mentoring, networking, and job search | One platform where building, job search, mentoring, and learning share the same Circles, People search, and Inbox |
+| Starts from a profile | Starts from a project or goal: the challenge, work already done, and the specific help needed |
 | Shows a list of names | Shows who is relevant and why, using stored skills, interests, and experience |
-| Alumni only give back | Alumni also learn, through Can teach / Want to learn and Learning Requests |
-| Cold messages | Short requests the student reviews before sending, accepted by the recipient before any thread opens |
+| Alumni only give back | Alumni also learn, through What I can teach / What I want to learn and Learning Requests |
+| Alumni are only mentors | Alumni get help from each other and network in Circles, and can search People by company or city |
+| Cold messages | Short requests the sender reviews before sending, accepted by the recipient before any thread opens |
 | Ends at the introduction | Records self-reported outcomes in a Learning Log, with private Impact Cards and Help Chains |
 
 ## What it does
@@ -73,25 +91,37 @@ The app builds on three capabilities: **JacketPath** for source-backed next step
 | Feature | What happens |
 | --- | --- |
 | JacketPath | Saves a goal and checklist using five curated official resources, review dates, and access caveats. |
-| JacketCircles, within JacketMatch | Approved members discuss Hackathons, Startups, Personal Projects, Research, Clubs & Organizations, and Careers. |
+| JacketCircles, within JacketMatch | Approved students and alumni discuss Hackathons, Startups, Personal Projects, Research, Clubs & Organizations, and Careers: ask for help, offer help, share what they're building, and network. |
 | Post types | Ask for Help, Building Something, Looking for Teammates, Project Feedback, Project Update, and Learning Request. |
 | Resolve | A post owner marks a discussion resolved; resolved discussions reject further replies. |
-| Explainable matching | Stored signals produce reason lines; company and city filters use their intersection. |
+| People search | Find students and alumni by skill, company, city, or topic. Company and city filters use their intersection. |
+| Explainable matching | Stored signals produce a reason line for every match. |
 | QuickReach, within ReachCard | Editable templates for Career Question, Coffee Chat, Resume Review, Mock Interview, Project Feedback, Technical Mentoring, General Connection, and Quick Question. Review and confirmation precede sending. |
 | Inbox | Accepted ReachCards unlock participant-only text conversations with polling and unread indicators. |
 | Notifications | Persistent in-app updates for requests, acceptance, messages, replies, and matched requests, with deep links and mark-read. |
 | Learning Exchange | Matches project help and reciprocal teach/learn interests; alumni can publish Learning Requests. |
-| Learning Log | Each participant records learned/helped/next-step text. Explicitly shared fields can appear on profiles or projects. |
+| Learning Log | Each participant records what was learned and what's next. Explicitly shared fields can appear on profiles or projects. |
 | Built at Tech | Alumni optionally record a project title, year, and lab or club; matching uses title words, never graduation assumptions. |
 | Available now | Alumni opt into a server-owned 60-minute window, with an expiring badge and People filter. This is an availability window, not live presence. |
 | Impact Card | The profile owner sees a private summary derived from completed requests and their recorded outcomes. |
 | Help Chain | A private SVG on the owner's profile shows recorded help relationships without publishing counterpart attribution. |
 
+### What each home shows
+
+| Student home | Alumni home |
+| --- | --- |
+| Continue your project | Students you can help |
+| Questions you can help answer | Learn from students |
+| Members who can help you | Your conversations |
+
+Alumni also use the same Circles, People search, and Inbox to ask other members for help and to network.
+
 ## Intended impact
 
-- **Students** spend less time finding the right person and more time making progress.
-- **Alumni** receive focused requests that respect their capacity, and have a way to learn from current students.
+- **Students** spend less time finding the right person and more time making progress, on projects and on finding their next opportunity.
+- **Alumni** receive focused requests that respect their capacity, can get help from other members, can network through Circles, and have a way to learn from current students.
 - **Clubs and teams** can keep useful lessons as members graduate.
+- **The community** gets a way to stay connected for a whole career, not only for a single mentoring match.
 
 This has not been piloted with real users yet. There are no adoption or impact metrics, and no real-user data exists. Demo outcomes are simulated sample records. A pilot with Georgia Tech clubs and the alumni association should measure relevance, response burden, and useful next steps before anyone claims impact.
 
@@ -204,6 +234,7 @@ Results from local runs during the build:
 
 | Check | Result |
 | --- | --- |
+| Typecheck and lint | 0 errors, 0 warnings. |
 | Unit tests | 81 passed across 15 suites, including 10 availability/Built at Tech/Impact cases. |
 | Database/RLS/concurrency | 103 passed: 51 transactional, 6 concurrency/month-boundary, 11 Circles, 16 Inbox, 19 learning-loop checks. |
 | Browser regression | Full run: 30 passed, 2 locator failures. Both corrected cases passed on targeted rerun; 32 distinct cases passed across those runs. |
@@ -250,11 +281,13 @@ npm run demo:reset
 
 Open `/demo` to choose among three student and four alumni personas. The server signs into a real Supabase account. Generated credentials stay in ignored `.tmp/reach-demo-accounts.json` and are not returned to the browser.
 
+A good tour: sign in as a student and post a blocker in a Circle, switch to an alumnus to see "Students you can help" with reason lines, search People by company or city, send a reviewed QuickReach request, accept it and talk in the Inbox, then record what you learned on the profile. Switch to an alumnus again to see "Learn from students" and a Learning Request a student can answer.
+
 Everything in this scenario is seeded sample data. Reset restores fixed scenario content while preserving Auth identities and unrelated accounts; it refuses interactions outside its namespace. The switcher is local-only and returns 404 when disabled. See [DEMO.md](DEMO.md) for the walkthrough.
 
 ## Limits and what's next
 
-No scraping, job ingestion, contact importing, multi-university directory, attachments, global social graph, or autonomous third-party actions. Read selections are bounded. Available now is an expiring opt-in signal, and employers and outcomes remain self-reported.
+No scraping, job ingestion, contact importing, multi-university directory, attachments, global social graph, or autonomous third-party actions. Ramblin' Reach helps people find the right person for a job search, but it is not a job board and does not promise referrals. Read selections are bounded. Available now is an expiring opt-in signal, and employers and outcomes remain self-reported.
 
 Potential next steps are email notifications and digests, consent-based calendar scheduling, a separately designed referral workflow, and pilots with Georgia Tech clubs and the alumni association. None is built or an established partnership.
 
@@ -275,4 +308,4 @@ Potential next steps are email notifications and digests, consent-based calendar
 - Inside Higher Ed, [2024 survey of student success leaders](https://www.insidehighered.com/node/183566): 56% said their career center effectively connects students with the alumni network.
 - CASE, [Insights on Alumni Engagement 2025 Key Findings](https://www.case.org/system/files/media/inline/CASE%20Insights%20on%20Alumni%20Engagement%202025%20Key%20Findings.pdf): median engagement 14.7% across 398 institutions.
 
-Ramblin' Reach is an independent student project and is not affiliated with or endorsed by Georgia Tech.
+An independent student project for the Georgia Tech Campus Solutions Hackathon 2026. Ramblin' Reach is not affiliated with or endorsed by Georgia Tech.
