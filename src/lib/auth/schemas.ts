@@ -1,3 +1,4 @@
+import {builtAtTechSchema} from "@/lib/matching/built";
 import { z } from "zod";
 import { AFFILIATIONS, HELP_TOPICS, VERIFICATION_STATES, locationSchema, textField } from "@/lib/domain/schemas";
 
@@ -6,6 +7,7 @@ export const emailSchema = z.strictObject({ email: z.email().max(254) });
 export const passwordSchema = z.strictObject({ password: z.string().min(12).max(128) });
 const tags=z.array(textField(1,40)).max(20).default([]);
 export const profileInputSchema = z.strictObject({
+  built_at_tech:builtAtTechSchema.nullable().default(null),
   display_name: textField(1, 80), visible: z.boolean(), paused: z.boolean(),
   major: textField(0, 100).nullable(), grad_year: z.number().int().min(1900).max(2200).nullable(),
   company_name: textField(0, 100).nullable(), metro: locationSchema.nullable().transform(value => value || null),
@@ -18,5 +20,5 @@ export const profileSchema = profileInputSchema.extend({
   id: z.uuid(), affiliation: z.enum(AFFILIATIONS), verification_state: z.enum(VERIFICATION_STATES),
   is_demo: z.boolean(),
 });
-export const PROFILE_COLUMNS = "id,display_name,affiliation,verification_state,is_demo,visible,paused,major,grad_year,company_name,metro,role_title,bio,skills,gt_topics,help_topics,monthly_cap,can_teach,want_learn,interests,mentor_categories";
+export const PROFILE_COLUMNS = "id,display_name,affiliation,verification_state,is_demo,visible,paused,major,grad_year,company_name,metro,role_title,bio,skills,gt_topics,help_topics,monthly_cap,built_at_tech,can_teach,want_learn,interests,mentor_categories";
 export type Profile = z.infer<typeof profileSchema>;

@@ -329,13 +329,16 @@ isOneToOne: false
                   ]
                 },"profiles": {
                   Row: {
+                    "built_at_tech": Json | null,
                     "affiliation": Database["public"]['Enums']["affiliation"],"bio": string | null,"can_teach": (string)[],"company_name": string | null,"created_at": string,"display_name": string,"grad_year": number | null,"gt_topics": (string)[],"help_topics": (Database["public"]['Enums']["help_topic"])[],"id": string,"interests": (string)[],"is_demo": boolean,"major": string | null,"mentor_categories": (string)[],"metro": string | null,"monthly_cap": number,"paused": boolean,"role_title": string | null,"skills": (string)[],"updated_at": string,"verification_method": Database["public"]['Enums']["verification_method"],"verification_state": Database["public"]['Enums']["verification_state"],"verified_at": string | null,"visible": boolean,"want_learn": (string)[]
                   }
                   ComputedFields: never
                   Insert: {
+                    "built_at_tech"?: Json | null,
                     "affiliation"?: Database["public"]['Enums']["affiliation"],"bio"?: string | null,"can_teach"?: (string)[],"company_name"?: string | null,"created_at"?: string,"display_name"?: string,"grad_year"?: number | null,"gt_topics"?: (string)[],"help_topics"?: (Database["public"]['Enums']["help_topic"])[],"id": string,"interests"?: (string)[],"is_demo"?: boolean,"major"?: string | null,"mentor_categories"?: (string)[],"metro"?: string | null,"monthly_cap"?: number,"paused"?: boolean,"role_title"?: string | null,"skills"?: (string)[],"updated_at"?: string,"verification_method"?: Database["public"]['Enums']["verification_method"],"verification_state"?: Database["public"]['Enums']["verification_state"],"verified_at"?: string | null,"visible"?: boolean,"want_learn"?: (string)[]
                   }
                   Update: {
+                    "built_at_tech"?: Json | null,
                     "affiliation"?: Database["public"]['Enums']["affiliation"],"bio"?: string | null,"can_teach"?: (string)[],"company_name"?: string | null,"created_at"?: string,"display_name"?: string,"grad_year"?: number | null,"gt_topics"?: (string)[],"help_topics"?: (Database["public"]['Enums']["help_topic"])[],"id"?: string,"interests"?: (string)[],"is_demo"?: boolean,"major"?: string | null,"mentor_categories"?: (string)[],"metro"?: string | null,"monthly_cap"?: number,"paused"?: boolean,"role_title"?: string | null,"skills"?: (string)[],"updated_at"?: string,"verification_method"?: Database["public"]['Enums']["verification_method"],"verification_state"?: Database["public"]['Enums']["verification_state"],"verified_at"?: string | null,"visible"?: boolean,"want_learn"?: (string)[]
                   }
                   Relationships: [

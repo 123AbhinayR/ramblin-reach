@@ -74,3 +74,10 @@ Changed areas: projects/detail/editor; profile learning tags and log; shared det
 Initial checks caught a validator execution-context issue, duplicated Learning Request cards, missing workspace header handling on new routes, and a test reloading before mark-read completed. Corrected these before the final full green regression; no prior tests or assertions were removed.
 
 Operational limits: apply migrations 007–009 before using this build against another database. Matching examines the existing bounded candidate/discussion selections; notification/log views show the latest 50 entries. Public logs are the author's reviewed self-report, never verified results or third-party endorsements. Profiles and project consent can revoke published access. Phases 4B and 5 remain open and are not claimed by this checkpoint.
+
+## Bounded follow-up — November 14, 2026
+- [x] 1–5: existing core retained from `7192193`; no duplicate implementation.
+- [x] 6: optional self-reported alumni Built at Tech (title, year, lab/club), visible-profile consent/RLS, title-tag matching bonus and factual reason. Year never changes rank. Migration 010 applied locally; BT01–BT04 targeted tests passed.
+- [ ] 7: Available now expiry/filter deferred to preserve usage budget. Quick Question template already exists.
+- [ ] 8: Impact Card / Help Chain deferred to preserve usage budget.
+- [x] Single final regression: npm run check (typecheck/lint, 75 tests), npm run test:db (103 checks), npm run test:e2e (production build, 30 tests) passed. No existing tests changed; no hosted deployment.
