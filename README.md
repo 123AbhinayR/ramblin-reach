@@ -1,42 +1,79 @@
 # Ramblin' Reach
 
-Turn a Georgia Tech student's project problem into a useful conversation and a recorded next step.
+**Post what you're building. Find who can help. Learn in both directions.**
 
-Built for the Georgia Tech Campus Solutions Hackathon 2026.
+Ramblin' Reach turns a Georgia Tech student's project problem into a useful conversation and a recorded next step. Built for the Georgia Tech Campus Solutions Hackathon 2026.
 
-## 💡 Why we built this
+[The problem](#the-problem) · [Why it matters](#why-it-matters-for-georgia-tech) · [What it does](#what-it-does) · [Architecture](#architecture-and-system-design) · [Run it](#quick-start) · [Demo](#try-the-demo)
 
-Alumni networks often feel like directories. Students cold message strangers with little context, while alumni get little reason to say yes. A student can lose weeks on a problem someone in the network has already solved.
+<!--
+Add after recording and capturing:
+[Watch the demo video](YOUR_VIDEO_LINK)
 
-We wanted the starting point to be what someone is building, where they are stuck, and what kind of help would move them forward.
+![Circle feed](docs/screenshots/circle.png)
+![Alumni matches](docs/screenshots/matches.png)
+![Inbox](docs/screenshots/inbox.png)
+![Project page](docs/screenshots/project.png)
+-->
 
-## 🔁 The idea
+## The problem
 
-A network built around student projects, with learning in both directions. Students can ask for guidance, and alumni can ask students to teach them something new.
+Imagine you're building a robotics project at Georgia Tech. Your computer-vision model keeps lagging, and you need someone who has solved that problem before.
+
+The expertise may well exist. The Georgia Tech Alumni Association reports [more than 200,000 living alumni](https://gtalumni.org/about-us/default.html). The hard part is finding the right person, and giving them a reason to answer a stranger.
+
+Tech already has a foundation to build on, and a gap to close:
+
+- **Georgia Tech Connect**, the Alumni Association's online network exclusive to Yellow Jackets, has roughly 20,000 alumni on it, according to figures reported to our team. A May 2025 Alumni Association presentation described [more than 16,500 alumni](https://giving.parents.gatech.edu/sites/default/files/workshops_2025-05/WB%205%207%2025%20Alumni%20Assoc%20presentation.pdf) on the network.
+- **Mentor Jackets**, the student-alumni mentoring program, has about 1,000 students and mentors participating today, by the same account. When the Alumni Association described its move to the platform (around 2021), the program [served approximately 700 student-alumni pairs per academic year](https://www.peoplegrove.com/?p=3220).
+
+So a small share of a very large alumni community is currently reachable through a structured program: about 1,000 participants against roughly 20,000 alumni on the network and more than 200,000 living alumni overall. Other universities run dedicated platforms too, such as [Stanford Alumni Mentoring (SAM)](https://careered.stanford.edu/resources/stanford-alumni-mentoring-sam), where students browse alumni profiles and message alumni directly, and [Connect GSD](https://www.gsd.harvard.edu/offices-and-facilities/career-services/connect-gsd/connect-gsd-career/) at Harvard's Graduate School of Design, which pairs students with alumni mentors. Ramblin' Reach is meant to help bridge the gap between how many Georgia Tech alumni could help and how many currently do, by starting from what students are building instead of from a profile list.
+
+This is not unique to Tech, and the numbers show it:
+
+| Finding | Source |
+| --- | --- |
+| Only **56%** of student success administrators said their career center effectively connects students with the institution's alumni network. | [Inside Higher Ed, 2024 survey](https://www.insidehighered.com/node/183566) |
+| Median alumni engagement was just **14.7%** across **398 institutions** in 18 countries, counting anyone who took part in at least one of four modes (communication, experiential, volunteering, philanthropy). | [CASE Insights on Alumni Engagement, 2025](https://www.case.org/system/files/media/inline/CASE%20Insights%20on%20Alumni%20Engagement%202025%20Key%20Findings.pdf) |
+
+Most alumni directories give you names, not context. Students search profiles, guess who might be useful, send cold messages, and hope. Alumni get requests with no background and little reason to say yes. A student can lose weeks on a problem someone in the network already solved.
+
+## Why it matters for Georgia Tech
+
+Tech students are always building: hackathon prototypes, research projects, startups, club initiatives. These projects get stuck on specific, solvable problems, and the people who know the answers have often graduated. Meanwhile, alumni who want to stay connected to what students are working on today have no easy way in.
+
+A network that starts from the work, not the résumé, could shorten the distance between a stuck student and a useful answer. It could also help clubs keep hard-won lessons after their members graduate. That is the gap Ramblin' Reach is built to close.
+
+## Our approach: projects, not profiles
 
 **Problem → Community → Relevant Person → Conversation → Action → Outcome**
 
-The app has three core capabilities: **JacketPath** for source-backed next steps, **JacketMatch** for finding relevant people and Circles, and **ReachCard** for reviewed requests and accepted conversations.
+1. A student posts a project and where they're stuck.
+2. The app shows who is relevant, with a plain reason for every match.
+3. The student sends a short request they reviewed first. The other person accepts or declines.
+4. They talk in a private inbox.
+5. Both sides record what was learned and the next step.
 
-## ✨ What makes it different
+Alumni learn too. Anyone can list what they can teach and what they want to learn, and alumni can post Learning Requests that students can answer.
 
-- Projects give a connection context: the challenge, work already done, and specific help needed.
-- Every match explains itself using stored skills, interests, experience, or learning preferences.
-- Alumni learn too through Can teach / Want to learn fields and Learning Requests.
-- Students review requests before sending. Learning Logs, private Impact Cards, and Help Chains preserve self-reported outcomes afterward.
+The app builds on three capabilities: **JacketPath** for source-backed next steps, **JacketMatch** for finding relevant people and Circles, and **ReachCard** for reviewed requests and accepted conversations.
 
-## 🌱 Intended impact
+## What makes it different
 
-Students should spend less time finding the right person and more time making progress. Alumni should receive focused requests that respect their capacity, and have a way to learn from current students. Clubs could retain useful lessons as members graduate.
+| A typical directory | Ramblin' Reach |
+| --- | --- |
+| Starts from a profile | Starts from a project: the challenge, work already done, and the specific help needed |
+| Shows a list of names | Shows who is relevant and why, using stored skills, interests, and experience |
+| Alumni only give back | Alumni also learn, through Can teach / Want to learn and Learning Requests |
+| Cold messages | Short requests the student reviews before sending, accepted by the recipient before any thread opens |
+| Ends at the introduction | Records self-reported outcomes in a Learning Log, with private Impact Cards and Help Chains |
 
-This has not been piloted with real users yet. There are no adoption or impact metrics, and no real-user data exists yet. Demo outcomes are simulated sample records.
-
-## 🛠️ What it can do
+## What it does
 
 | Feature | What happens |
 | --- | --- |
 | JacketPath | Saves a goal and checklist using five curated official resources, review dates, and access caveats. |
-| JacketCircles, within JacketMatch | Verified members discuss Hackathons, Startups, Personal Projects, Research, Clubs & Organizations, and Careers. |
+| JacketCircles, within JacketMatch | Approved members discuss Hackathons, Startups, Personal Projects, Research, Clubs & Organizations, and Careers. |
 | Post types | Ask for Help, Building Something, Looking for Teammates, Project Feedback, Project Update, and Learning Request. |
 | Resolve | A post owner marks a discussion resolved; resolved discussions reject further replies. |
 | Explainable matching | Stored signals produce reason lines; company and city filters use their intersection. |
@@ -46,11 +83,19 @@ This has not been piloted with real users yet. There are no adoption or impact m
 | Learning Exchange | Matches project help and reciprocal teach/learn interests; alumni can publish Learning Requests. |
 | Learning Log | Each participant records learned/helped/next-step text. Explicitly shared fields can appear on profiles or projects. |
 | Built at Tech | Alumni optionally record a project title, year, and lab or club; matching uses title words, never graduation assumptions. |
-| Available now | Alumni opt into a server-owned 60-minute window, with an expiring badge and People filter. This is not live presence. |
+| Available now | Alumni opt into a server-owned 60-minute window, with an expiring badge and People filter. This is an availability window, not live presence. |
 | Impact Card | The profile owner sees a private summary derived from completed requests and their recorded outcomes. |
 | Help Chain | A private SVG on the owner's profile shows recorded help relationships without publishing counterpart attribution. |
 
-## 🧩 Architecture and system design
+## Intended impact
+
+- **Students** spend less time finding the right person and more time making progress.
+- **Alumni** receive focused requests that respect their capacity, and have a way to learn from current students.
+- **Clubs and teams** can keep useful lessons as members graduate.
+
+This has not been piloted with real users yet. There are no adoption or impact metrics, and no real-user data exists. Demo outcomes are simulated sample records. A pilot with Georgia Tech clubs and the alumni association should measure relevance, response burden, and useful next steps before anyone claims impact.
+
+## Architecture and system design
 
 One Next.js App Router application serves React pages and API routes. Cookie-based Supabase Auth identifies the member. Zod validates boundaries; server checks and PostgreSQL RLS/RPCs enforce permissions. Application runtime does not use a service-role client.
 
@@ -74,7 +119,8 @@ flowchart TD
 
 ReachCard was extended rather than replaced: `connection_requests` remains the conversation identity. `request_messages` stores messages, `request_reads` tracks read cursors, and `outcomes` also supplies the Learning Log.
 
-### Core request flow
+<details>
+<summary><strong>Core request flow</strong></summary>
 
 1. A member saves a project through `/api/projects` into `member_projects`, then posts a blocker through `/api/circles` into `circle_posts`. Optional JacketPath starts at `/api/goals`, persisting `goals` and `path_steps`.
 2. `/circles` and `/circles/[id]` show permitted posts and `circle_comments`. Project and learning surfaces use deterministic matching; `/api/people` provides filtered directory results from opted-in profiles and projects.
@@ -83,7 +129,10 @@ ReachCard was extended rather than replaced: `connection_requests` remains the c
 5. A participant completes the request and records an outcome through `/api/requests/[id]/outcomes`. `outcomes` stores each reporter's Learning Log; explicit sharing makes selected fields available on profiles/projects.
 6. Database triggers persist `notifications`; `/api/notifications` supplies authorized updates and mark-read. `/profile` derives private Impact Cards and Help Chain from completed requests and recorded outcomes.
 
-### Data model
+</details>
+
+<details>
+<summary><strong>Data model</strong></summary>
 
 | Entity | Purpose | Key relations |
 | --- | --- | --- |
@@ -99,38 +148,49 @@ ReachCard was extended rather than replaced: `connection_requests` remains the c
 | `notifications` | Persistent event updates | Recipient, actor, optional request/post |
 | `reports`, `circle_reports` | Member-submitted safety reports | Reporter and target request/post/comment |
 
-### Matching
+</details>
 
-Matching is rule-based on purpose so every match is explainable. Directory ranking and Learning Exchange use separate pure modules. They use stored facts, deterministic ordering, and explicit time inputs for expiring availability, without AI compatibility percentages.
+<details>
+<summary><strong>Matching: rule-based on purpose, so every match is explainable</strong></summary>
+
+Directory ranking and Learning Exchange use separate pure modules. They use stored facts, deterministic ordering, and explicit time inputs for expiring availability, without AI compatibility percentages.
 
 | Signal | How it affects ranking and the reason line |
 | --- | --- |
-| Shared skills/tags | Normalized overlaps with skills/project tags; directory says “Shared project skills”; exchange says “Shared skills”. |
-| Category | An opted-in mentor category adds exchange relevance and “Interested in [category]”. |
-| Opted-in interests | Exact normalized overlap adds exchange weight and “Shared interests: [tags]”. |
-| Service availability | Pause, offered topics, and committed monthly usage gate request availability; topic fit yields “Offers [topic]”. Available now is an optional expiring filter/badge. |
-| Teach/learn overlap | Each overlap has weight 4; explains “Can teach what you want to learn” or “Wants to learn what you can teach”. |
+| Shared skills/tags | Normalized overlaps with skills/project tags; directory says "Shared project skills"; exchange says "Shared skills". |
+| Category | An opted-in mentor category adds exchange relevance and "Interested in [category]". |
+| Opted-in interests | Exact normalized overlap adds exchange weight and "Shared interests: [tags]". |
+| Service availability | Pause, offered topics, and committed monthly usage gate request availability; topic fit yields "Offers [topic]". Available now is an optional expiring filter/badge. |
+| Teach/learn overlap | Each overlap has weight 4; explains "Can teach what you want to learn" or "Wants to learn what you can teach". |
 | Built at Tech | Exact title-word overlap adds 3 and a self-reported title/year/lab reason; year does not affect rank. |
 | Company, city, GT context | Intent-specific directory weights; reasons explicitly identify self-reported employer, location, or shared GT context. |
 
 Exchange weights shared skills by 3, interests by 2, and category by 1. Directory ranking uses intent-specific topic, skill, company, city, GT context, and capacity weights, then stable tie breaks. A company match never promises a referral.
 
-### Authorization
+</details>
+
+<details>
+<summary><strong>Authorization</strong></summary>
 
 | Content | Who can read or write | Server-side enforcement |
 | --- | --- | --- |
-| Posts and replies | Eligible verified members under visibility/block rules; owners manage their content | Session guards, validated APIs, RLS and database mutation checks |
+| Posts and replies | Eligible approved members under visibility/block rules; owners manage their content | Session guards, validated APIs, RLS and database mutation checks |
 | Requests and threads | Request participants only; messaging requires accepted status | Participant checks, RLS and transactional RPCs; blocks/withdrawal revoke access |
 | Notifications | Only the recipient reads and marks read; clients cannot create events | API checks, recipient RLS, database triggers |
 | Outcomes | Participants access private records; each records their own outcome after completion | API validation, RLS and DB guards; narrow shared-log RPC exposes only consented fields |
 
-### Messaging and request states
+</details>
+
+<details>
+<summary><strong>Messaging and request states</strong></summary>
 
 `pending → accepted` or `declined` is the recipient's choice. The requester can cancel a pending or accepted request. An accepted request becomes `completed` through Complete/Close by a participant. The UI's closed conversation uses this existing completed state; there is no separate `closed` database status.
 
 Only accepted requests accept new messages. Completed conversations are read-only; declined requests never unlock messaging. UUID retry keys reconcile retries, and a request row lock serializes messages against closing.
 
-## 🔒 Security and privacy
+</details>
+
+## Security and privacy
 
 Server-side authorization accompanies RLS. Sensitive writes use restricted database RPCs, including atomic request quotas and message limits. Mutations check origin, JSON shape and body size. Message sends are limited to ten new messages per member per minute.
 
@@ -138,23 +198,23 @@ User content renders as plain text. Project URLs are validated, including unsafe
 
 Stored data includes Auth credentials managed by Supabase, profile fields and consent, project/post/reply text, goals and progress, request briefs, messages, read cursors, outcome notes and sharing choices, notifications, blocks, and reports. Private notes do not automatically become shared lessons. Employment and outcomes are self-reported; alumni approval is manual, not inferred from graduation year or email domain.
 
-## ✅ What's real
+## What's real
 
-These are recorded local results from [DEVPOST_FACTS.md](DEVPOST_FACTS.md) and [PLAN.md](PLAN.md), not a claim that the full suites were rerun for this README update.
+Results from local runs during the build:
 
-| Check | Measured result |
+| Check | Result |
 | --- | --- |
 | Unit tests | 81 passed across 15 suites, including 10 availability/Built at Tech/Impact cases. |
 | Database/RLS/concurrency | 103 passed: 51 transactional, 6 concurrency/month-boundary, 11 Circles, 16 Inbox, 19 learning-loop checks. |
-| Browser regression | Full run: 30 passed, 2 locator failures. Both corrected cases passed on targeted rerun; 32 distinct cases passed across those runs. No second full run. |
-| End-to-end demo loop, DM01 | 2 passed, desktop and 375 px mobile, using real Auth and persisted simulated outcomes. |
+| Browser regression | Full run: 30 passed, 2 locator failures. Both corrected cases passed on targeted rerun; 32 distinct cases passed across those runs. |
+| End-to-end demo loop | 2 passed, desktop and 375 px mobile, using real Auth and persisted simulated outcomes. |
 | Layout and accessibility | Dashboard, People, Inbox and Profile verified at 375, 390, 428, 768, 1024 and 1440 px with overflow assertions and axe scans. This does not certify every route. |
 
-There is no real-user data yet. No hosted deployment, campus adoption, production security certification, or complete WCAG certification is claimed. Historical [release evidence](RELEASE_REPORT.md) predates the later learning and notification extensions.
+There is no real-user data yet. No hosted deployment, campus adoption, production security certification, or complete WCAG certification is claimed. See [RELEASE_REPORT.md](RELEASE_REPORT.md) for the release record.
 
-## 🚀 Quick start
+## Quick start
 
-Use Node 24, npm, Docker Desktop, and an isolated local Supabase instance.
+Fastest way to see it: use the demo video or screenshots above. To run it yourself you need Node 24, npm, Docker Desktop, and an isolated local Supabase instance (about 10 to 15 minutes).
 
 ```sh
 npm ci
@@ -177,7 +237,7 @@ npm run test:e2e
 
 `check` runs typecheck, lint and unit tests. Database tests require the isolated local database. Browser tests build/start a production server and need port 3000 free. Prepare regression fixtures with `npm run db:seed` and install Chromium with `npx playwright install chromium`. See [local setup](docs/LOCAL_SETUP_AND_SECURITY.md).
 
-## 🎭 Try the demo
+## Try the demo
 
 Enable `DEMO_MODE` locally and explicitly authorize seed operations with `ALLOW_DEMO_SEED`. Production rejects demo mode; local demo switching never bypasses authentication.
 
@@ -190,19 +250,29 @@ npm run demo:reset
 
 Open `/demo` to choose among three student and four alumni personas. The server signs into a real Supabase account. Generated credentials stay in ignored `.tmp/reach-demo-accounts.json` and are not returned to the browser.
 
-Everything in this scenario is seeded sample data. Reset restores fixed scenario content while preserving Auth identities and unrelated accounts; it refuses interactions outside its namespace. `/demo` also offers reset for a registered demo session. The switcher is local-only and returns 404 when disabled. See [DEMO.md](DEMO.md) for the walkthrough.
+Everything in this scenario is seeded sample data. Reset restores fixed scenario content while preserving Auth identities and unrelated accounts; it refuses interactions outside its namespace. The switcher is local-only and returns 404 when disabled. See [DEMO.md](DEMO.md) for the walkthrough.
 
-## 🧭 Limits and what's next
+## Limits and what's next
 
-No scraping, job ingestion, contact importing, multi-university directory, attachments, global social graph, or autonomous third-party actions. Read selections are bounded. Available now is an expiring opt-in signal, and employers/outcomes remain self-reported.
+No scraping, job ingestion, contact importing, multi-university directory, attachments, global social graph, or autonomous third-party actions. Read selections are bounded. Available now is an expiring opt-in signal, and employers and outcomes remain self-reported.
 
-Potential next steps are email notifications and digests, consent-based calendar scheduling, a separately designed referral workflow, and pilots with Georgia Tech clubs and the alumni association. None is built or an established partnership. A pilot should measure relevance, response burden and useful next steps before claiming impact.
+Potential next steps are email notifications and digests, consent-based calendar scheduling, a separately designed referral workflow, and pilots with Georgia Tech clubs and the alumni association. None is built or an established partnership.
 
-## ⚙️ Tech stack
+## Tech stack
 
 - Next.js 16.4.6 App Router, React 19, strict TypeScript; Webpack builds.
 - Supabase Auth, PostgreSQL, RLS, and transactional RPCs.
 - Zod, Tailwind CSS, Radix Slot, Lucide icons.
 - Vitest, Playwright, axe-core, ESLint, and local Supabase CLI.
+
+## Sources
+
+- Georgia Tech Alumni Association, [about page](https://gtalumni.org/about-us/default.html): living alumni count exceeded 200,000 in fiscal year 2024.
+- Roughly 20,000 alumni on Georgia Tech Connect and about 1,000 Mentor Jackets participants are figures reported to our team, not published statistics.
+- Georgia Tech Alumni Association, [May 2025 presentation](https://giving.parents.gatech.edu/sites/default/files/workshops_2025-05/WB%205%207%2025%20Alumni%20Assoc%20presentation.pdf): online network exclusive to Yellow Jackets, more than 16,500 alumni.
+- PeopleGrove, [Georgia Tech case study](https://www.peoplegrove.com/?p=3220): Mentor Jackets serves approximately 700 student-alumni pairs per academic year (around 2021).
+- Stanford, [Stanford Alumni Mentoring (SAM)](https://careered.stanford.edu/resources/stanford-alumni-mentoring-sam) and Harvard GSD, [Connect GSD](https://www.gsd.harvard.edu/offices-and-facilities/career-services/connect-gsd/connect-gsd-career/): examples of peer alumni mentoring programs.
+- Inside Higher Ed, [2024 survey of student success leaders](https://www.insidehighered.com/node/183566): 56% said their career center effectively connects students with the alumni network.
+- CASE, [Insights on Alumni Engagement 2025 Key Findings](https://www.case.org/system/files/media/inline/CASE%20Insights%20on%20Alumni%20Engagement%202025%20Key%20Findings.pdf): median engagement 14.7% across 398 institutions.
 
 Ramblin' Reach is an independent student project and is not affiliated with or endorsed by Georgia Tech.
