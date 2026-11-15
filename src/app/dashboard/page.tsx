@@ -1,6 +1,6 @@
 import {AvailableBadge} from "@/components/available-now";
 import { SetupState } from "@/components/setup-state";
-import { isConfigured } from "@/lib/env";
+import { isConfigured,getServerEnv } from "@/lib/env";
 import { requireMember } from "@/lib/auth/guard";
 import { SignOut } from "@/components/sign-out";
 import Link from "next/link";
@@ -42,6 +42,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   return (
     <section className="container workspace">
       <WorkspaceNav />
+      {getServerEnv().DEMO_MODE==="1"&&getServerEnv().APP_ENV==="local"&&<p><Link className="text-link" href="/demo">DEMO DATA · switch persona / reset →</Link></p>}
       <div className="workspace-heading">
         <div>
           <p className="eyebrow">Georgia Tech · shared roots, new possibilities</p>

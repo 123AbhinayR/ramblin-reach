@@ -5,7 +5,7 @@ export const publicEnvSchema = z.object({
 });
 export const serverEnvSchema = z.object({
   APP_ENV: z.enum(["local", "test", "staging", "production"]).default("local"),
-  DEMO_MODE: z.enum(["0", "1"]).default("0"),
+  DEMO_MODE: z.enum(["0", "1", "true", "false"]).default("0").transform(v=>v==="true"?"1":v==="false"?"0":v),
   MOCK_AI: z.enum(["0", "1"]).default("1"),
   NEXT_PUBLIC_APP_URL: z.url().default("http://127.0.0.1:3000"),
 }).superRefine((value, context) => {

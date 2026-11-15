@@ -11,6 +11,7 @@ export type Database = {
             [_ in never]: never
           }
           Functions: {
+"reset_reach_demo":{Args:Record<string,never>;Returns:undefined},
 "set_available_now":{Args:{p_enabled:boolean};Returns:string|null},
             "graphql":
 { Args: { "extensions"?: Json,"operationName"?: string,"query"?: string,"variables"?: Json }; Returns: Json
@@ -452,6 +453,7 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
+"reset_reach_demo":{Args:Record<string,never>;Returns:undefined},
 "set_available_now":{Args:{p_enabled:boolean};Returns:string|null},
             "consume_rate_limit":
 { Args: { "p_operation": string }; Returns: boolean
