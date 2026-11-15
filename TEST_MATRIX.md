@@ -189,3 +189,18 @@ Canonical fixtures:
 **Full production-readiness gate:** all tests (including concurrency and RLS), `npm run check`, `npm run test:db`, `npm run test:e2e`, `npm run build`, review of accessibility and manual privacy audit. A spec and a set of green mocks are not a substitute for an isolated real Postgres RLS test.
 
 **Report template:** for each milestone: changed files; tests run with commands; exact passed/failed counts; outstanding risks; manual browser screenshots/notes; next bounded step. Never state tests passed unless executed in that environment.
+
+## Circles extension tests (approved November 14)
+CI01–CI04: required fields, forged ownership inputs, safe URLs, deterministic category/shared-skill ordering, comment limits (`tests/unit/circles.test.ts`).
+CI05–CI15: authenticated persistence, anonymous denial, owner-only edits/deletes, spoof prevention, one reply level, resolved-write denial, report privacy, blocks, withdrawn visibility, direct-SQL rate limits, cascading deletion (`scripts/test-circles-db.ts`; part of `npm run test:db`).
+CI16–CI17: two real authenticated accounts post/reply/resolve with category isolation, reload persistence and foreign HTTP mutation denial (`tests/e2e/circles.spec.ts`).
+
+## QuickReach / Inbox extension
+QR01–QR15 (`scripts/test-inbox-db.ts`): pending lock, duplicate pending requests, recipient acceptance, retry idempotency/conflict, both participants reply, direct SQL/sender spoof denial, unrelated and anonymous denial, database length/normalization, participant read cursors, atomic message rate limit, blocks, recipient consent withdrawal, closed read-only state, declined lock. QR19 verifies unread summary cursor and participant restrictions. These extend the existing R/S state-machine and concurrent-cap checks; no replacement request system.
+QR16–QR17 (`tests/unit/inbox.test.ts`): all eight static templates validate as existing ReachCards; message boundary rejects empty/invisible/overlong/spoofed input.
+QR18 (`tests/e2e/requests.spec.ts`, desktop and 375px mobile): reviewed send, recipient accept, both reply through polling, unread indicator, persistence on reload, unrelated HTTP/page denial, close and existing private outcome flow; Inbox/thread screenshots and axe/overflow checks.
+
+## Phase 4 learning-loop tests
+LX01–LX07 (`tests/unit/learning.test.ts`): exact normalization, stored-signal explanations, availability/consent/self exclusions, stable ordering, no invented match, relevance ordering and notification deep links.
+LX08–LX23 and LX25–LX27 (`scripts/test-learning-db.ts`): normalized SQL/TypeScript parity; persistent matched/reply/request/accept/message notifications; denied notification forgery, recipient-only read/update, retry deduplication; owned project attachment; default-private and explicit shared log DTO; both participants' independent outcomes; block/withdrawal revocation; paused and blocked generation denial; direct-SQL tag bounds; anonymous denial. Run under `npm run test:db` with rolled-back fixtures, alongside all prior RLS and concurrency tests.
+LX24 (`tests/e2e/learning-loop.spec.ts`): student posts linked blocker, matching alumnus discovers/offers help, student sends reviewed prefilled QuickReach, alumnus accepts, both reply, outcome appears on Learning Log/project after reload, notifications deep-link/mark-read persist, and the alumnus posts a Learning Request shown to a student with matching Can teach tags. Runs on desktop and 375px mobile with project screenshots, overflow and axe checks.

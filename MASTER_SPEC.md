@@ -2,6 +2,10 @@
 
 Version: 3.0, November 14, 2026. Product: Georgia Tech only. Build status: **specification, not implemented**.
 
+## Approved scope extension — November 14, 2026
+
+The user explicitly approved the Circles/QuickReach brief after reviewing its conflict with this specification. This amendment supersedes the exclusions below **only** for member-only Circles and participant messaging attached to accepted ReachCards. Retain exactly three core capability labels: JacketPath, JacketMatch (including Circles), ReachCard (including QuickReach and Inbox). Community posts support project questions, updates, teamwork, and reciprocal learning; they are visible only to authorized verified members under consent and block rules. Messaging is unlocked only by acceptance, participants only, database-backed with polling, and closes with the request. All authentication, RLS, atomic quota, source, privacy, demo, and manual verification requirements remain mandatory. See PLAN.md for gates; planned features are not claims of implementation.
+
 ## 0. The one-sentence promise
 **Ramblin' Reach turns a student's goal into a source-backed next-step plan and a connection to a consenting Jacket who can help, so learning is passed forward long after graduation.**
 

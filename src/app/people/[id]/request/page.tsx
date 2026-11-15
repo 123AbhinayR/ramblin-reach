@@ -1,3 +1,4 @@
+import {projectDetail} from "@/lib/learning/data";
 import {loadPath} from "@/lib/path/data";
 import { notFound } from "next/navigation";
 import { z } from "zod";
@@ -19,6 +20,9 @@ export default async function SendRequestPage({ params, searchParams }: {
   const sp = await searchParams;
   const goalId = z.uuid().safeParse(sp.goalId).success ? String(sp.goalId) : undefined;
   const ownedPath=goalId?await loadPath(client,goalId):null;
+  const projectId=z.uuid().safeParse(sp.projectId);
+  const project=projectId.success?await projectDetail(client,projectId.data):null;
+  const ownedProject=project?.owner_id===profile.id?project:null;
   const preselectedTopic = typeof sp.topic === "string" ? sp.topic : undefined;
 
   const rawPerson = (await candidatesFor(client)).find(p => p.id === idParsed.data);
@@ -61,7 +65,9 @@ export default async function SendRequestPage({ params, searchParams }: {
             recipientName={person.display_name}
             recipientHelpTopics={person.help_topics}
             goalId={ownedPath?goalId:undefined}
-            initialGoal={ownedPath?.goal.goal_text}
+            projectId={ownedProject?.id}
+            initialQuestion={ownedProject?.requested_help||undefined}
+            initialGoal={ownedProject?`${ownedProject.title}: ${ownedProject.current_challenge||ownedProject.summary}`:ownedPath?.goal.goal_text}
             preselectedTopic={preselectedTopic}
           />}
         </div>

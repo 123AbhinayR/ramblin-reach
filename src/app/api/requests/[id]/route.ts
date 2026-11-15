@@ -1,5 +1,5 @@
 import { apiMember } from "@/lib/api-member";
-import { transitionSchema } from "@/lib/requests/schemas";
+import { transitionSchema, requestRowSchema } from "@/lib/requests/schemas";
 import { failure, json, readInput } from "@/lib/http";
 import { z } from "zod";
 
@@ -18,7 +18,7 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
       if (msg.includes("INVALID_TRANSITION")) return json({ error: { code: "INVALID_TRANSITION", message: "This action is not allowed in the current state." } }, 409);
       throw error;
     }
-    return json({ request: data });
+    return json({ request: requestRowSchema.parse(data) });
   } catch (error) {
     return failure(error);
   }

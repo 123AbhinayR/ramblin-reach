@@ -1,139 +1,78 @@
 # Ramblin’ Reach
 
-### Turn a shared Georgia Tech connection into a useful next step.
+A Georgia Tech-specific, independent student project: turn a goal into a source-backed next step and a focused connection with an opt-in member.
 
-Find the right campus resources, learn from students and alumni who have been there, and put their advice to work.
+## What exists
 
-**Learn from the campus. Learn from each other. Pass it forward.**
+- **JacketPath:** persisted goal/checklist routes using five curated official-resource records with reviewed dates and access caveats. No live equipment or opening-hours claims.
+- **JacketMatch:** exact company/city/topic/skill filters, opt-in profiles and projects, Circles with replies, deterministic explained mentor/teach–learn matching, and alumni Learning Requests.
+- **ReachCard:** editable QuickReach templates, review before send, atomic request caps, accept/decline/close, participant-only polling Inbox and recorded outcomes.
+- Optional alumni Built at Tech history and server-owned Available now windows that expire after 60 minutes. People has a corresponding filter and expiring badge. Quick Question is an existing template.
+- Explicitly shared Learning Log fields can appear on a profile/project. Raw requests and private notes remain private.
+- Impact Cards and a Help Chain SVG on **your own profile only**, derived from your completed request/outcome records. Helper identities are not published to other members without consent.
+- Persistent in-app notifications: request, acceptance, message, post reply and matched request; unread state, deep links and mark-read.
 
-[Run it locally](#run-it-locally) · [Test results](RELEASE_REPORT.md) · [Deployment](DEPLOYMENT.md)
+## Stack
 
-## Why we built it
+Next.js 16 App Router, React 19, strict TypeScript, Supabase Auth/PostgreSQL/RLS, Zod, Tailwind, Radix Slot, Lucide, Vitest and Playwright/axe. No AI service is required; no Calendar, Maps, scraping, referrals or external messaging. Webpack is used for this Windows setup.
 
-Being a Yellow Jacket should make it easier to find someone who can help you take your next step. In practice, that connection can be hard to make.
+## Environment names
 
-You might have an idea for a project but no idea which makerspace to visit. You might be preparing for an internship and want to speak with someone doing that work. Or you might be moving to a new city where you know nobody, even though other Tech alumni already live there.
+Runtime: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `APP_ENV`, `DEMO_MODE`, `MOCK_AI`, `NEXT_PUBLIC_APP_URL`. Optional legacy parser configuration: `OPENAI_API_KEY`, `OPENAI_MODEL`; neither is required for this demo.
 
-As members of the Student Alumni Association, we’ve seen this gap firsthand. In our own conversations, students often aren’t using programs such as Mentor Jackets or Georgia Tech Connect, or don’t know where those programs fit into what they need. That experience shaped this project. It is a team observation, not a campus-wide usage study.
+CLI seed only: `APP_ENV`, `ALLOW_DEMO_SEED`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `DATABASE_URL`. The service-role credential never belongs in application runtime or browser code.
 
-Georgia Tech already has alumni networks, mentoring programs, and campus resources worth using. We want that support to be easier to find and act on in everyday student life. A directory can tell you who someone is. A student still needs to understand why that person is relevant, what they are willing to help with, and how to start the conversation.
+## Local setup
 
-**Ramblin’ Reach starts with what the student wants to do, then connects the resources, people, and next steps around that goal.**
+Prerequisites: Node 24, npm, Docker Desktop and the local Supabase CLI/runtime.
 
-Chris Klaus captured the importance of early support in his [2025 Georgia Tech commencement announcement](https://news.gatech.edu/news/2025/05/02/tech-visionary-chris-klaus-empowers-georgia-tech-grads-launch-startups): “Every founder needs someone to believe in them early.” We want more students to find someone who can offer that first piece of practical guidance, whether they are starting a company, building a project, or figuring out a career.
-
-## One goal, three connected steps
-
-### 1. JacketPath — figure out where to start
-
-Describe your goal or choose one of six examples: an electronics prototype, a software or AI project, internship preparation, research mentorship, a startup, or a move to a new city.
-
-JacketPath builds a short plan of three to five actions. When a step points to a campus resource, it includes an official link, a review date, and guidance on what to check before using it. Progress is saved, so you can return to the next unfinished step.
-
-For an environmental sensor, that means defining what you want to measure, checking electronics resources at the Hive, exploring fabrication guidance at Invention Studio, and finding someone with relevant project experience. CREATE-X appears when the goal calls for startup or funding guidance, with its application conditions made clear.
-
-### 2. JacketMatch — find someone worth asking
-
-Look for students and alumni by skills, project experience, help topic, company, or city. Each result explains its relevance using information the member chose to share.
-
-Searching for Microsoft **and** Seattle means both must match. If nobody fits, other suggestions appear separately with an explanation of which filter was relaxed.
-
-A helper’s profile shows what they offer, whether they are accepting requests, and any projects or lessons they have shared. Alumni can choose topics, limit incoming requests, pause participation, or hide their profile. Students can offer help too.
-
-### 3. ReachCard — make the conversation specific
-
-Send a short request with your goal, one question, what you have already tried, and a preferred format: written advice, project feedback, or a 15-minute chat.
-
-Optional ReachReady feedback helps make the question clearer while keeping it in your own words. The recipient can accept or decline from their inbox. Both people can track the connection, and an accepted request can be marked complete.
-
-Afterward, record what you learned and what comes next. Outcome notes stay private to the participants. A member can separately write a project lesson for others, review it before sharing, and withdraw it later.
-
-## What this looks like for a student
-
-> “I want to build a low-cost environmental sensor, but I need electronics tools and project advice.”
-
-1. The student gets a saved path with official campus resource links.
-2. They find a helper whose shared project involves a temperature logger and sensor calibration.
-3. They read that person’s lesson and ask a focused question about testing the sensor before building its enclosure.
-4. The helper signs into a separate account and accepts the request.
-5. The student sees the response, later records an outcome, and can share a lesson from their own project.
-
-That is the difference we want to make: a student leaves with a next action, an alum has a manageable way to help, and another student can learn from the experience later.
-
-## Why this belongs in lifetime learning
-
-Learning at Tech continues through first jobs, new cities, career changes, and the experience people bring back to the community.
-
-The College of Lifetime Learning’s [Strategy 2035](https://lifetimelearning.gatech.edu/strategy-2035) emphasizes learning throughout life, wider access, and connections among people, industry, and research. Ramblin’ Reach puts that idea into a small, practical loop:
-
-- **As a student,** use campus resources and learn from someone with experience.
-- **As an alum,** return with new knowledge and choose how you want to help.
-- **Across generations,** keep useful project lessons available so each student does not have to start from scratch.
-
-The current app supports student and alumni accounts, shared project lessons, and private connection outcomes. Keeping the same account through graduation is part of the design; alumni verification still requires review. A graduation year alone never changes someone’s verified status.
-
-## The impact we want to see
-
-A helpful connection might lead to a tested prototype, a clearer research question, better preparation for an interview, or an easier move to a new city. Those are the kinds of outcomes this project is meant to support.
-
-For students, the aim is less time wondering where to begin. For alumni, it is a clear question and a reasonable commitment. For the Tech community, it is practical knowledge that remains useful after its original owner graduates.
-
-We have verified the application workflow, not measured campus-wide impact. A small pilot should ask whether students found relevant help, what action they took afterward, whether the advice was useful, and whether helpers felt their time was respected. Requests sent are a starting point; what happens after the connection matters more.
-
-## Built for trust
-
-- Members sign in through Supabase Auth. New accounts need membership approval before accessing the community.
-- Profiles are opt-in. Employer information is self-reported, and working at a company does not promise a referral.
-- Request and outcome access is restricted to the people involved. Contact details and private notes do not appear in discovery results.
-- Database rules enforce request limits, ownership, and allowed status changes, including simultaneous submissions.
-- Resource recommendations come from reviewed records. The app does not invent facilities or claim equipment, funding, or opening hours are currently available.
-- The core journey works without an AI service. Routing and matching follow testable rules with visible reasons.
-
-## Under the hood
-
-The app uses **Next.js and TypeScript** for the website, **Tailwind CSS** for styling, and **Supabase Auth and PostgreSQL** for accounts and saved data. Zod validates inputs. Database row-level security and transactional functions protect private records and request quotas.
-
-Vitest covers application rules. Playwright tests actual browser journeys, including separate student and alumni sessions. Accessibility checks use axe. See the [release report](RELEASE_REPORT.md) for the checks that ran and their limits.
-
-## Run it locally
-
-You need Node.js 24, npm, and Docker Desktop for local Supabase.
-
-```bash
+```sh
 npm ci
 npx supabase start
+npx supabase migration up --local
 ```
 
-Copy `.env.example` to `.env.local` and `.env.seed.example` to `.env.seed.local`. Fill in the local Supabase values returned by the CLI.
+Copy `.env.example` to `.env.local`, and `.env.seed.example` to `.env.seed.local`. Configure the named variables from your isolated local Supabase instance. Enable local demo mode in `.env.local`; the demo flag accepts boolean-style strings as well as the existing numeric format. The app rejects demo mode in production. Seed/reset scripts require explicit seed consent and the allowlisted localhost database.
 
-Set `APP_ENV=local` and `NEXT_PUBLIC_APP_URL=http://127.0.0.1:3000` in `.env.local`, alongside your local Supabase URL and publishable key. Keep admin credentials in `.env.seed.local`. Never commit either file or add the service-role key to the application runtime.
-
-```bash
+```sh
+npm run demo:seed
 npm run dev
 ```
 
-Open **http://127.0.0.1:3000**. The public landing page can run without Supabase credentials. Member features require the configured backend and an approved account. Local confirmation and recovery emails are available at http://127.0.0.1:54324.
+Open [the local demo](http://127.0.0.1:3000/demo). Choose a persona; the server signs it in through real Supabase password authentication. Credentials are generated into ignored `.tmp/reach-demo-accounts.json` and are never returned to the browser. `/demo` and `/api/demo` return HTTP 404 when the flag is disabled; this implementation is local-only, including when a staging flag is configured.
 
-### Check the app
+## Seven demo personas
 
-```bash
-npm run check                 # TypeScript, lint, unit tests
-npm run test:db               # Local database permissions and concurrency tests
-npx playwright install chromium
-npm run test:e2e              # Production build and browser journeys
-npm run build
+All are explicitly **DEMO DATA**, not real members or verified real-world affiliations. Persona buttons use these aliases:
+
+- Students: `student-robotics` (Casey), `student-startup` (Alex), `student-quant` (Sam).
+- Alumni: `alumni-robotics` (Rowan: ML/robotics), `alumni-startup` (Jamie), `alumni-quant` (Quinn), `alumni-software` (Avery).
+
+No shared password is published. The private credential file supports operator login if the switcher fails. Existing local accounts and regression fixtures are preserved; these seven personas form a separate reset namespace.
+
+```sh
+npm run demo:reset
 ```
 
-Stop a running preview before the browser suite so it can start its own production server. Browser tests require the isolated local test accounts and database configuration described in the test setup.
+The reset command preserves Auth identities and restores fixed scenario IDs/content: three projects, discussions across six Circles, a Learning Request, one accepted conversation, and one completed simulated outcome. That outcome generates a private Impact Card. Rowan has Built at Tech history and a fresh availability window. `/demo` also has a reset button requiring a registered demo session. Reset refuses cross-namespace requests/comments/reports instead of deleting other users’ data. Relative server timestamps and the expiry window refresh on reset; persona identities and scenario content remain stable.
 
-## Current status and next steps
+## Tests
 
-The local application has a working goal-to-outcome journey, student and alumni dashboards, city/company search, request tracking, private outcomes, and editable opt-in project lessons. It has been tested on mobile and desktop. Hosted deployment has not yet been verified.
+Existing regression fixtures are separate from the seven-person rehearsal. On a fresh test database, prepare both:
 
-The next step is a small pilot with consenting students and helpers, feedback on recommendation quality, and broader review of campus resources. Institutional verification and approved university integrations would need separate work.
+```sh
+npm run db:seed
+npm run demo:seed
+npx playwright install chromium
+npm run check
+npm run test:db
+npm run test:e2e
+```
 
-For hosted setup, see the [deployment guide](DEPLOYMENT.md). For architecture and product decisions, see [ARCHITECTURE_SECURITY.md](ARCHITECTURE_SECURITY.md) and [MASTER_SPEC.md](MASTER_SPEC.md).
+`check` runs typecheck, zero-warning lint and unit tests. `test:db` runs transactional RLS and concurrent quota checks. `test:e2e` builds and starts a fresh production server, then runs desktop/mobile scenarios, including DM01’s real-auth demo loop. Port 3000 must be free. `npm run build` builds the app separately. Use only an isolated local database for these commands.
 
----
+## Limitations
 
-Ramblin’ Reach is an independent student project and is not affiliated with or endorsed by Georgia Tech. Team members’ participation in the Student Alumni Association does not imply endorsement by the association.
+No hosted deployment is claimed. Apply all migrations before using the current build. Demo switching/reset is local-only and does not constitute institutional verification. Directory/matching and history selections are bounded; no infinite history browser. People filter results reflect query time; badges expire in an open page, with no presence tracking or websocket updates. Impact/Help Chain is private; public counterpart attribution is intentionally absent. Outcomes and employers are self-reported, never verified mentorship results, jobs, referrals or endorsements. No attachments, scheduling, email delivery, job ingestion, contact import or multi-university support.
+
+Ramblin' Reach is an independent student project and is not affiliated with or endorsed by Georgia Tech.
